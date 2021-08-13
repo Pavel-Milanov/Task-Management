@@ -1,4 +1,4 @@
-package MyPersonalRepository.core.models;
+package core.models;
 
 public enum BugStatus {
 
