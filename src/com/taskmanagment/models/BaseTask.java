@@ -1,4 +1,4 @@
-package core.models;
+package com.taskmanagment.models;
 
 import javax.xml.stream.events.Comment;
 import java.lang.reflect.Member;

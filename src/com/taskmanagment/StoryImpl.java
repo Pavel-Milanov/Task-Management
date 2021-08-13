@@ -1,4 +1,4 @@
-package core;
+package com.taskmanagment;
 
 public class StoryImpl {
 }

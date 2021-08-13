@@ -1,4 +1,4 @@
-package core.models;
+package com.taskmanagment.models;
 
 public enum BugStatus {
 
