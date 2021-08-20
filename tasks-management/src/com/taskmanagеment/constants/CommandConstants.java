@@ -32,4 +32,5 @@ public class CommandConstants {
     public static final String NOT_SUPPORTED_OPERATION = "%s is not supported.";
     public static final String INVALID_TASK_NAME = "Task with %s not exist.";
     public static final String ASSIGNEE_REMOVED = "Assignee removed.";
+    public static final String BOARD_ATTACHED = "Board %s attached in another team.";
 }

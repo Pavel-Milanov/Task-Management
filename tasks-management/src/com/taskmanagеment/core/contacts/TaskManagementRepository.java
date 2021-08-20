@@ -1,6 +1,7 @@
 package com.taskmanagеment.core.contacts;
 
 import com.taskmanagеment.models.contracts.*;
+import com.taskmanagеment.models.enums.TaskType;
 
 import java.util.List;
 

@@ -35,8 +35,18 @@ public class AddNewBoardInTeamCommand implements Command {
 
         Team team = taskManagementRepository.findTeamByName(teamTittle);
         Board board = taskManagementRepository.findBoard(boardTittle);
+
+        if (validateBoardNotAttached(board)) {
+            throw new InvalidUserInputException(String.format(CommandConstants.BOARD_ATTACHED, board.getName()));
+        }
+
         taskManagementRepository.addBoardToTeam(board, team);
 
         return String.format(CommandConstants.BOARD_ADDED_TO_TEAM_SUCCESSFULLY, boardTittle, teamTittle);
+    }
+
+    private boolean validateBoardNotAttached(Board board) {
+        return taskManagementRepository.getTeams().stream()
+                .anyMatch(team -> team.getBoards().contains(board));
     }
 }
