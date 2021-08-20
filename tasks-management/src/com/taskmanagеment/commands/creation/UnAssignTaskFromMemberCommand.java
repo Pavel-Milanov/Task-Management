@@ -12,13 +12,12 @@ import com.taskmanagеment.utils.ValidationHelpers;
 
 import java.util.List;
 
-public class ChangeAssigneeCommand implements Command {
-
-    public static final int EXPECTED_NUMBER_OF_ARGUMENTS = 2;
+public class UnAssignTaskFromMemberCommand implements Command {
+    public static final int EXPECTED_NUMBER_OF_ARGUMENTS = 1;
 
     private final TaskManagementRepository taskManagementRepository;
 
-    public ChangeAssigneeCommand(TaskManagementRepository taskManagementRepository) {
+    public UnAssignTaskFromMemberCommand(TaskManagementRepository taskManagementRepository) {
         this.taskManagementRepository = taskManagementRepository;
     }
 
@@ -26,24 +25,19 @@ public class ChangeAssigneeCommand implements Command {
     public String executeCommand(List<String> parameters) {
         ValidationHelpers.validateArgumentsCount(parameters, EXPECTED_NUMBER_OF_ARGUMENTS);
         int taskId = ParsingHelpers.tryParseInt(parameters.get(0), CommandConstants.INVALID_TASK_INDEX);
-        String assignee = parameters.get(1);
-        return validateUserFromTeam(taskId, assignee);
+        return unAssignee(taskId);
     }
 
-    private String validateUserFromTeam(int taskId, String assignee) {
-        taskManagementRepository.validateMemberIsFromTeam(taskId, assignee);
+    private String unAssignee(int taskId) {
         Task task = taskManagementRepository.findElementById(taskManagementRepository.getTasks(), taskId);
-        return changeAssignee(task, assignee);
-    }
 
-    private String changeAssignee(Task task, String assignee) {
         if (task.getType().equals(TaskType.FEEDBACK)) {
             throw new InvalidUserInputException(String.format(CommandConstants.INVALID_TASK_TYPE, task.getType()));
         }
 
         BugStory bugStory = (BugStory) task;
-        bugStory.changeAssignee(assignee);
+        bugStory.changeAssignee("");
 
-        return String.format(CommandConstants.ASSIGNEE_CHANGED, assignee);
+        return CommandConstants.ASSIGNEE_REMOVED;
     }
 }

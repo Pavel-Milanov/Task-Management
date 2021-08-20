@@ -9,15 +9,14 @@ import java.util.List;
 
 public abstract class BaseModelImpl implements BaseModel {
 
+    private final List<Task> tasks = new ArrayList<>();
+    private final List<ActivityHistory> activityHistories = new ArrayList<>();
+    private final int id;
     private String name;
-    private List<Task> tasks ;
-    private List<ActivityHistory> activityHistories;
 
-
-    public BaseModelImpl(String name) {
+    public BaseModelImpl(int id, String name) {
         setName(name);
-        this.tasks =new ArrayList<>();
-        this.activityHistories = new ArrayList<>();
+        this.id = id;
 
     }
 
@@ -70,5 +69,10 @@ public abstract class BaseModelImpl implements BaseModel {
     public String getAsString() {
 
         return null;
+    }
+
+    @Override
+    public int getId() {
+        return id;
     }
 }

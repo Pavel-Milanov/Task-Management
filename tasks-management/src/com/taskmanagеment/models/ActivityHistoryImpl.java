@@ -1,39 +1,28 @@
 package com.taskmanagеment.models;
 
+import com.taskmanagеment.constants.ModelConstants;
+import com.taskmanagеment.exceptions.InvalidUserInputException;
 import com.taskmanagеment.models.contracts.ActivityHistory;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 public class ActivityHistoryImpl implements ActivityHistory {
 
-    private String message;
-    private LocalDate localDate;
+    private final String message;
+    private final LocalDateTime timestamp;
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MMMM-yyyy HH:mm:ss", Locale.US);
 
-    public ActivityHistoryImpl(String message, LocalDate localDate) {
-        setMessage(message);
-        setLocalDate(localDate);
-    }
 
-    @Override
-    public String getActiveHistory() {
-        return message;
-    }
-
-    @Override
-    public LocalDate getTimeStamp() {
-        return localDate;
-    }
-
-    private void setMessage(String message) {
-        if (message == null) {
-            throw new IllegalArgumentException("The message cannot be null.");
-        }
+    public ActivityHistoryImpl(String message, LocalDateTime timestamp) {
+        if (message.isEmpty()) throw new InvalidUserInputException(ModelConstants.DESCRIPTION_IS_EMPTY);
         this.message = message;
+        this.timestamp = timestamp;
     }
 
-    private void setLocalDate(LocalDate localDate) {
-        if (localDate.isBefore(LocalDate.now()))
-            throw new IllegalArgumentException("The date can not be in the past");
-        this.localDate = localDate;
+    @Override
+    public String getAsString() {
+        return String.format("[%s] %s", timestamp.format(formatter), message);
     }
 }

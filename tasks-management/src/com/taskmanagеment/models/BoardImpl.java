@@ -1,24 +1,19 @@
 package com.taskmanagеment.models;
 
-import com.taskmanagеment.Constants.ModelConstants;
-import com.taskmanagеment.Constants.OutputMessages;
 import com.taskmanagеment.models.contracts.ActivityHistory;
-import com.taskmanagеment.models.contracts.BaseModel;
 import com.taskmanagеment.models.contracts.Board;
 import com.taskmanagеment.models.contracts.Task;
 import com.taskmanagеment.utils.ValidationHelpers;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static com.taskmanagеment.Constants.ModelConstants.*;
-import static com.taskmanagеment.Constants.OutputMessages.*;
+import static com.taskmanagеment.constants.ModelConstants.BOARD_NAME_MAX_LENGTH;
+import static com.taskmanagеment.constants.ModelConstants.BOARD_NAME_MIN_LENGTH;
+import static com.taskmanagеment.constants.OutputMessages.BOARD_NAME_ERR;
 
 public class BoardImpl extends BaseModelImpl implements Board {
 
 
-    public BoardImpl(String name) {
-        super(name);
+    public BoardImpl(int id, String name) {
+        super(id, name);
     }
 
     @Override
@@ -35,9 +30,9 @@ public class BoardImpl extends BaseModelImpl implements Board {
 
     @Override
     public void removeTask(Task task) {
-        if (getTasks().size() > 0){
+        if (getTasks().size() > 0) {
             getTasks().remove(task);
-        }else {
+        } else {
             throw new IllegalArgumentException("There is no tasks"); //TODO
         }
     }
@@ -52,7 +47,7 @@ public class BoardImpl extends BaseModelImpl implements Board {
 
         if (getActiveHistory().size() > 0) {
             getActiveHistory().remove(activityHistory);
-        }else {
+        } else {
             throw new IllegalArgumentException("There is no activity history"); //TODO
         }
     }
@@ -62,6 +57,5 @@ public class BoardImpl extends BaseModelImpl implements Board {
     public String getAsString() {
         return null;
     }
-
 
 }

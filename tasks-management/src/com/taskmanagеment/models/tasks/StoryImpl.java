@@ -1,10 +1,10 @@
-package com.taskmanagеment.models;
+package com.taskmanagеment.models.tasks;
 
 import com.taskmanagеment.models.contracts.Member;
 import com.taskmanagеment.models.contracts.Story;
-import com.taskmanagеment.models.enums.Priority;
 import com.taskmanagеment.models.enums.Size;
 import com.taskmanagеment.models.enums.StoryStatus;
+import com.taskmanagеment.models.enums.TaskType;
 
 
 public class StoryImpl extends BaseBugStory implements Story {
@@ -12,10 +12,9 @@ public class StoryImpl extends BaseBugStory implements Story {
 
     private Size size;
     private StoryStatus storyStatus;
-    private String assignee;
 
-    public StoryImpl(int id, String title, String description, Priority priority, Size size, StoryStatus storyStatus, String assignee) {
-        super(id, title, description, priority, assignee);
+    public StoryImpl(int id, String title, String description, String assignee) {
+        super(id, title, description, assignee);
         this.size = size;
         this.storyStatus = storyStatus;
 
@@ -38,4 +37,8 @@ public class StoryImpl extends BaseBugStory implements Story {
     }
 
 
+    @Override
+    public TaskType getType() {
+        return TaskType.STORY;
+    }
 }
