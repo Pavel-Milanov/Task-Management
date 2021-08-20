@@ -8,4 +8,6 @@ public interface BugStory {
     Priority getPriority();
 
     String getAssignee();
+
+    void changeAssignee(String assignee);
 }

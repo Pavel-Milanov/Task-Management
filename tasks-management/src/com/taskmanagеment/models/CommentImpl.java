@@ -21,4 +21,9 @@ public class CommentImpl implements Comment {
     public String getContent() {
         return content;
     }
+
+    @Override
+    public String getAsString() {
+        return null;
+    }
 }

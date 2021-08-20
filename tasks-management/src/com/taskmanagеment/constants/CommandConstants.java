@@ -1,4 +1,4 @@
-package com.taskmanagеment.Constants;
+package com.taskmanagеment.constants;
 
 public class CommandConstants {
 
@@ -30,5 +30,6 @@ public class CommandConstants {
     public static final String INVALID_COMMENT = "Comment %s not Exist.";
     public static final String INVALID_TASK_TYPE = "Invalid command %s, not supported for changing assignee !";
     public static final String NOT_SUPPORTED_OPERATION = "%s is not supported.";
-
+    public static final String INVALID_TASK_NAME = "Task with %s not exist.";
+    public static final String ASSIGNEE_REMOVED = "Assignee removed.";
 }

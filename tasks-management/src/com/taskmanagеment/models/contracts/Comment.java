@@ -1,7 +1,8 @@
 package com.taskmanagеment.models.contracts;
 
-public interface Comment {
+public interface Comment extends Printable {
 
     String getAuthor();
+
     String getContent();
 }
