@@ -1,23 +1,26 @@
 package com.taskmanagеment.models.tasks;
 
-import com.taskmanagеment.constants.ModelConstants;
+
 import com.taskmanagеment.models.ActivityHistoryImpl;
-import com.taskmanagеment.models.contracts.BugStory;
+import com.taskmanagеment.models.contracts.Task;
 import com.taskmanagеment.models.contracts.Comment;
 import com.taskmanagеment.models.enums.Priority;
 import com.taskmanagеment.models.enums.TaskType;
 
 import java.time.LocalDateTime;
 
-public abstract class BaseBugStory extends BaseTask implements BugStory {
+import static com.taskmanagеment.constants.CommandConstants.*;
+
+public abstract class TaskBase extends WorkingItemImpl implements Task {
 
     private final Priority initialPriority = Priority.HIGH;
     private final Priority finalPriority = Priority.LOW;
-    private final Priority priority;
+
+    private  Priority priority;
     private String assignee;
 
 
-    protected BaseBugStory(int id, String title, String description, String assignee) {
+    protected TaskBase(int id, String title, String description, String assignee) {
         super(id, title, description);
         setAssignee(assignee);
         priority = initialPriority;
@@ -37,9 +40,13 @@ public abstract class BaseBugStory extends BaseTask implements BugStory {
         this.assignee = assignee;
     }
 
+    protected void setPriority(Priority priority) {
+        this.priority = priority;
+    }
+
     @Override
     public void changeAssignee(String assignee) {
-        addActiveHistory(new ActivityHistoryImpl(String.format(ModelConstants.ASSIGNEE_CHANGED, this.assignee, assignee), LocalDateTime.now()));
+       addActivityHistory(new ActivityHistoryImpl(String.format(ASSIGNEE_CHANGED, this.assignee, assignee), LocalDateTime.now()));
         setAssignee(assignee);
     }
 

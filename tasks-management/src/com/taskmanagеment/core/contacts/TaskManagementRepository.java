@@ -1,7 +1,7 @@
 package com.taskmanagеment.core.contacts;
 
 import com.taskmanagеment.models.contracts.*;
-import com.taskmanagеment.models.enums.TaskType;
+import com.taskmanagеment.models.enums.*;
 
 import java.util.List;
 
@@ -13,7 +13,11 @@ public interface TaskManagementRepository {
 
     List<Board> getBoards();
 
-    List<Task> getTasks();
+    List<Story> getStories();
+
+    List<Bug> getBugs();
+
+    List<FeedBack> getFeedBacks();
 
     Member findMemberByName(String author);
 
@@ -47,6 +51,40 @@ public interface TaskManagementRepository {
 
     FeedBack createFeedback(String title, String description, int rating);
 
-    void removeComment(Comment comment, Task task);
+    void removeComment(Comment comment, WorkingItem workingItem);
 
+    Member findByMemberName(String memberName);
+
+    Team findByTeamName(String teamName);
+
+    void addMemberToTeam(Member member, Team team);
+
+    void changeFeedBackStatus(FeedBackStatus feedBackStatus, FeedBack feedBack);
+
+    void changeLabelStoryStatus(StoryStatus storyStatus, Story story);
+
+    void changeLabelSize(Size size, Story story);
+
+    void changeLabelStoryPriority(Priority priority, Story story);
+
+    void changeLabelRating(int rating, FeedBack feedBack);
+
+    void changeLabelBugStatus(Bug bug, BugStatus bugStatus);
+
+    void changeLabelSeverityBug(Bug bug, Severity severity);
+
+    void changeLabelPriorityBug(Bug bug, Priority priority);
+
+    Board createBoard(String boardName);
+    boolean boardExist(String boardName);
+
+    Team createTeam(String teamName);
+
+    void removeBoard(String boardName);
+
+    void removeTask(WorkingItem workingItem);
+
+    List<WorkingItem> getWorkingItems();
+
+    List<Task> getTasks();
 }

@@ -4,7 +4,7 @@ import com.taskmanagеment.constants.ModelConstants;
 import com.taskmanagеment.models.ActivityHistoryImpl;
 import com.taskmanagеment.models.contracts.ActivityHistory;
 import com.taskmanagеment.models.contracts.Comment;
-import com.taskmanagеment.models.contracts.Task;
+import com.taskmanagеment.models.contracts.WorkingItem;
 import com.taskmanagеment.utils.ValidationHelpers;
 
 import java.time.LocalDateTime;
@@ -15,7 +15,7 @@ import static com.taskmanagеment.constants.ModelConstants.*;
 import static com.taskmanagеment.constants.OutputMessages.DESCRIPTION_ERR;
 import static com.taskmanagеment.constants.OutputMessages.TITLE_ERR;
 
-public abstract class BaseTask implements Task {
+public abstract class WorkingItemImpl implements WorkingItem {
 
     private final List<Comment> comments = new ArrayList<>();
     private final List<ActivityHistory> activeHistory = new ArrayList<>();
@@ -24,10 +24,13 @@ public abstract class BaseTask implements Task {
     private String description;
 
 
-    public BaseTask(int id, String name, String description) {
+    public WorkingItemImpl(int id, String name, String description) {
         this.id = id;
         setName(name);
         setDescription(description);
+
+        activeHistory.add(new ActivityHistoryImpl(String.format(ModelConstants.CREATED_ITEM,name), LocalDateTime.now()));
+
     }
 
     @Override
@@ -56,7 +59,7 @@ public abstract class BaseTask implements Task {
     }
 
     @Override
-    public List<ActivityHistory> getActiveHistory() {
+    public List<ActivityHistory> getActivityHistory() {
         return new ArrayList<>(activeHistory);
     }
 
@@ -78,10 +81,15 @@ public abstract class BaseTask implements Task {
     }
 
 
+    public void addActivityHistory(ActivityHistory activityHistory){
+        this.activeHistory.add(activityHistory);
+    }
     @Override
     public List<Comment> getComments() {
         return new ArrayList<>(comments);
     }
+
+
 
     @Override
     public String getAsString() {
@@ -89,7 +97,4 @@ public abstract class BaseTask implements Task {
     }
 
 
-    protected void addActiveHistory(ActivityHistoryImpl activityHistory) {
-        activeHistory.add(activityHistory);
-    }
 }

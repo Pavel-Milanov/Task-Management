@@ -6,7 +6,7 @@ import com.taskmanagеment.models.enums.Severity;
 
 import java.util.List;
 
-public interface Bug extends Task{
+public interface Bug extends Task {
 
 
     Severity getSeverity();
@@ -15,9 +15,12 @@ public interface Bug extends Task{
 
     List<String> getStepsToReproduce();
 
-    void addStepToReproduce(String step);
+    void addStepToReproduce(List<String> steps);
 
-    void removeStepToReproduce(String step);
+
+    void changeBugPriority(Priority priority);
+    void changeBugSeverity(Severity severity);
+    void changeBugStatus(BugStatus bugStatus);
 
 
 }

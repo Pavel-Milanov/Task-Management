@@ -1,4 +1,6 @@
 package com.taskmanagеment.commands.creation;
 
-public class ListTaskByAssigneeCommand {
+public class CreateNewStoryCommand {
+
+
 }

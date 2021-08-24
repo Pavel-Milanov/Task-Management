@@ -3,8 +3,9 @@ package com.taskmanagеment.models.tasks;
 import com.taskmanagеment.constants.ModelConstants;
 import com.taskmanagеment.models.ActivityHistoryImpl;
 import com.taskmanagеment.models.contracts.Bug;
-import com.taskmanagеment.models.contracts.BugStory;
+import com.taskmanagеment.models.contracts.Task;
 import com.taskmanagеment.models.enums.BugStatus;
+import com.taskmanagеment.models.enums.Priority;
 import com.taskmanagеment.models.enums.Severity;
 import com.taskmanagеment.models.enums.TaskType;
 
@@ -12,14 +13,14 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BugImpl extends BaseBugStory implements Bug, BugStory {
+public class BugImpl extends TaskBase implements Bug {
 
     private final Severity initialSeverity = Severity.CRITICAL;
     private final Severity finalSeverity = Severity.MINOR;
-    private final Severity severity;
+    private  Severity severity;
     private final BugStatus initialStatus = BugStatus.ACTIVE;
     private final BugStatus finalStatus = BugStatus.FIXED;
-    private final BugStatus bugStatus;
+    private  BugStatus bugStatus;
 
     private final List<String> stepsToReproduce = new ArrayList<>();
 
@@ -46,16 +47,45 @@ public class BugImpl extends BaseBugStory implements Bug, BugStory {
     }
 
 
+
+
     @Override
-    public void addStepToReproduce(String step) {
-        addActiveHistory(new ActivityHistoryImpl(String.format(ModelConstants.STEP_ADDED, step), LocalDateTime.now()));
-        stepsToReproduce.add(step);
+    public void addStepToReproduce(List<String> steps) {
+        addActivityHistory(new ActivityHistoryImpl(String.format(ModelConstants.STEP_ADDED, steps.toString()), LocalDateTime.now()));
+        stepsToReproduce.addAll(steps);
+    }
+
+  //  @Override
+  //  public void removeStepToReproduce(String step) {
+  //     addActivityHistory(new ActivityHistoryImpl(String.format(ModelConstants.STEP_REMOVED, step), LocalDateTime.now()));
+  //      stepsToReproduce.remove(step);
+  //  }
+
+    private void setSeverity(Severity severity) {
+        this.severity = severity;
+    }
+
+    private void setBugStatus(BugStatus bugStatus) {
+        this.bugStatus = bugStatus;
     }
 
     @Override
-    public void removeStepToReproduce(String step) {
-        addActiveHistory(new ActivityHistoryImpl(String.format(ModelConstants.STEP_REMOVED, step), LocalDateTime.now()));
-        stepsToReproduce.remove(step);
+    public void changeBugPriority(Priority priority) {
+        getActivityHistory().add(new ActivityHistoryImpl(String.format("Priority was changed from %s to %s",getPriority(),priority),LocalDateTime.now()));
+        setPriority(priority);
+    }
+
+    @Override
+    public void changeBugSeverity(Severity severity) {
+        getActivityHistory().add(new ActivityHistoryImpl(String.format("Severity was changed from %s to %s",getSeverity(),severity),LocalDateTime.now()));
+        setSeverity(severity);
+    }
+
+    @Override
+    public void changeBugStatus(BugStatus bugStatus) {
+        getActivityHistory().add(new ActivityHistoryImpl(String.format("Bug status was changed from %s to %s",getBugStatus(),bugStatus),LocalDateTime.now()));
+
+        setBugStatus(bugStatus);
     }
 
 

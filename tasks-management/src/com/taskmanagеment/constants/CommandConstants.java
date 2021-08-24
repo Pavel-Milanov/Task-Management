@@ -1,16 +1,18 @@
 package com.taskmanagеment.constants;
 
+import java.util.Locale;
+
 public class CommandConstants {
 
     public static final String CANNOT_CREATE_THIS_TYPE_OF_TASK = "Cannot create this type of task.";
     public static final String TASK_ADDED_SUCCESSFULLY = "%s added to Board successfully!";
     public static final String TEAM_CREATED = "Team with name %s was created!";
-    public static final String USER_CREATED = "User with name %s was created!";
+    public static final String MEMBER_CREATED = "User with name %s was created!";
     public static final String TEAM_ALREADY_EXISTS = "Team with name %s already exists!";
-    public static final String USER_ALREADY_EXISTS = "User with username %s already exists!";
+    public static final String MEMBER_ALREADY_EXISTS = "User with username %s already exists!";
     public static final String TEAM_NOT_EXISTS = "Team with name %s not exists!";
     public static final String BOARD_NOT_EXISTS = "Board with title %s not exists!";
-    public static final String USER_ADDED_TO_TEAM_SUCCESSFULLY = "%s add to team %s!";
+    public static final String MEMBER_ADDED_TO_TEAM_SUCCESSFULLY = "%s add to team %s!";
     public static final String BOARD_ADDED_TO_TEAM_SUCCESSFULLY = "Board with tittle %s add to team %s!";
     public final static String BOARD_REMOVED_SUCCESSFULLY = "Board with title %s removed successfully!";
     public final static String COMMENT_REMOVED_SUCCESSFULLY = "%s removed comment successfully!";
@@ -33,4 +35,12 @@ public class CommandConstants {
     public static final String INVALID_TASK_NAME = "Task with %s not exist.";
     public static final String ASSIGNEE_REMOVED = "Assignee removed.";
     public static final String BOARD_ATTACHED = "Board %s attached in another team.";
+
+
+    public static final String MEMBER_NOT_EXISTS = "Member with name %s not exists!";
+    public static final String MISSING_TASK_TYPE = "This type bug is missing!";
+
+
+    public static final String LABEL_CHANGED_SUCCESSFULLY = "The label is changed successfully!";
+
 }

@@ -1,28 +1,30 @@
 package com.taskmanagеment.models;
 
+import com.taskmanagеment.models.contracts.ActivityHistory;
 import com.taskmanagеment.models.contracts.Member;
+import com.taskmanagеment.models.contracts.WorkingItem;
 import com.taskmanagеment.models.contracts.Team;
-import com.taskmanagеment.utils.ValidationHelpers;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.taskmanagеment.constants.ModelConstants.MEMBER_NAME_MAX_LENGTH;
-import static com.taskmanagеment.constants.ModelConstants.MEMBER_NAME_MIN_LENGTH;
-import static com.taskmanagеment.constants.OutputMessages.MEMBER_NAME_ERR;
-
-public class MemberImpl extends BaseModelImpl implements Member {
-
-    private final List<Team> teamList = new ArrayList<>();
+public class MemberImpl implements Member {
 
 
-    public MemberImpl(int id, String name) {
-        super(id, name);
-    }
+    private int id;
+    private String name;
+    private List<Member> members;
+    private List<WorkingItem> workingItems;
+    private List<ActivityHistory> activityHistories;
+    private List<Team> teamList;
 
-    @Override
-    protected void validateName(String name) {
-        ValidationHelpers.validateInRange(name.length(), MEMBER_NAME_MIN_LENGTH, MEMBER_NAME_MAX_LENGTH, MEMBER_NAME_ERR);
+    public MemberImpl(int id,String name) {
+        this.id = id;
+        this.name = name;
+        this.members = new ArrayList<>();
+        this.workingItems = new ArrayList<>();
+        this.activityHistories = new ArrayList<>();
+        this.teamList = new ArrayList<>();
     }
 
     @Override
@@ -35,8 +37,24 @@ public class MemberImpl extends BaseModelImpl implements Member {
         teamList.add(team);
     }
 
+
     @Override
     public List<Team> getTeamList() {
         return new ArrayList<>(teamList);
+    }
+
+    @Override
+    public List<ActivityHistory> getActivityHistories() {
+        return new ArrayList<>(activityHistories);
+    }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public int getId() {
+        return id;
     }
 }

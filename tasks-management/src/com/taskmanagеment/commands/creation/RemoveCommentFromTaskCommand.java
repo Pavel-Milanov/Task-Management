@@ -1,15 +1,18 @@
 package com.taskmanagеment.commands.creation;
 
 import com.taskmanagеment.commands.contracts.Command;
-import com.taskmanagеment.constants.CommandConstants;
+
 import com.taskmanagеment.core.contacts.TaskManagementRepository;
 import com.taskmanagеment.exceptions.InvalidUserInputException;
 import com.taskmanagеment.models.contracts.Comment;
-import com.taskmanagеment.models.contracts.Task;
+import com.taskmanagеment.models.contracts.WorkingItem;
 import com.taskmanagеment.utils.ParsingHelpers;
 import com.taskmanagеment.utils.ValidationHelpers;
 
 import java.util.List;
+
+import static com.taskmanagеment.constants.CommandConstants.*;
+
 
 public class RemoveCommentFromTaskCommand implements Command {
     public static final int EXPECTED_NUMBER_OF_ARGUMENTS = 3;
@@ -23,7 +26,7 @@ public class RemoveCommentFromTaskCommand implements Command {
     @Override
     public String executeCommand(List<String> parameters) {
         ValidationHelpers.validateArgumentsCount(parameters, EXPECTED_NUMBER_OF_ARGUMENTS);
-        int taskIndex = ParsingHelpers.tryParseInt(parameters.get(0), CommandConstants.INVALID_TASK_INDEX);
+        int taskIndex = ParsingHelpers.tryParseInt(parameters.get(0), INVALID_TASK_INDEX);
         String commentContent = parameters.get(1);
         String memberName = parameters.get(2);
         return removeComment(taskIndex, commentContent, memberName);
@@ -32,14 +35,14 @@ public class RemoveCommentFromTaskCommand implements Command {
     private String removeComment(int taskIndex, String commentContent, String memberName) {
         taskManagementRepository.validateMemberIsFromTeam(taskIndex, memberName);
 
-        Task task = taskManagementRepository.findElementById(taskManagementRepository.getTasks(), taskIndex);
+        WorkingItem workingItem = taskManagementRepository.findElementById(taskManagementRepository.getWorkingItems(), taskIndex);
 
-        Comment comment = task.getComments().stream()
+        Comment comment = workingItem.getComments().stream()
                 .filter(comment1 -> comment1.getContent().equals(commentContent)).findAny()
-                .orElseThrow(() -> new InvalidUserInputException(String.format(CommandConstants.INVALID_COMMENT, commentContent)));
+                .orElseThrow(() -> new InvalidUserInputException(String.format(INVALID_COMMENT, commentContent)));
 
-        taskManagementRepository.removeComment(comment, task);
+        taskManagementRepository.removeComment(comment, workingItem);
 
-        return String.format(CommandConstants.COMMENT_REMOVED_SUCCESSFULLY, memberName);
+        return String.format(COMMENT_REMOVED_SUCCESSFULLY, memberName);
     }
 }

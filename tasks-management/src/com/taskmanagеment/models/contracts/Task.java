@@ -1,23 +1,13 @@
 package com.taskmanagеment.models.contracts;
 
-import com.taskmanagеment.models.enums.TaskType;
+import com.taskmanagеment.models.enums.Priority;
 
-import java.util.List;
+public interface Task extends WorkingItem,Assignable {
+    Priority getPriority();
 
-public interface Task extends Identifiable, Printable, Commentable {
+    String getAssignee();
 
-    String getName();
+    void changeAssignee(String assignee);
 
-    String getDescription();
-
-    List<ActivityHistory> getActiveHistory();
-
-    void addCommend(Comment comment);
-
-    void removeComment(Comment comment);
-
-    void addComment(Comment comment);
-
-    TaskType getType();
 
 }

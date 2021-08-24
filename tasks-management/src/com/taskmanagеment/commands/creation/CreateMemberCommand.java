@@ -1,12 +1,15 @@
 package com.taskmanagеment.commands.creation;
 
 import com.taskmanagеment.commands.contracts.Command;
+
 import com.taskmanagеment.constants.CommandConstants;
 import com.taskmanagеment.core.contacts.TaskManagementRepository;
 import com.taskmanagеment.exceptions.InvalidUserInputException;
 import com.taskmanagеment.utils.ValidationHelpers;
 
 import java.util.List;
+
+import static com.taskmanagеment.constants.CommandConstants.*;
 
 public class CreateMemberCommand implements Command {
     public static final int EXPECTED_NUMBER_OF_ARGUMENTS = 1;
@@ -27,11 +30,11 @@ public class CreateMemberCommand implements Command {
 
     private String createMember(String memberName) {
         if (taskManagementRepository.memberExist(memberName)) {
-            throw new InvalidUserInputException(String.format(CommandConstants.USER_ALREADY_EXISTS, memberName));
+            throw new InvalidUserInputException(String.format(MEMBER_ALREADY_EXISTS, memberName));
         }
 
         taskManagementRepository.createMember(memberName);
 
-        return String.format(CommandConstants.USER_CREATED, memberName);
+        return String.format(CommandConstants.MEMBER_CREATED, memberName);
     }
 }

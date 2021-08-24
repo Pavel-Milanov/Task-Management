@@ -9,19 +9,25 @@ import com.taskmanagеment.utils.ValidationHelpers;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.taskmanagеment.constants.ModelConstants.TEAM_NAME_MAX_LENGTH;
-import static com.taskmanagеment.constants.ModelConstants.TEAM_NAME_MIN_LENGTH;
-import static com.taskmanagеment.constants.OutputMessages.TEAM_NAME_ERR;
+import static com.taskmanagеment.constants.ModelConstants.*;
+
+import static com.taskmanagеment.constants.OutputMessages.*;
 
 public class TeamImpl implements Team {
 
-    private final List<ActivityHistory> activityHistories = new ArrayList<>();
-    private final List<Member> members = new ArrayList<>();
-    private final List<Board> boards = new ArrayList<>();
+
     private String name;
+    private  List<Member> members;
+    private  List<Board> boards;
+    private  List<ActivityHistory> activityHistories;
+
 
     public TeamImpl(String name) {
         setName(name);
+        this.members = new ArrayList<>();
+        this.boards = new ArrayList<>();
+        this.activityHistories = new ArrayList<>();
+
     }
 
     @Override

@@ -1,4 +1,4 @@
 package com.taskmanagеment.commands.creation;
 
-public class ShowAllTeamBoardsMembersCommand {
+public class ListAllTasksSortByTitle {
 }

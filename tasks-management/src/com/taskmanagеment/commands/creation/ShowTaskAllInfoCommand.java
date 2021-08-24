@@ -1,16 +1,18 @@
 package com.taskmanagеment.commands.creation;
 
 import com.taskmanagеment.commands.contracts.Command;
-import com.taskmanagеment.constants.CommandConstants;
+
 import com.taskmanagеment.core.contacts.TaskManagementRepository;
 import com.taskmanagеment.models.contracts.Bug;
-import com.taskmanagеment.models.contracts.Task;
+import com.taskmanagеment.models.contracts.WorkingItem;
 import com.taskmanagеment.models.enums.TaskType;
 import com.taskmanagеment.utils.ListingHelpers;
 import com.taskmanagеment.utils.ParsingHelpers;
 import com.taskmanagеment.utils.ValidationHelpers;
 
 import java.util.List;
+
+import static com.taskmanagеment.constants.CommandConstants.*;
 
 public class ShowTaskAllInfoCommand implements Command {
     public static final int EXPECTED_NUMBER_OF_ARGUMENTS = 1;
@@ -24,27 +26,27 @@ public class ShowTaskAllInfoCommand implements Command {
     @Override
     public String executeCommand(List<String> parameters) {
         ValidationHelpers.validateArgumentsCount(parameters, EXPECTED_NUMBER_OF_ARGUMENTS);
-        int id = ParsingHelpers.tryParseInt(parameters.get(0), CommandConstants.INVALID_TASK_INDEX);
+        int id = ParsingHelpers.tryParseInt(parameters.get(0), INVALID_TASK_INDEX);
         return showTaskAllInfo(id);
     }
 
     private String showTaskAllInfo(int id) {
-        Task task = taskManagementRepository.findElementById(taskManagementRepository.getTasks(), id);
+        WorkingItem workingItem = taskManagementRepository.findElementById(taskManagementRepository.getWorkingItems(), id);
 
         StringBuilder output = new StringBuilder();
 
-        output.append(task.getAsString());
+        output.append(workingItem.getAsString());
         output.append(System.lineSeparator());
-        listingParameters(output, task.getComments().isEmpty(), "---COMMENTS---", ListingHelpers.elementsToString(task.getComments()));
-        listingSteps(task, output);
-        listingParameters(output, task.getActiveHistory().isEmpty(), "---HISTORY---", ListingHelpers.elementsToString(task.getActiveHistory()));
+        listingParameters(output, workingItem.getComments().isEmpty(), "---COMMENTS---", ListingHelpers.elementsToString(workingItem.getComments()));
+        listingSteps(workingItem, output);
+        listingParameters(output, workingItem.getActivityHistory().isEmpty(), "---HISTORY---", ListingHelpers.elementsToString(workingItem.getActivityHistory()));
 
         return output.toString().trim();
     }
 
-    private void listingSteps(Task task, StringBuilder output) {
-        if (task.getType().equals(TaskType.BUG)) {
-            Bug bug = (Bug) task;
+    private void listingSteps(WorkingItem workingItem, StringBuilder output) {
+        if (workingItem.getType().equals(TaskType.BUG)) {
+            Bug bug = (Bug) workingItem;
             if (!bug.getStepsToReproduce().isEmpty()) {
                 output.append(ListingHelpers.stepAsString(bug.getStepsToReproduce())).append(System.lineSeparator());
             }
