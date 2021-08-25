@@ -53,4 +53,5 @@ public class CommandConstants {
     public static final String EMPTY_LIST_STORIES = "There is no stories in the list!";
     public static final String MISSING_TITLE = "The given title %s is missing!";
     public static final String EMPTY_LIST_FEEDBACKS = "There is no feedbacks is the list!";
+    public static final String ASSIGNEE_NOT_EXIST = "Assignee with this name %s does not exists";
 }

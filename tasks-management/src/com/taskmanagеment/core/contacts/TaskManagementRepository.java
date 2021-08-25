@@ -93,4 +93,6 @@ public interface TaskManagementRepository {
     Team getTeam(String teamName);
 
     boolean titleExist(String title);
+
+    boolean assigneeIsExist(String nameAssignee);
 }

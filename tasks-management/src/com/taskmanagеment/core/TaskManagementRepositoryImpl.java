@@ -414,5 +414,12 @@ public class TaskManagementRepositoryImpl implements TaskManagementRepository {
 
         return getBugs().stream().anyMatch(bug -> bug.getName().equalsIgnoreCase(title));
     }
+
+    @Override
+    public boolean assigneeIsExist(String nameAssignee) {
+
+
+        return getTasks().stream().anyMatch(task -> task.getAssignee().equalsIgnoreCase(nameAssignee));
+    }
 }
 
