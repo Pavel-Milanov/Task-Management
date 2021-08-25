@@ -8,6 +8,7 @@ import com.taskmanagеment.models.contracts.Story;
 import com.taskmanagеment.models.enums.BugStatus;
 import com.taskmanagеment.models.enums.Priority;
 import com.taskmanagеment.models.enums.Size;
+import com.taskmanagеment.models.enums.StoryStatus;
 import com.taskmanagеment.utils.ParsingHelpers;
 import com.taskmanagеment.utils.ValidationHelpers;
 
@@ -35,7 +36,7 @@ public class CreateNewStoryCommand implements Command {
         String description = parameters.get(2);
         Priority priority = ParsingHelpers.tryParseEnum(parameters.get(3),Priority.class );
         Size size = ParsingHelpers.tryParseEnum(parameters.get(4), Size.class );
-        BugStatus status = ParsingHelpers.tryParseEnum(parameters.get(5), BugStatus.class);
+        StoryStatus status = ParsingHelpers.tryParseEnum(parameters.get(5), StoryStatus.class);
         String assignee = parameters.get(6);
         if (EXPECTED_NUMBER_OF_ARGUMENTS != 7) {
             assignee = "";
@@ -45,7 +46,7 @@ public class CreateNewStoryCommand implements Command {
 
     }
 
-    private String createStory(Board board, String name, String description, Priority priority, Size size, BugStatus status, String assignee) {
+    private String createStory(Board board, String name, String description, Priority priority, Size size, StoryStatus status, String assignee) {
         Story story = taskManagementRepository.createStory(name,description,priority,size,status,assignee);
         taskManagementRepository.getBoard(board).addTask(story);
         return String.format(CommandConstants.TASK_ADDED_SUCCESSFULLY, name);

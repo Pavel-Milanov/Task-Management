@@ -47,7 +47,7 @@ public interface TaskManagementRepository {
 
     Bug createBug(String name, String description, Priority priority, Severity severity, BugStatus status, String assignee);
 
-    Story createStory(String name, String description, Priority priority, Size size, BugStatus status, String assignee);
+    Story createStory(String name, String description, Priority priority, Size size, StoryStatus status, String assignee);
 
     FeedBack createFeedback(String name, String description, int rating);
 
@@ -89,4 +89,6 @@ public interface TaskManagementRepository {
     List<Task> getTasks();
 
     boolean validateAssigneeIsMemberOfTeam(Board board, String assignee);
+
+    Team getTeam(String teamName);
 }

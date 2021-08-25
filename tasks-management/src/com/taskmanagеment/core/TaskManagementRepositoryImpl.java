@@ -188,7 +188,7 @@ public class TaskManagementRepositoryImpl implements TaskManagementRepository {
     }
 
     @Override
-    public Story createStory(String name, String description, Priority priority, Size size, BugStatus status, String assignee) {
+    public Story createStory(String name, String description, Priority priority, Size size, StoryStatus status, String assignee) {
         Story story = new StoryImpl(++nextId, name, description,priority,size,status, assignee);
         this.stories.add(story);
         return story;
@@ -398,6 +398,14 @@ public class TaskManagementRepositoryImpl implements TaskManagementRepository {
             throw new InvalidUserInputException(String.format(CommandConstants.MEMBER_NOT_USER_FROM_TEAM, assignee, team.getName()));
         }
         return true;
+    }
+
+    @Override
+    public Team getTeam(String teamName) {
+        return getTeams().stream()
+                .filter(team -> teamName.equals(team.getName())).findAny()
+                .orElseThrow(() -> new ElementNotFoundException(String.format(CoreConstants.ELEMENT_NOT_FOUND, teamName)));
+
     }
 
 }
