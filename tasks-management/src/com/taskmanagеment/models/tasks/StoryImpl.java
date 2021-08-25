@@ -3,10 +3,7 @@ package com.taskmanagеment.models.tasks;
 import com.taskmanagеment.models.ActivityHistoryImpl;
 import com.taskmanagеment.models.contracts.Member;
 import com.taskmanagеment.models.contracts.Story;
-import com.taskmanagеment.models.enums.Priority;
-import com.taskmanagеment.models.enums.Size;
-import com.taskmanagеment.models.enums.StoryStatus;
-import com.taskmanagеment.models.enums.TaskType;
+import com.taskmanagеment.models.enums.*;
 
 import java.time.LocalDateTime;
 
@@ -17,9 +14,9 @@ public class StoryImpl extends TaskBase implements Story {
     private Size size;
     private StoryStatus storyStatus;
 
-    public StoryImpl(int id, String title, String description, String assignee) {
-        super(id, title, description, assignee);
-        setSize(size);
+    public StoryImpl(int id, String title, String description, Priority priority, Size size, BugStatus status, String assignee) {
+        super(id, title, description, priority, assignee);
+        setSize(this.size);
         setStoryStatus(storyStatus);
 
     }

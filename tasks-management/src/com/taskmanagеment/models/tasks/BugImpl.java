@@ -25,10 +25,10 @@ public class BugImpl extends TaskBase implements Bug {
     private final List<String> stepsToReproduce = new ArrayList<>();
 
 
-    public BugImpl(int id, String title, String description, String assignee) {
-        super(id, title, description, assignee);
-        severity = initialSeverity;
-        bugStatus = initialStatus;
+    public BugImpl(int id, String title, String description, Priority priority, Severity severity, BugStatus status, String assignee) {
+        super(id, title, description,priority, assignee);
+        setSeverity(severity);
+        setBugStatus(status);
     }
 
     @Override

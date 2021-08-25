@@ -45,11 +45,11 @@ public interface TaskManagementRepository {
 
     Board getBoard(Board board);
 
-    Bug createBug(String title, String description, String assignee);
+    Bug createBug(String name, String description, Priority priority, Severity severity, BugStatus status, String assignee);
 
-    Story createStory(String title, String description, String assignee);
+    Story createStory(String name, String description, Priority priority, Size size, BugStatus status, String assignee);
 
-    FeedBack createFeedback(String title, String description, int rating);
+    FeedBack createFeedback(String name, String description, int rating);
 
     void removeComment(Comment comment, WorkingItem workingItem);
 
@@ -87,4 +87,6 @@ public interface TaskManagementRepository {
     List<WorkingItem> getWorkingItems();
 
     List<Task> getTasks();
+
+    boolean validateAssigneeIsMemberOfTeam(Board board, String assignee);
 }

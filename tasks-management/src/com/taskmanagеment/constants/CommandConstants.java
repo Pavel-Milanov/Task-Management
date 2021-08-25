@@ -11,6 +11,7 @@ public class CommandConstants {
     public static final String TEAM_ALREADY_EXISTS = "Team with name %s already exists!";
     public static final String MEMBER_ALREADY_EXISTS = "User with username %s already exists!";
     public static final String TEAM_NOT_EXISTS = "Team with name %s not exists!";
+    public static final String BOARD_IN_TEAM_NOT_EXISTS = "Board %s not attached to team.";
     public static final String BOARD_NOT_EXISTS = "Board with title %s not exists!";
     public static final String MEMBER_ADDED_TO_TEAM_SUCCESSFULLY = "%s add to team %s!";
     public static final String BOARD_ADDED_TO_TEAM_SUCCESSFULLY = "Board with tittle %s add to team %s!";
@@ -25,7 +26,7 @@ public class CommandConstants {
     public static final String BOARD_CREATED = "Board with name %s was created!";
     public static final String STEP_ADD_TO_BUG = "Step was add to bug with title %s.";
     public static final String INVALID_INDEX = "There is no record on this index.";
-    public static final String USER_NOT_MEMBER = "User with username %s is not member from team %s.";
+    public static final String MEMBER_NOT_USER_FROM_TEAM = "Member with name %s is not member from team %s.";
     public static final String ASSIGNEE_CHANGED = "Assignee changed to %s.";
     public static final String INVALID_INPUT_MESSAGE = "Invalid input. Expected a number.";
     public static final String COMMENT_ADDED_SUCCESSFULLY = "%s added comment successfully!";
@@ -43,4 +44,8 @@ public class CommandConstants {
 
     public static final String LABEL_CHANGED_SUCCESSFULLY = "The label is changed successfully!";
 
+    public static final String PRIORITY_CHANGED_SUCCESSFULLY = "Priority of %s changed successfully.";
+    public static final String STATUS_CHANGED_SUCCESSFULLY = "Status of %s changed successfully.";
+    public static final String SIZE_CHANGED_SUCCESSFULLY = "Size of %s changed successfully.";
+    public static final String ASSIGNEE_NOT_FROM_THIS_TEAM = "Assignee %s is not from this team.";
 }

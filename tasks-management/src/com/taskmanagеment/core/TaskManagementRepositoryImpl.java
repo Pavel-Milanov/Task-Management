@@ -1,5 +1,6 @@
 package com.taskmanagеment.core;
 
+import com.taskmanagеment.constants.CommandConstants;
 import com.taskmanagеment.constants.CoreConstants;
 import com.taskmanagеment.core.contacts.TaskManagementRepository;
 import com.taskmanagеment.exceptions.ElementNotFoundException;
@@ -103,7 +104,7 @@ public class TaskManagementRepositoryImpl implements TaskManagementRepository {
 
         Member member = findMemberByName(memberName);
         if (!member.getTeamList().contains(team)) {
-            throw new InvalidUserInputException(String.format(USER_NOT_MEMBER, member, team.getName()));
+            throw new InvalidUserInputException(String.format(MEMBER_NOT_USER_FROM_TEAM, member, team.getName()));
         }
     }
 
@@ -180,24 +181,22 @@ public class TaskManagementRepositoryImpl implements TaskManagementRepository {
     }
 
     @Override
-    public Bug createBug(String title, String description, String assignee) {
-        findMemberByName(assignee);
-        Bug bug = new BugImpl(++nextId, title, description, assignee);
+    public Bug createBug(String name, String description, Priority priority, Severity severity, BugStatus status, String assignee) {
+        Bug bug = new BugImpl(++nextId, name, description,priority,severity,status, assignee);
         this.bugs.add(bug);
         return bug;
     }
 
     @Override
-    public Story createStory(String title, String description, String assignee) {
-        findMemberByName(assignee);
-        Story story = new StoryImpl(++nextId, title, description, assignee);
+    public Story createStory(String name, String description, Priority priority, Size size, BugStatus status, String assignee) {
+        Story story = new StoryImpl(++nextId, name, description,priority,size,status, assignee);
         this.stories.add(story);
         return story;
     }
 
     @Override
-    public FeedBack createFeedback(String title, String description, int rating) {
-        FeedBack feedback = new FeedBackImpl(++nextId, title, description, rating);
+    public FeedBack createFeedback(String name, String description, int rating) {
+        FeedBack feedback = new FeedBackImpl(++nextId, name, description, rating);
         this.feedBacks.add(feedback);
         return feedback;
     }
@@ -387,6 +386,18 @@ public class TaskManagementRepositoryImpl implements TaskManagementRepository {
 
 
         return new ArrayList<>(tasks);
+    }
+
+    @Override
+    public boolean validateAssigneeIsMemberOfTeam(Board board, String assignee) {
+        Team team = getTeams().stream()
+                .filter(team1 -> team1.getBoards().contains(board)).findAny()
+                .orElseThrow(() -> new InvalidUserInputException(CommandConstants.BOARD_IN_TEAM_NOT_EXISTS));
+
+        if (!checkMemberIsFromTeam(assignee, team.getName())) {
+            throw new InvalidUserInputException(String.format(CommandConstants.MEMBER_NOT_USER_FROM_TEAM, assignee, team.getName()));
+        }
+        return true;
     }
 
 }
