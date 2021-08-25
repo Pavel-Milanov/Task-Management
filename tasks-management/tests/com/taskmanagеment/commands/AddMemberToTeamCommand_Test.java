@@ -5,14 +5,11 @@ import com.taskmanagеment.commands.creation.AddMemberToTeamCommand;
 import com.taskmanagеment.core.TaskManagementRepositoryImpl;
 import com.taskmanagеment.core.contacts.TaskManagementRepository;
 import com.taskmanagеment.exceptions.InvalidUserInputException;
-import com.taskmanagеment.models.contracts.Member;
 import com.taskmanagеment.models.contracts.Team;
-import com.taskmanagеment.utils.TestData;
 import com.taskmanagеment.utils.TestUtilities;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.function.Executable;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
