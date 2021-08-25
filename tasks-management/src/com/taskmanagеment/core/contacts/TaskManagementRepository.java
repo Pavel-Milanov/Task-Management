@@ -49,7 +49,7 @@ public interface TaskManagementRepository {
 
     Story createStory(String name, String description, Priority priority, Size size, StoryStatus status, String assignee);
 
-    FeedBack createFeedback(String name, String description, int rating);
+    FeedBack createFeedback(String name, String description, int rating,FeedBackStatus feedBackStatus);
 
     void removeComment(Comment comment, WorkingItem workingItem);
 
@@ -91,4 +91,6 @@ public interface TaskManagementRepository {
     boolean validateAssigneeIsMemberOfTeam(Board board, String assignee);
 
     Team getTeam(String teamName);
+
+    boolean titleExist(String title);
 }

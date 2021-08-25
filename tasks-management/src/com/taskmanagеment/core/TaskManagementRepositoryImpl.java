@@ -194,9 +194,10 @@ public class TaskManagementRepositoryImpl implements TaskManagementRepository {
         return story;
     }
 
+
     @Override
-    public FeedBack createFeedback(String name, String description, int rating) {
-        FeedBack feedback = new FeedBackImpl(++nextId, name, description, rating);
+    public FeedBack createFeedback(String name, String description, int rating,FeedBackStatus feedBackStatus) {
+        FeedBack feedback = new FeedBackImpl(++nextId, name, description, rating,feedBackStatus);
         this.feedBacks.add(feedback);
         return feedback;
     }
@@ -408,5 +409,10 @@ public class TaskManagementRepositoryImpl implements TaskManagementRepository {
 
     }
 
+    @Override
+    public boolean titleExist(String title) {
+
+        return getBugs().stream().anyMatch(bug -> bug.getName().equalsIgnoreCase(title));
+    }
 }
 

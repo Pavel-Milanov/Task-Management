@@ -2,7 +2,6 @@ package com.taskmanagеment.commands;
 
 import com.taskmanagеment.commands.contracts.Command;
 import com.taskmanagеment.commands.creation.ListAllTasksFilterByTitleCommand;
-import com.taskmanagеment.commands.creation.ListBugByAssigneeCommand;
 import com.taskmanagеment.core.TaskManagementRepositoryImpl;
 import com.taskmanagеment.core.contacts.TaskManagementRepository;
 import com.taskmanagеment.exceptions.InvalidUserInputException;

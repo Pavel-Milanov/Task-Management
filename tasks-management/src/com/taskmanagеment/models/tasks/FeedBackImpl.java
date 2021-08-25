@@ -13,9 +13,10 @@ public class FeedBackImpl extends WorkingItemImpl implements FeedBack {
     private int rating;
     private FeedBackStatus feedBackStatus;
 
-    public FeedBackImpl(int id, String title, String description, int rating) {
+    public FeedBackImpl(int id, String title, String description, int rating, FeedBackStatus feedBackStatus) {
         super(id, title, description);
         this.rating = rating;
+        this.feedBackStatus = feedBackStatus;
     }
 
 

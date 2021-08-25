@@ -36,6 +36,7 @@ public class CommandConstants {
     public static final String INVALID_TASK_NAME = "Task with %s not exist.";
     public static final String ASSIGNEE_REMOVED = "Assignee removed.";
     public static final String BOARD_ATTACHED = "Board %s attached in another team.";
+    public final static String INVALID_RATING = "Invalid rating. Expected a number.";
 
 
     public static final String MEMBER_NOT_EXISTS = "Member with name %s not exists!";
@@ -48,4 +49,8 @@ public class CommandConstants {
     public static final String STATUS_CHANGED_SUCCESSFULLY = "Status of %s changed successfully.";
     public static final String SIZE_CHANGED_SUCCESSFULLY = "Size of %s changed successfully.";
     public static final String ASSIGNEE_NOT_FROM_THIS_TEAM = "Assignee %s is not from this team.";
+    public static final String EMPTY_LIST_BUGS = "There is no bugs in the list!";
+    public static final String EMPTY_LIST_STORIES = "There is no stories in the list!";
+    public static final String MISSING_TITLE = "The given title %s is missing!";
+    public static final String EMPTY_LIST_FEEDBACKS = "There is no feedbacks is the list!";
 }
