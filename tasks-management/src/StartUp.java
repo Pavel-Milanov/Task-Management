@@ -1,4 +1,4 @@
-import com.taskmanagеment.core.TaskManagementEngineImpl;
+import com.taskmanagement.core.TaskManagementEngineImpl;
 
 public class StartUp {
     public static void main(String[] args) {
