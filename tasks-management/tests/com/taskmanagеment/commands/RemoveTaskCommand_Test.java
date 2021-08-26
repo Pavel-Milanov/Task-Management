@@ -38,7 +38,7 @@ public class RemoveTaskCommand_Test {
         List<String> arguments = TestUtilities.initializeListWithSize(argumentsCount);
 
         // Act, Assert
-        Assertions.assertThrows(InvalidUserInputException.class, () -> command.executeCommand(arguments));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> command.executeCommand(arguments));
     }
 
     @Test

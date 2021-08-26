@@ -7,6 +7,7 @@ import com.taskmanagеment.core.contacts.TaskManagementEngine;
 import com.taskmanagеment.core.contacts.TaskManagementRepository;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -72,14 +73,9 @@ public class TaskManagementEngineImpl implements TaskManagementEngine {
      * @return A list of the parameters needed to execute the command
      */
     private List<String> extractCommandParameters(String inputLine) {
-        String [] commandParts = inputLine.split(" ");
+        String [] commandParts = inputLine.split("~");
 
-        List<String> parameters = new ArrayList<>();
-// TO Do Stream of this for cycle
-        for (int i = 0; i < commandParts.length; i++) {
-            parameters.add(commandParts[i]);
-        }
-        return parameters;
+        return new ArrayList<>(Arrays.asList(commandParts).subList(1, commandParts.length));
     }
 
     /**
@@ -91,7 +87,7 @@ public class TaskManagementEngineImpl implements TaskManagementEngine {
      */
     private String extractCommandName(String inputLine) {
 
-        return inputLine.split(" ")[0];
+        return inputLine.split("~")[0];
     }
 
     private void print(String result) {

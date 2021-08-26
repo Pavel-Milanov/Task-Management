@@ -115,7 +115,8 @@ public class TaskManagementRepositoryImpl implements TaskManagementRepository {
 
     @Override
     public boolean teamExist(String teamName) {
-        return getWorkingItems().stream().anyMatch(task -> task.getName().equals(teamName));
+        return getTeams().stream().anyMatch(team -> team.getName().equals(teamName));
+
     }
 
     @Override
@@ -220,7 +221,7 @@ public class TaskManagementRepositoryImpl implements TaskManagementRepository {
     @Override
     public Member findByMemberName(String memberName) {
         for (Member member : members) {
-            if (member.getName().equalsIgnoreCase(memberName)) {
+            if (member.getName().equals(memberName)) {
                 return member;
             }
         }
@@ -244,10 +245,11 @@ public class TaskManagementRepositoryImpl implements TaskManagementRepository {
         for (Team team1 : teams) {
             if (team1.getName().equals(team.getName())) {
                 team1.addMember(member);
+                member.addTeam(team1);
                 isAdded = true;
             }
         }
-        if (isAdded) {
+        if (!isAdded) {
             throw new ElementNotFoundException(String.format(ELEMENT_NOT_FOUND, team.getName())); // тук да проверя
         }
     }

@@ -15,7 +15,7 @@ import static com.taskmanagеment.constants.CommandConstants.*;
 public class ChangeFeedbackRatingCommand implements Command {
 
 
-    public static final int EXPECTED_NUMBER_OF_ARGUMENTS = 1;
+    public static final int EXPECTED_NUMBER_OF_ARGUMENTS = 2;
 
     private final TaskManagementRepository taskManagementRepository;
 
@@ -28,15 +28,15 @@ public class ChangeFeedbackRatingCommand implements Command {
         ValidationHelpers.validateArgumentsCount(parameters,EXPECTED_NUMBER_OF_ARGUMENTS);
 
         int feedBackId = ParsingHelpers.tryParseInt(parameters.get(0), INVALID_TASK_INDEX);
-
-        return changeFeedbackRating(feedBackId);
+        int newRating = ParsingHelpers.tryParseInt(parameters.get(1), INVALID_INPUT_MESSAGE );
+        return changeFeedbackRating(feedBackId,newRating);
     }
 
-    private String changeFeedbackRating(int feedBackId) {
+    private String changeFeedbackRating(int feedBackId,int newRating) {
 
         FeedBack feedBack = taskManagementRepository.findElementById(taskManagementRepository.getFeedBacks(),feedBackId);
 
-        feedBack.changeFeedbackRating(feedBackId);
+        feedBack.changeFeedbackRating(newRating);
 
         return LABEL_CHANGED_SUCCESSFULLY;
     }

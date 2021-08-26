@@ -39,11 +39,14 @@ public class CreateNewBugCommand implements Command {
         Priority priority = ParsingHelpers.tryParseEnum(parameters.get(3),Priority.class );
         Severity severity = ParsingHelpers.tryParseEnum(parameters.get(4), Severity.class );
         BugStatus status = ParsingHelpers.tryParseEnum(parameters.get(5), BugStatus.class);
-        String assignee = parameters.get(6);
-        if (EXPECTED_NUMBER_OF_ARGUMENTS != 7) {
-            assignee = "";
+        String assignee = "";
+
+        if (parameters.size() == 7) {
+           assignee = parameters.get(6);
+           taskManagementRepository.validateAssigneeIsMemberOfTeam(board, assignee);
         }
-        taskManagementRepository.validateAssigneeIsMemberOfTeam(board, assignee);
+
+
         return createBug(board,name,description,priority,severity,status,assignee);
     }
 

@@ -7,9 +7,9 @@ public class CommandConstants {
     public static final String CANNOT_CREATE_THIS_TYPE_OF_TASK = "Cannot create this type of task.";
     public static final String TASK_ADDED_SUCCESSFULLY = "%s added to Board successfully!";
     public static final String TEAM_CREATED = "Team with name %s was created!";
-    public static final String MEMBER_CREATED = "User with name %s was created!";
+    public static final String MEMBER_CREATED = "Member with name %s was created!";
     public static final String TEAM_ALREADY_EXISTS = "Team with name %s already exists!";
-    public static final String MEMBER_ALREADY_EXISTS = "User with username %s already exists!";
+    public static final String MEMBER_ALREADY_EXISTS = "Member with name %s already exists!";
     public static final String TEAM_NOT_EXISTS = "Team with name %s not exists!";
     public static final String BOARD_IN_TEAM_NOT_EXISTS = "Board %s not attached to team.";
     public static final String BOARD_NOT_EXISTS = "Board with title %s not exists!";
@@ -24,7 +24,7 @@ public class CommandConstants {
     public final static String INVALID_BOARD_INDEX = "Invalid board index. Expected a number.";
     public static final String BOARD_ALREADY_EXISTS = "Board with name %s already exists!";
     public static final String BOARD_CREATED = "Board with name %s was created!";
-    public static final String STEP_ADD_TO_BUG = "Step was add to bug with title %s.";
+    public static final String STEP_ADD_TO_BUG = "Step was add to bug with name %s.";
     public static final String INVALID_INDEX = "There is no record on this index.";
     public static final String MEMBER_NOT_USER_FROM_TEAM = "Member with name %s is not member from team %s.";
     public static final String ASSIGNEE_CHANGED = "Assignee changed to %s.";

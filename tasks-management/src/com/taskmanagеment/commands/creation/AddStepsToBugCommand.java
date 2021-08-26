@@ -16,7 +16,7 @@ import static com.taskmanagеment.constants.CommandConstants.*;
 
 public class AddStepsToBugCommand implements Command {
 
-    public static final int EXPECTED_NUMBER_OF_ARGUMENTS = 2;
+    public static final int EXPECTED_NUMBER_OF_ARGUMENTS = 3;
 
     private final TaskManagementRepository taskManagementRepository;
 
