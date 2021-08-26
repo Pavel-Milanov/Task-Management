@@ -6,8 +6,12 @@ import com.taskmanagement.commands.creation.CreateNewBugCommand;
 import com.taskmanagement.core.TaskManagementRepositoryImpl;
 import com.taskmanagement.core.contacts.TaskManagementRepository;
 import com.taskmanagement.models.contracts.Board;
+import com.taskmanagement.models.contracts.Bug;
 import com.taskmanagement.models.contracts.Member;
 import com.taskmanagement.models.contracts.Team;
+import com.taskmanagement.models.enums.BugStatus;
+import com.taskmanagement.models.enums.Priority;
+import com.taskmanagement.models.enums.Severity;
 import com.taskmanagement.utils.Factory;
 import com.taskmanagement.utils.TestUtilities;
 import org.junit.jupiter.api.Assertions;
@@ -43,14 +47,17 @@ public class AddStepsToBugCommand_Test {
 
     @Test
     public void execute_should_addBugStep_when_passedValidInput() {
-        Member member = Factory.createMember();
-        Team team = Factory.createTeam();
-        Board board = Factory.createBoard();
+        Member member = taskManagementRepository.createMember("zzzzzz");
+        Team team = taskManagementRepository.createTeam("team1");
+        Board board = taskManagementRepository.createBoard("board1");
+
+
         taskManagementRepository.addMemberToTeam(member, team);
         taskManagementRepository.addBoardToTeam(board, team);
-        commandBug.executeCommand(List.of("3", "bugtitleee", "bugdescription", "high", "Critical", "Active", "zzzzzz"));
-        Assertions.assertDoesNotThrow(() -> command.executeCommand(List.of("4", "Step")));
-
+        Bug bug = taskManagementRepository.createBug("bug titleeeee","bugdescriptionnnnn", Priority.HIGH, Severity.CRITICAL, BugStatus.ACTIVE,"zzzzzz");
+        Assertions.assertEquals(4,bug.getId());
+        command.executeCommand(List.of("4", "zzzzzz","Step"));
+        Assertions.assertEquals(List.of("Step"),bug.getStepsToReproduce());
 
     }
 

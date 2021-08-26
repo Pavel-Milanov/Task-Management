@@ -28,7 +28,7 @@ public class ChangeBugSeverityCommand implements Command {
 
         int bugId = ParsingHelpers.tryParseInt(parameters.get(0), INVALID_TASK_INDEX);
 
-        Severity severity = ParsingHelpers.tryParseEnum(parameters.get(0).toUpperCase(), Severity.class);
+        Severity severity = ParsingHelpers.tryParseEnum(parameters.get(1).toUpperCase(), Severity.class);
 
         return changeSeverity(bugId, severity);
     }
