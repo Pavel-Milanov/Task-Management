@@ -22,16 +22,16 @@ public class ChangeBugPriorityCommand implements Command {
 
     @Override
     public String executeCommand(List<String> parameters) {
-        ValidationHelpers.validateArgumentsCount(parameters,EXPECTED_NUMBER_OF_ARGUMENTS);
+        ValidationHelpers.validateArgumentsCount(parameters, EXPECTED_NUMBER_OF_ARGUMENTS);
         int bugId = ParsingHelpers.tryParseInt(parameters.get(0), CommandConstants.INVALID_TASK_INDEX);
-        Priority priority = ParsingHelpers.tryParseEnum(parameters.get(1),Priority.class );
-        return changePriority(bugId,priority);
+        Priority priority = ParsingHelpers.tryParseEnum(parameters.get(1), Priority.class);
+        return changePriority(bugId, priority);
     }
 
     private String changePriority(int bugId, Priority priority) {
-        Bug bug = taskManagementRepository.findElementById(taskManagementRepository.getBugs(),bugId);
-        bug.changeBugPriority(priority);
-        return String.format(CommandConstants.PRIORITY_CHANGED_SUCCESSFULLY,bug.getName());
+        Bug bug = taskManagementRepository.findElementById(taskManagementRepository.getBugs(), bugId);
+        bug.changePriority(priority);
+        return String.format(CommandConstants.PRIORITY_CHANGED_SUCCESSFULLY, bug.getName());
     }
     //Pavel
 }

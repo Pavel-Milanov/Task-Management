@@ -1,6 +1,7 @@
 package com.taskmanagement.models.tasks;
 
 import com.taskmanagement.constants.ModelConstants;
+import com.taskmanagement.exceptions.InvalidUserInputException;
 import com.taskmanagement.models.ActivityHistoryImpl;
 import com.taskmanagement.models.contracts.ActivityHistory;
 import com.taskmanagement.models.contracts.Comment;
@@ -16,7 +17,6 @@ import static com.taskmanagement.constants.OutputMessages.DESCRIPTION_ERR;
 import static com.taskmanagement.constants.OutputMessages.TITLE_ERR;
 
 public abstract class WorkingItemImpl implements WorkingItem {
-
     private final List<Comment> comments = new ArrayList<>();
     private final List<ActivityHistory> activeHistory = new ArrayList<>();
     private final int id;
@@ -28,9 +28,7 @@ public abstract class WorkingItemImpl implements WorkingItem {
         this.id = id;
         setName(name);
         setDescription(description);
-
-        activeHistory.add(new ActivityHistoryImpl(String.format(ModelConstants.CREATED_ITEM,name), LocalDateTime.now()));
-
+        activeHistory.add(new ActivityHistoryImpl(String.format(ModelConstants.CREATED_ITEM, name), LocalDateTime.now()));
     }
 
     @Override
@@ -63,38 +61,36 @@ public abstract class WorkingItemImpl implements WorkingItem {
         return new ArrayList<>(activeHistory);
     }
 
-
-    @Override
-    public void addCommend(Comment comment) {
-
-        comments.add(comment);
-
-        activeHistory.add(new ActivityHistoryImpl(String.format(ModelConstants.COMMENT_ADD_SUCCESSFULLY, comment.getContent()), LocalDateTime.now()));
-    }
-
-    @Override
-    public void removeComment(Comment comment) {
-
-        comments.remove(comment);
-
-        activeHistory.add(new ActivityHistoryImpl(String.format(ModelConstants.COMMENT_REMOVED_SUCCESSFULLY, comment.getContent()), LocalDateTime.now()));
-    }
-
-
-    public void addActivityHistory(ActivityHistory activityHistory){
-        this.activeHistory.add(activityHistory);
-    }
     @Override
     public List<Comment> getComments() {
         return new ArrayList<>(comments);
     }
 
-
-
     @Override
     public String getAsString() {
-        return null;
+        return "id=" + id +
+                ", name: '" + name + "'" +
+                ", description: '" + description + "'";
     }
 
+    @Override
+    public void addComment(Comment comment) {
+        comments.add(comment);
+        activeHistory.add(new ActivityHistoryImpl(String.format(ModelConstants.COMMENT_ADD_SUCCESSFULLY, comment.getContent()), LocalDateTime.now()));
+    }
+
+    @Override
+    public void removeComment(Comment comment) {
+        if (!comments.contains(comment)) {
+            throw new InvalidUserInputException(String.format(ModelConstants.COMMENT_NOT_EXIST, comment));
+        }
+        comments.remove(comment);
+        activeHistory.add(new ActivityHistoryImpl(String.format(ModelConstants.COMMENT_REMOVED_SUCCESSFULLY, comment.getContent()), LocalDateTime.now()));
+    }
+
+
+    protected void addActivityHistory(ActivityHistory activityHistory) {
+        this.activeHistory.add(activityHistory);
+    }
 
 }

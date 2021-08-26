@@ -24,7 +24,7 @@ public class ListingHelpers {
         for (String s : split) {
             result.append(s).append(System.lineSeparator());
         }
-        result.replace(11,12," ");
-        return String.join(System.lineSeparator(), result.substring(0,result.length()-3)).trim();
+        result.replace(11, 12, " ");
+        return String.join(System.lineSeparator(), result.substring(0, result.length() - 3)).trim();
     }
 }

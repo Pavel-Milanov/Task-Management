@@ -21,7 +21,7 @@ public class ListTasksWithAssigneeSortByTitleCommand implements Command {
 
     @Override
     public String executeCommand(List<String> parameters) {
-        ValidationHelpers.validateArgumentsCount(parameters,EXPECTED_NUMBER_OF_ARGUMENTS);
+        ValidationHelpers.validateArgumentsCount(parameters, EXPECTED_NUMBER_OF_ARGUMENTS);
         String assignee = parameters.get(1);
         return listTasks(assignee);
     }

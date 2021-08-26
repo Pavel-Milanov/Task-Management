@@ -1,7 +1,6 @@
 package com.taskmanagement.commands.creation;
 
 import com.taskmanagement.commands.contracts.Command;
-
 import com.taskmanagement.core.contacts.TaskManagementRepository;
 import com.taskmanagement.models.contracts.Task;
 import com.taskmanagement.utils.ParsingHelpers;
@@ -9,7 +8,8 @@ import com.taskmanagement.utils.ValidationHelpers;
 
 import java.util.List;
 
-import static com.taskmanagement.constants.CommandConstants.*;
+import static com.taskmanagement.constants.CommandConstants.ASSIGNEE_REMOVED;
+import static com.taskmanagement.constants.CommandConstants.INVALID_TASK_INDEX;
 
 public class UnAssignTaskFromMemberCommand implements Command {
     public static final int EXPECTED_NUMBER_OF_ARGUMENTS = 1;
@@ -23,7 +23,7 @@ public class UnAssignTaskFromMemberCommand implements Command {
     @Override
     public String executeCommand(List<String> parameters) {
         ValidationHelpers.validateArgumentsCount(parameters, EXPECTED_NUMBER_OF_ARGUMENTS);
-        int taskId = ParsingHelpers.tryParseInt(parameters.get(0),INVALID_TASK_INDEX);
+        int taskId = ParsingHelpers.tryParseInt(parameters.get(0), INVALID_TASK_INDEX);
         return unAssignee(taskId);
     }
 

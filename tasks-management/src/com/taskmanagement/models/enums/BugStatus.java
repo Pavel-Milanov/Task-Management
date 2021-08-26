@@ -9,7 +9,7 @@ public enum BugStatus {
     @Override
     public String toString() {
 
-        switch (this){
+        switch (this) {
             case ACTIVE:
                 return "Active";
             case FIXED:

@@ -21,13 +21,13 @@ public class ListStoryByAssigneeCommand implements Command {
 
     @Override
     public String executeCommand(List<String> parameters) {
-        ValidationHelpers.validateArgumentsCount(parameters,EXPECTED_NUMBER_OF_ARGUMENTS);
+        ValidationHelpers.validateArgumentsCount(parameters, EXPECTED_NUMBER_OF_ARGUMENTS);
         String assignee = parameters.get(0);
         return listBugs(assignee);
     }
 
     private String listBugs(String assignee) {
-        List<Story> storiesFilter ;
+        List<Story> storiesFilter;
         storiesFilter = taskManagementRepository.getStories().stream()
                 .filter(story -> story.getAssignee().equals(assignee)).collect(Collectors.toList());
         return ListingHelpers.elementsToString(storiesFilter);

@@ -2,13 +2,9 @@ package com.taskmanagement.models.contracts;
 
 import java.util.List;
 
-public interface Member extends Printable,Identifiable {
-
+public interface Member extends Printable, Identifiable {
 
     void addTeam(Team team);
-
-
-
 
     List<Team> getTeamList();
 

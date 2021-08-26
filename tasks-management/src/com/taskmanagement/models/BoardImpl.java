@@ -1,10 +1,14 @@
 package com.taskmanagement.models;
 
+import com.taskmanagement.constants.ModelConstants;
+import com.taskmanagement.exceptions.InvalidUserInputException;
 import com.taskmanagement.models.contracts.ActivityHistory;
 import com.taskmanagement.models.contracts.Board;
 import com.taskmanagement.models.contracts.WorkingItem;
+import com.taskmanagement.utils.ListingHelpers;
 import com.taskmanagement.utils.ValidationHelpers;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,11 +18,10 @@ import static com.taskmanagement.constants.OutputMessages.BOARD_NAME_ERR;
 
 public class BoardImpl implements Board {
 
-
-    private int id;
+    private final List<WorkingItem> workingItems;
+    private final List<ActivityHistory> activityHistories;
+    private final int id;
     private String name;
-    private List<WorkingItem> workingItems;
-    private List<ActivityHistory> activityHistories;
 
 
     public BoardImpl(int id, String name) {
@@ -26,47 +29,7 @@ public class BoardImpl implements Board {
         setName(name);
         this.workingItems = new ArrayList<>();
         this.activityHistories = new ArrayList<>();
-
-    }
-
-
-
-    private void setName(String name) {
-
-        ValidationHelpers.validateInRange(name.length(), BOARD_NAME_MIN_LENGTH, BOARD_NAME_MAX_LENGTH, BOARD_NAME_ERR);
-
-        this.name = name;
-    }
-
-
-    @Override
-    public void addTask(WorkingItem workingItem) {
-        getTasks().add(workingItem);
-
-    }
-
-    @Override
-    public void removeTask(WorkingItem workingItem) {
-        if (getTasks().size() > 0) {
-            getTasks().remove(workingItem);
-        } else {
-            throw new IllegalArgumentException("There is no tasks"); //TODO
-        }
-    }
-
-    @Override
-    public void addActivityHistory(ActivityHistory activityHistory) {
-        getActivityHistory().add(activityHistory);
-    }
-
-    @Override
-    public void removeActivityHistory(ActivityHistory activityHistory) {
-
-        if (getActivityHistory().size() > 0) {
-            getActivityHistory().remove(activityHistory);
-        } else {
-            throw new IllegalArgumentException("There is no activity history"); //TODO
-        }
+        activityHistories.add(new ActivityHistoryImpl(("Board with name " + name + " was created."), LocalDateTime.now()));
     }
 
     @Override
@@ -74,17 +37,20 @@ public class BoardImpl implements Board {
         return name;
     }
 
+    private void setName(String name) {
+        ValidationHelpers.validateInRange(name.length(), BOARD_NAME_MIN_LENGTH, BOARD_NAME_MAX_LENGTH, BOARD_NAME_ERR);
+        this.name = name;
+    }
+
     @Override
     public List<WorkingItem> getTasks() {
-        return workingItems;
+        return new ArrayList<>(workingItems);
     }
 
     @Override
     public List<ActivityHistory> getActivityHistory() {
-        return activityHistories;
+        return new ArrayList<>(activityHistories);
     }
-
-
 
     @Override
     public int getId() {
@@ -93,6 +59,24 @@ public class BoardImpl implements Board {
 
     @Override
     public String getAsString() {
-        return null;
+        return "BoardImpl  " +
+                "id=" + id +
+                ", name='" + name +
+                "\nTask Info :\n" + ListingHelpers.elementsToString(getTasks());
+    }
+
+    @Override
+    public void addTask(WorkingItem workingItem) {
+        workingItems.add(workingItem);
+        activityHistories.add(new ActivityHistoryImpl(("Working Item " + workingItem.getName() + " add to " + name + " Board "), LocalDateTime.now()));
+    }
+
+    @Override
+    public void removeTask(WorkingItem workingItem) {
+        if (!workingItems.contains(workingItem)) {
+            throw new InvalidUserInputException(String.format(ModelConstants.WORKING_ITEM_NOT_EXIST, workingItem.getName()));
+        }
+        activityHistories.add(new ActivityHistoryImpl(("Working Item " + workingItem.getName() + " removed from " + name + " Board "), LocalDateTime.now()));
+        workingItems.remove(workingItem);
     }
 }

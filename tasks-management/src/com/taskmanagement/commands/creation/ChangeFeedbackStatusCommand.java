@@ -21,16 +21,16 @@ public class ChangeFeedbackStatusCommand implements Command {
 
     @Override
     public String executeCommand(List<String> parameters) {
-        ValidationHelpers.validateArgumentsCount(parameters,EXPECTED_NUMBER_OF_ARGUMENTS);
+        ValidationHelpers.validateArgumentsCount(parameters, EXPECTED_NUMBER_OF_ARGUMENTS);
         int feedbackId = ParsingHelpers.tryParseInt(parameters.get(0), CommandConstants.INVALID_TASK_INDEX);
-        FeedBackStatus status = ParsingHelpers.tryParseEnum(parameters.get(1), FeedBackStatus.class );
-        return changeStatus(feedbackId,status);
+        FeedBackStatus status = ParsingHelpers.tryParseEnum(parameters.get(1), FeedBackStatus.class);
+        return changeStatus(feedbackId, status);
     }
 
     private String changeStatus(int feedbackId, FeedBackStatus status) {
-        FeedBack feedBack = taskManagementRepository.findElementById(taskManagementRepository.getFeedBacks(),feedbackId);
+        FeedBack feedBack = taskManagementRepository.findElementById(taskManagementRepository.getFeedBacks(), feedbackId);
         feedBack.changeFeedbackStatus(status);
-        return String.format(CommandConstants.STATUS_CHANGED_SUCCESSFULLY,feedBack.getName());
+        return String.format(CommandConstants.STATUS_CHANGED_SUCCESSFULLY, feedBack.getName());
     }
 
     //Pavel

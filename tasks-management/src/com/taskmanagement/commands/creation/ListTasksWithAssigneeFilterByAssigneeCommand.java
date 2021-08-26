@@ -24,7 +24,7 @@ public class ListTasksWithAssigneeFilterByAssigneeCommand implements Command {
     @Override
     public String executeCommand(List<String> parameters) {
 
-        ValidationHelpers.validateArgumentsCount(parameters,EXPECTED_NUMBER_OF_ARGUMENTS);
+        ValidationHelpers.validateArgumentsCount(parameters, EXPECTED_NUMBER_OF_ARGUMENTS);
 
         String nameAssignee = parameters.get(0);
 
@@ -33,8 +33,8 @@ public class ListTasksWithAssigneeFilterByAssigneeCommand implements Command {
 
     private String filterByAssignee(String nameAssignee) {
 
-        if (taskManagementRepository.assigneeIsExist(nameAssignee)){
-            throw new InvalidUserInputException(String.format(CommandConstants.ASSIGNEE_NOT_EXIST,nameAssignee));
+        if (taskManagementRepository.assigneeIsExist(nameAssignee)) {
+            throw new InvalidUserInputException(String.format(CommandConstants.ASSIGNEE_NOT_EXIST, nameAssignee));
         }
 
         List<Task> filteredByAssignee = taskManagementRepository.getTasks()

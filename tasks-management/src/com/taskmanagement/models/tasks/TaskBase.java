@@ -1,20 +1,14 @@
 package com.taskmanagement.models.tasks;
 
 
+import com.taskmanagement.constants.ModelConstants;
 import com.taskmanagement.models.ActivityHistoryImpl;
-import com.taskmanagement.models.contracts.Comment;
 import com.taskmanagement.models.contracts.Task;
 import com.taskmanagement.models.enums.Priority;
-import com.taskmanagement.models.enums.TaskType;
 
 import java.time.LocalDateTime;
 
-import static com.taskmanagement.constants.CommandConstants.ASSIGNEE_CHANGED;
-
 public abstract class TaskBase extends WorkingItemImpl implements Task {
-
-    private final Priority initialPriority = Priority.HIGH;
-    private final Priority finalPriority = Priority.LOW;
 
     private Priority priority;
     private String assignee;
@@ -31,8 +25,14 @@ public abstract class TaskBase extends WorkingItemImpl implements Task {
         return priority;
     }
 
-    protected void setPriority(Priority priority) {
+    private void setPriority(Priority priority) {
         this.priority = priority;
+    }
+
+    @Override
+    public void changePriority(Priority priority) {
+        addActivityHistory(new ActivityHistoryImpl(String.format(ModelConstants.PRIORITY_CHANGED, getPriority(), priority), LocalDateTime.now()));
+        setPriority(priority);
     }
 
     @Override
@@ -40,23 +40,13 @@ public abstract class TaskBase extends WorkingItemImpl implements Task {
         return assignee;
     }
 
-    public void setAssignee(String assignee) {
+    private void setAssignee(String assignee) {
         this.assignee = assignee;
     }
 
     @Override
     public void changeAssignee(String assignee) {
-        addActivityHistory(new ActivityHistoryImpl(String.format(ASSIGNEE_CHANGED, this.assignee, assignee), LocalDateTime.now()));
+        addActivityHistory(new ActivityHistoryImpl(String.format(ModelConstants.TASK_ASSIGNEE_CHANGED, this.assignee, assignee), LocalDateTime.now()));
         setAssignee(assignee);
     }
-
-
-
-    @Override
-    public void addComment(Comment comment) {
-
-    }
-
-    @Override
-    public abstract TaskType getType();
 }

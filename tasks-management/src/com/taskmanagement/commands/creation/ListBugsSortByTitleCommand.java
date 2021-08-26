@@ -32,7 +32,7 @@ public class ListBugsSortByTitleCommand implements Command {
     private String sortBugsByTitle() {
 
 
-        if (taskManagementRepository.getBugs().isEmpty()){
+        if (taskManagementRepository.getBugs().isEmpty()) {
             throw new InvalidUserInputException(CommandConstants.EMPTY_LIST_BUGS);
         }
         List<Bug> sortedBugsByTitle = taskManagementRepository.getBugs()

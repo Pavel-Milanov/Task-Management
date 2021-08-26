@@ -23,8 +23,8 @@ public class ListBugsSortBySeverityCommand implements Command {
 
     @Override
     public String executeCommand(List<String> parameters) {
-        ValidationHelpers.validateArgumentsCount(parameters,EXPECTED_NUMBER_OF_ARGUMENTS);
-        Severity severity = ParsingHelpers.tryParseEnum(parameters.get(0),Severity.class );
+        ValidationHelpers.validateArgumentsCount(parameters, EXPECTED_NUMBER_OF_ARGUMENTS);
+        Severity severity = ParsingHelpers.tryParseEnum(parameters.get(0), Severity.class);
         return listBugs(severity);
     }
 

@@ -21,12 +21,11 @@ public class ListFeedbacksSortByTitleCommand implements Command {
 
     @Override
     public String executeCommand(List<String> parameters) {
-        ValidationHelpers.validateArgumentsCount(parameters,EXPECTED_NUMBER_OF_ARGUMENTS);
+        ValidationHelpers.validateArgumentsCount(parameters, EXPECTED_NUMBER_OF_ARGUMENTS);
         List<FeedBack> feedBacks = taskManagementRepository.getFeedBacks();
         feedBacks.sort(Comparator.comparing(o -> o.getName().toUpperCase()));
         return ListingHelpers.elementsToString(feedBacks);
     }
-
 
 
 }

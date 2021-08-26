@@ -33,7 +33,7 @@ public class ListStoriesSortByTitleCommand implements Command {
 
     private String sortedStoryByTitle() {
 
-        if (taskManagementRepository.getStories().isEmpty()){
+        if (taskManagementRepository.getStories().isEmpty()) {
             throw new InvalidUserInputException(CommandConstants.EMPTY_LIST_STORIES);
         }
 

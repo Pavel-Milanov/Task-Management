@@ -9,7 +9,8 @@ import com.taskmanagement.utils.ValidationHelpers;
 
 import java.util.List;
 
-import static com.taskmanagement.constants.CommandConstants.*;
+import static com.taskmanagement.constants.CommandConstants.INVALID_TASK_INDEX;
+import static com.taskmanagement.constants.CommandConstants.LABEL_CHANGED_SUCCESSFULLY;
 
 public class ChangeBugSeverityCommand implements Command {
 
@@ -23,18 +24,18 @@ public class ChangeBugSeverityCommand implements Command {
 
     @Override
     public String executeCommand(List<String> parameters) {
-        ValidationHelpers.validateArgumentsCount(parameters,EXPECTED_NUMBER_OF_ARGUMENTS);
+        ValidationHelpers.validateArgumentsCount(parameters, EXPECTED_NUMBER_OF_ARGUMENTS);
 
         int bugId = ParsingHelpers.tryParseInt(parameters.get(0), INVALID_TASK_INDEX);
 
-        Severity severity = ParsingHelpers.tryParseEnum(parameters.get(0).toUpperCase(),Severity.class);
+        Severity severity = ParsingHelpers.tryParseEnum(parameters.get(0).toUpperCase(), Severity.class);
 
-        return changeSeverity(bugId,severity);
+        return changeSeverity(bugId, severity);
     }
 
     private String changeSeverity(int bugId, Severity severity) {
 
-        Bug bug = taskManagementRepository.findElementById(taskManagementRepository.getBugs(),bugId);
+        Bug bug = taskManagementRepository.findElementById(taskManagementRepository.getBugs(), bugId);
 
         bug.changeBugSeverity(severity);
 

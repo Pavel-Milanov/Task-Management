@@ -24,8 +24,7 @@ public class ListBugsSortByPriorityCommand implements Command {
 
     @Override
     public String executeCommand(List<String> parameters) {
-        ValidationHelpers.validateArgumentsCount(parameters,EXPECTED_NUMBER_OF_ARGUMENTS);
-
+        ValidationHelpers.validateArgumentsCount(parameters, EXPECTED_NUMBER_OF_ARGUMENTS);
 
 
         return listBugsSortByPriority();
@@ -33,7 +32,7 @@ public class ListBugsSortByPriorityCommand implements Command {
 
     private String listBugsSortByPriority() {
 
-        if (taskManagementRepository.getStories().isEmpty()){
+        if (taskManagementRepository.getStories().isEmpty()) {
             throw new InvalidUserInputException(CommandConstants.EMPTY_LIST_BUGS);
         }
 

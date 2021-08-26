@@ -86,27 +86,27 @@ public class CommandFactoryImpl implements CommandFactory {
             case LISTTASKSWITHASSIGNEEFILTERBYASSIGNEE:
                 return new ListTasksWithAssigneeFilterByAssigneeCommand(taskManagementRepository);
             case LISTTASKSWITHASSIGNEEFILTERBYBUGSTATUSANDASSIGNEE:
-              //  return new ListTasksWithAssigneeFilterByBugStatusAndAssigneeCommand(taskManagementRepository);
+                //  return new ListTasksWithAssigneeFilterByBugStatusAndAssigneeCommand(taskManagementRepository);
             case LISTTASKSSWITHASSIGNEEFILTERBYBUGSTATUS:
-               // return new ListTasksWithAssigneeFilterByBugStatusCommand(taskManagementRepository);
+                // return new ListTasksWithAssigneeFilterByBugStatusCommand(taskManagementRepository);
             case LISTTASKSWITHASSIGNEEFILTERBYSTORYSTATUSANDASSIGNEE:
-              //  return new ListTasksWithAssigneeFilterByStoryStatusAndAssigneeCommand(taskManagementRepository);
+                //  return new ListTasksWithAssigneeFilterByStoryStatusAndAssigneeCommand(taskManagementRepository);
             case LISTTASKSSWITHASSIGNEEFILTERBYSTORYSTATUS:
                 // return new ListTasksWithAssigneeFilterByStoryStatusCommand(taskManagementRepository);
             case LISTTASKSWITHASSIGNEESORTBYTITLE:
                 return new ListTasksWithAssigneeSortByTitleCommand(taskManagementRepository);
             case REMOVEASSIGNEE:
-              //  return new RemoveAssigneeCommand(taskManagementRepository);
+                //  return new RemoveAssigneeCommand(taskManagementRepository);
             case REMOVEBOARD:
                 return new RemoveBoardCommand(taskManagementRepository);
             case REMOVECOMMENTFROMTASK:
                 return new RemoveCommentFromTaskCommand(taskManagementRepository);
             case REMOVEMEMBER:
-               // return new RemoveMemberCommand(taskManagementRepository);
+                // return new RemoveMemberCommand(taskManagementRepository);
             case REMOVETASK:
                 return new RemoveTaskCommand(taskManagementRepository);
             case REMOVETEAM:
-              //  return new RemoveTeamCommand(taskManagementRepository);
+                //  return new RemoveTeamCommand(taskManagementRepository);
             case SHOWACTIVITYBOARD:
                 return new ShowActivityBoardCommand(taskManagementRepository);
             case SHOWACTIVITYMEMBER:

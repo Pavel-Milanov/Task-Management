@@ -44,7 +44,7 @@ public class RemoveTaskCommand_Test {
 
         Member member = taskManagementRepository.createMember("member1");
         Board board = taskManagementRepository.createBoard("titlee");
-        Bug bug = taskManagementRepository.createBug("bugtitleee","bugdescription", Priority.HIGH, Severity.CRITICAL, BugStatus.ACTIVE,"member1");
+        Bug bug = taskManagementRepository.createBug("bugtitleee", "bugdescription", Priority.HIGH, Severity.CRITICAL, BugStatus.ACTIVE, "member1");
         board.addTask(bug);
 
         Assertions.assertAll(

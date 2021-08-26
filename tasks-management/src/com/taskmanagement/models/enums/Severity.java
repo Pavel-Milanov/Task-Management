@@ -9,16 +9,16 @@ public enum Severity {
 
     @Override
     public String toString() {
-        switch (this){
+        switch (this) {
             case CRITICAL:
                 return "Critical";
             case MAJOR:
-                return  "Major";
+                return "Major";
             case MINOR:
                 return "Minor";
             default:
                 throw new UnsupportedOperationException("This severity does not exists");
         }
-       
+
     }
 }

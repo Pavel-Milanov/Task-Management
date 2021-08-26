@@ -25,7 +25,7 @@ public class AddStepsToBugCommand_Test {
     private Command commandBug;
 
     @BeforeEach
-    public void before(){
+    public void before() {
         this.taskManagementRepository = new TaskManagementRepositoryImpl();
         this.command = new AddStepsToBugCommand(taskManagementRepository);
         this.commandBug = new CreateNewBugCommand(taskManagementRepository);
@@ -46,10 +46,10 @@ public class AddStepsToBugCommand_Test {
         Member member = Factory.createMember();
         Team team = Factory.createTeam();
         Board board = Factory.createBoard();
-        taskManagementRepository.addMemberToTeam(member,team);
-        taskManagementRepository.addBoardToTeam(board,team);
-        commandBug.executeCommand(List.of("3","bugtitleee","bugdescription", "high","Critical","Active","zzzzzz"));
-                Assertions.assertDoesNotThrow(() -> command.executeCommand(List.of("4", "Step")));
+        taskManagementRepository.addMemberToTeam(member, team);
+        taskManagementRepository.addBoardToTeam(board, team);
+        commandBug.executeCommand(List.of("3", "bugtitleee", "bugdescription", "high", "Critical", "Active", "zzzzzz"));
+        Assertions.assertDoesNotThrow(() -> command.executeCommand(List.of("4", "Step")));
 
 
     }

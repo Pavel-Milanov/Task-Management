@@ -4,12 +4,12 @@ import com.taskmanagement.models.contracts.Comment;
 
 public class CommentImpl implements Comment {
 
-    private String author;
-    private String content;
+    private final String content;
+    private final String author;
 
-    public CommentImpl(String author, String content) {
-        this.author = author;
+    public CommentImpl(String content, String author) {
         this.content = content;
+        this.author = author;
     }
 
     @Override
@@ -24,6 +24,6 @@ public class CommentImpl implements Comment {
 
     @Override
     public String getAsString() {
-        return null;
+        return String.format("%s , author: %s", getContent(), getAuthor());
     }
 }

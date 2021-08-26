@@ -9,8 +9,9 @@ import com.taskmanagement.models.enums.FeedBackStatus;
 
 import java.util.List;
 
-import static com.taskmanagement.constants.CommandConstants.*;
-import static com.taskmanagement.utils.ParsingHelpers.*;
+import static com.taskmanagement.constants.CommandConstants.INVALID_RATING;
+import static com.taskmanagement.utils.ParsingHelpers.tryParseEnum;
+import static com.taskmanagement.utils.ParsingHelpers.tryParseInt;
 
 public class CreateNewFeedbackCommand implements Command {
     public static final int EXPECTED_NUMBER_OF_ARGUMENTS = 5;
@@ -21,6 +22,7 @@ public class CreateNewFeedbackCommand implements Command {
     public CreateNewFeedbackCommand(TaskManagementRepository taskManagementRepository) {
         this.taskManagementRepository = taskManagementRepository;
     }
+
     @Override
     public String executeCommand(List<String> parameters) {
 
@@ -28,14 +30,14 @@ public class CreateNewFeedbackCommand implements Command {
         String title = parameters.get(1);
         String description = parameters.get(2);
         int rating = tryParseInt(parameters.get(3), INVALID_RATING);
-        FeedBackStatus feedBackStatus = tryParseEnum(parameters.get(4).toUpperCase(),FeedBackStatus.class);
+        FeedBackStatus feedBackStatus = tryParseEnum(parameters.get(4).toUpperCase(), FeedBackStatus.class);
 
-        return createNewFeedBack (board,title,description,rating,feedBackStatus);
+        return createNewFeedBack(board, title, description, rating, feedBackStatus);
     }
 
     private String createNewFeedBack(Board board, String title, String description, int rating, FeedBackStatus feedBackStatus) {
 
-        FeedBack feedBack = taskManagementRepository.createFeedback(title,description,rating,feedBackStatus);
+        FeedBack feedBack = taskManagementRepository.createFeedback(title, description, rating, feedBackStatus);
 
         taskManagementRepository.getBoard(board).addTask(feedBack);
 

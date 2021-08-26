@@ -41,10 +41,10 @@ public class ListAllTasksFilterByTitleCommand_Test {
     @Test
     public void execute_should_registerUser_when_passedValidInput() {
         taskManagementRepository.createMember("aaaaa");
-        taskManagementRepository.createBug("bugtitleeeee","description", Priority.LOW, Severity.CRITICAL, BugStatus.ACTIVE,"aaaaa");
+        taskManagementRepository.createBug("bugtitleeeee", "description", Priority.LOW, Severity.CRITICAL, BugStatus.ACTIVE, "aaaaa");
 
         command.executeCommand(List.of("critical"));
-        Bug bug =taskManagementRepository.getBugs().get(0);
+        Bug bug = taskManagementRepository.getBugs().get(0);
         Assertions.assertDoesNotThrow(() -> command.executeCommand(List.of("critical")));
 
     }
@@ -52,11 +52,11 @@ public class ListAllTasksFilterByTitleCommand_Test {
     @Test
     public void execute_should_when_passedValidInput() {
         taskManagementRepository.createMember("aaaaa");
-        taskManagementRepository.createBug("bugtitleeeee","description", Priority.LOW, Severity.CRITICAL, BugStatus.ACTIVE,"aaaaa");
+        taskManagementRepository.createBug("bugtitleeeee", "description", Priority.LOW, Severity.CRITICAL, BugStatus.ACTIVE, "aaaaa");
 
         command.executeCommand(List.of("bugtitleeeee"));
         Bug bug = taskManagementRepository.getBugs().get(0);
         String output = command.executeCommand(List.of("critical"));
-        Assertions.assertEquals(output,"Bug      : id=2, title: 'bugtitleeeee', description: 'description', Status Active, Priority High, Severity Critical, Assignee aaaaa");
+        Assertions.assertEquals(output, "Bug      : id=2, title: 'bugtitleeeee', description: 'description', Status Active, Priority High, Severity Critical, Assignee aaaaa");
     }
 }

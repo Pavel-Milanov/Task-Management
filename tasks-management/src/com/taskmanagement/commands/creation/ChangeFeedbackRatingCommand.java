@@ -23,16 +23,16 @@ public class ChangeFeedbackRatingCommand implements Command {
 
     @Override
     public String executeCommand(List<String> parameters) {
-        ValidationHelpers.validateArgumentsCount(parameters,EXPECTED_NUMBER_OF_ARGUMENTS);
+        ValidationHelpers.validateArgumentsCount(parameters, EXPECTED_NUMBER_OF_ARGUMENTS);
 
         int feedBackId = ParsingHelpers.tryParseInt(parameters.get(0), INVALID_TASK_INDEX);
-        int newRating = ParsingHelpers.tryParseInt(parameters.get(1), INVALID_INPUT_MESSAGE );
-        return changeFeedbackRating(feedBackId,newRating);
+        int newRating = ParsingHelpers.tryParseInt(parameters.get(1), INVALID_INPUT_MESSAGE);
+        return changeFeedbackRating(feedBackId, newRating);
     }
 
-    private String changeFeedbackRating(int feedBackId,int newRating) {
+    private String changeFeedbackRating(int feedBackId, int newRating) {
 
-        FeedBack feedBack = taskManagementRepository.findElementById(taskManagementRepository.getFeedBacks(),feedBackId);
+        FeedBack feedBack = taskManagementRepository.findElementById(taskManagementRepository.getFeedBacks(), feedBackId);
 
         feedBack.changeFeedbackRating(newRating);
 

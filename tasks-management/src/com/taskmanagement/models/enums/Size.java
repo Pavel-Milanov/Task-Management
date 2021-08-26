@@ -9,7 +9,7 @@ public enum Size {
 
     @Override
     public String toString() {
-        switch (this){
+        switch (this) {
             case LARGE:
                 return "Large";
             case MEDIUM:

@@ -23,14 +23,14 @@ public class ListBugsFilterByStatusAndAssigneeCommand implements Command {
 
     @Override
     public String executeCommand(List<String> parameters) {
-        ValidationHelpers.validateArgumentsCount(parameters,EXPECTED_NUMBER_OF_ARGUMENTS);
-        BugStatus status = ParsingHelpers.tryParseEnum(parameters.get(0),BugStatus.class );
+        ValidationHelpers.validateArgumentsCount(parameters, EXPECTED_NUMBER_OF_ARGUMENTS);
+        BugStatus status = ParsingHelpers.tryParseEnum(parameters.get(0), BugStatus.class);
         String assignee = parameters.get(1);
-        return listBugs(status,assignee);
+        return listBugs(status, assignee);
     }
 
     private String listBugs(BugStatus status, String assignee) {
-        List<Bug> bugsFiltered ;
+        List<Bug> bugsFiltered;
         bugsFiltered = taskManagementRepository.getBugs().stream()
                 .filter(bug -> bug.getBugStatus().equals(status) && bug.getAssignee().equals(assignee)).collect(Collectors.toList());
         return ListingHelpers.elementsToString(bugsFiltered);

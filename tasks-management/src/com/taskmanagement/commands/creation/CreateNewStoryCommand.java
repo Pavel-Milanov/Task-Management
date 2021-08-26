@@ -26,27 +26,27 @@ public class CreateNewStoryCommand implements Command {
     @Override
     public String executeCommand(List<String> parameters) {
         try {
-            ValidationHelpers.validateArgumentsCount(parameters,EXPECTED_NUMBER_OF_ARGUMENTS);
-        }catch (IllegalArgumentException exception){
-            ValidationHelpers.validateArgumentsCount(parameters,(EXPECTED_NUMBER_OF_ARGUMENTS - 1));
+            ValidationHelpers.validateArgumentsCount(parameters, EXPECTED_NUMBER_OF_ARGUMENTS);
+        } catch (IllegalArgumentException exception) {
+            ValidationHelpers.validateArgumentsCount(parameters, (EXPECTED_NUMBER_OF_ARGUMENTS - 1));
         }
         Board board = taskManagementRepository.findBoard(parameters.get(0));
         String name = parameters.get(1);
         String description = parameters.get(2);
-        Priority priority = ParsingHelpers.tryParseEnum(parameters.get(3),Priority.class );
-        Size size = ParsingHelpers.tryParseEnum(parameters.get(4), Size.class );
+        Priority priority = ParsingHelpers.tryParseEnum(parameters.get(3), Priority.class);
+        Size size = ParsingHelpers.tryParseEnum(parameters.get(4), Size.class);
         StoryStatus status = ParsingHelpers.tryParseEnum(parameters.get(5), StoryStatus.class);
         String assignee = parameters.get(6);
         if (EXPECTED_NUMBER_OF_ARGUMENTS != 7) {
             assignee = "";
         }
         taskManagementRepository.validateAssigneeIsMemberOfTeam(board, assignee);
-        return createStory(board,name,description,priority,size,status,assignee);
+        return createStory(board, name, description, priority, size, status, assignee);
 
     }
 
     private String createStory(Board board, String name, String description, Priority priority, Size size, StoryStatus status, String assignee) {
-        Story story = taskManagementRepository.createStory(name,description,priority,size,status,assignee);
+        Story story = taskManagementRepository.createStory(name, description, priority, size, status, assignee);
         taskManagementRepository.getBoard(board).addTask(story);
         return String.format(CommandConstants.TASK_ADDED_SUCCESSFULLY, name);
     }

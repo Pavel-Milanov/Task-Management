@@ -21,7 +21,7 @@ public class ListAllTasksFilterByTitleCommand implements Command {
 
     @Override
     public String executeCommand(List<String> parameters) {
-        ValidationHelpers.validateArgumentsCount(parameters,EXPECTED_NUMBER_OF_ARGUMENTS);
+        ValidationHelpers.validateArgumentsCount(parameters, EXPECTED_NUMBER_OF_ARGUMENTS);
 
         String title = parameters.get(0);
         return listAllTaskFilterByTitle(title);
@@ -29,9 +29,9 @@ public class ListAllTasksFilterByTitleCommand implements Command {
 
     private String listAllTaskFilterByTitle(String title) {
 
-     //  if (taskManagementRepository.getWorkingItems().isEmpty()){
+        //  if (taskManagementRepository.getWorkingItems().isEmpty()){
 
-     //  }
+        //  }
         List<WorkingItem> filteredTasks = taskManagementRepository.getWorkingItems().stream()
                 .filter(task -> task.getName().equalsIgnoreCase(title)).collect(Collectors.toList());
 

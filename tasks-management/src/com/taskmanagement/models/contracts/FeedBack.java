@@ -8,7 +8,6 @@ public interface FeedBack extends WorkingItem {
 
     FeedBackStatus getFeedBackStatus();
 
-
     void changeFeedbackRating(int rating);
 
     void changeFeedbackStatus(FeedBackStatus feedBackStatus);

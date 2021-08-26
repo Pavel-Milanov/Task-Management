@@ -11,7 +11,7 @@ public enum FeedBackStatus {
 
     @Override
     public String toString() {
-        switch (this){
+        switch (this) {
             case NEW:
                 return "New";
             case UNSCHEDULED:
@@ -23,6 +23,6 @@ public enum FeedBackStatus {
             default:
                 throw new UnsupportedOperationException("This Feedback Status does not exists");
         }
-       
+
     }
 }

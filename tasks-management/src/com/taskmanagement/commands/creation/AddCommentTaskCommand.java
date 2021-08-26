@@ -1,7 +1,6 @@
 package com.taskmanagement.commands.creation;
 
 import com.taskmanagement.commands.contracts.Command;
-
 import com.taskmanagement.core.contacts.TaskManagementRepository;
 import com.taskmanagement.models.contracts.Comment;
 import com.taskmanagement.models.contracts.Member;
@@ -11,7 +10,8 @@ import com.taskmanagement.utils.ValidationHelpers;
 
 import java.util.List;
 
-import static com.taskmanagement.constants.CommandConstants.*;
+import static com.taskmanagement.constants.CommandConstants.COMMENT_ADDED_SUCCESSFULLY;
+import static com.taskmanagement.constants.CommandConstants.INVALID_INPUT_MESSAGE;
 
 public class AddCommentTaskCommand implements Command {
 

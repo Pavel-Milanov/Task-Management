@@ -6,7 +6,7 @@ import com.taskmanagement.utils.ValidationHelpers;
 
 import java.util.List;
 
-import static com.taskmanagement.constants.CommandConstants.*;
+import static com.taskmanagement.constants.CommandConstants.BOARD_CREATED;
 
 
 public class CreateNewBoardCommand implements Command {
@@ -22,12 +22,12 @@ public class CreateNewBoardCommand implements Command {
     @Override
     public String executeCommand(List<String> parameters) {
 
-        ValidationHelpers.validateArgumentsCount(parameters,EXPECTED_NUMBER_OF_ARGUMENTS);
+        ValidationHelpers.validateArgumentsCount(parameters, EXPECTED_NUMBER_OF_ARGUMENTS);
 
         String boardName = parameters.get(0);
 
         taskManagementRepository.createBoard(boardName);
 
-        return String.format(BOARD_CREATED,boardName);
+        return String.format(BOARD_CREATED, boardName);
     }
 }

@@ -9,7 +9,7 @@ public enum StoryStatus {
 
     @Override
     public String toString() {
-        switch (this){
+        switch (this) {
             case NOTDONE:
                 return "Not Done";
             case INPROGRESS:

@@ -21,15 +21,16 @@ public class ListFeedbacksSortByRatingCommand implements Command {
     public ListFeedbacksSortByRatingCommand(TaskManagementRepository taskManagementRepository) {
         this.taskManagementRepository = taskManagementRepository;
     }
+
     @Override
     public String executeCommand(List<String> parameters) {
-        ValidationHelpers.validateArgumentsCount(parameters,EXPECTED_NUMBER_OF_ARGUMENTS);
+        ValidationHelpers.validateArgumentsCount(parameters, EXPECTED_NUMBER_OF_ARGUMENTS);
         return sortFeedbackByRating();
     }
 
     private String sortFeedbackByRating() {
 
-        if (taskManagementRepository.getFeedBacks().isEmpty()){
+        if (taskManagementRepository.getFeedBacks().isEmpty()) {
             throw new InvalidUserInputException(CommandConstants.EMPTY_LIST_FEEDBACKS);
         }
 

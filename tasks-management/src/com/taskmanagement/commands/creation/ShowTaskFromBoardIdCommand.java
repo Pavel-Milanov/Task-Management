@@ -10,7 +10,7 @@ import com.taskmanagement.utils.ValidationHelpers;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.taskmanagement.constants.CommandConstants.*;
+import static com.taskmanagement.constants.CommandConstants.INVALID_BOARD_INDEX;
 import static com.taskmanagement.constants.ModelConstants.TASK_HEADER;
 
 
@@ -51,7 +51,7 @@ public class ShowTaskFromBoardIdCommand implements Command {
         }
 
         for (WorkingItem workingItem : workingItems) {
-            sb.append(String.format("%d: ",count++));
+            sb.append(String.format("%d: ", count++));
             sb.append(System.lineSeparator());
             sb.append(workingItem.getAsString());
         }

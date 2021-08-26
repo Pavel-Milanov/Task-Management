@@ -23,8 +23,8 @@ public class ListBugsFilterByStatusCommand implements Command {
 
     @Override
     public String executeCommand(List<String> parameters) {
-        ValidationHelpers.validateArgumentsCount(parameters,EXPECTED_NUMBER_OF_ARGUMENTS);
-        BugStatus status = ParsingHelpers.tryParseEnum(parameters.get(0),BugStatus.class );
+        ValidationHelpers.validateArgumentsCount(parameters, EXPECTED_NUMBER_OF_ARGUMENTS);
+        BugStatus status = ParsingHelpers.tryParseEnum(parameters.get(0), BugStatus.class);
         return listBugs(status);
     }
 

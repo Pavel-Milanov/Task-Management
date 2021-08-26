@@ -49,7 +49,7 @@ public interface TaskManagementRepository {
 
     Story createStory(String name, String description, Priority priority, Size size, StoryStatus status, String assignee);
 
-    FeedBack createFeedback(String name, String description, int rating,FeedBackStatus feedBackStatus);
+    FeedBack createFeedback(String name, String description, int rating, FeedBackStatus feedBackStatus);
 
     void removeComment(Comment comment, WorkingItem workingItem);
 
@@ -76,6 +76,7 @@ public interface TaskManagementRepository {
     void changeLabelPriorityBug(Bug bug, Priority priority);
 
     Board createBoard(String boardName);
+
     boolean boardExist(String boardName);
 
     Team createTeam(String teamName);

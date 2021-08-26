@@ -4,8 +4,6 @@ import com.taskmanagement.commands.contracts.Command;
 import com.taskmanagement.constants.CommandConstants;
 import com.taskmanagement.core.contacts.TaskManagementRepository;
 import com.taskmanagement.exceptions.InvalidUserInputException;
-import com.taskmanagement.models.contracts.Team;
-import com.taskmanagement.utils.ParsingHelpers;
 import com.taskmanagement.utils.ValidationHelpers;
 
 import java.util.List;
@@ -19,10 +17,11 @@ public class RemoveTeamCommand implements Command {
     public RemoveTeamCommand(TaskManagementRepository taskManagementRepository) {
         this.taskManagementRepository = taskManagementRepository;
     }
+
     @Override
     public String executeCommand(List<String> parameters) {
 
-        ValidationHelpers.validateArgumentsCount(parameters,EXPECTED_NUMBER_OF_ARGUMENTS);
+        ValidationHelpers.validateArgumentsCount(parameters, EXPECTED_NUMBER_OF_ARGUMENTS);
 
         String teamName = parameters.get(0);
 
@@ -32,13 +31,13 @@ public class RemoveTeamCommand implements Command {
 
     private String removeTeam(String teamName) {
 
-       if (!taskManagementRepository.teamExist(teamName)){
-           throw new InvalidUserInputException(String.format(CommandConstants.TEAM_NOT_EXISTS,teamName));
-       }
+        if (!taskManagementRepository.teamExist(teamName)) {
+            throw new InvalidUserInputException(String.format(CommandConstants.TEAM_NOT_EXISTS, teamName));
+        }
 
-      taskManagementRepository.removeTeam(teamName);
+        taskManagementRepository.removeTeam(teamName);
 
-       return String.format(CommandConstants.TEAM_REMOVED_SUCCESSFULLY,teamName);
+        return String.format(CommandConstants.TEAM_REMOVED_SUCCESSFULLY, teamName);
     }
     //Ralitsa
 }

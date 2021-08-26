@@ -21,16 +21,16 @@ public class ChangeStorySizeCommand implements Command {
 
     @Override
     public String executeCommand(List<String> parameters) {
-        ValidationHelpers.validateArgumentsCount(parameters,EXPECTED_NUMBER_OF_ARGUMENTS);
+        ValidationHelpers.validateArgumentsCount(parameters, EXPECTED_NUMBER_OF_ARGUMENTS);
         int storyId = ParsingHelpers.tryParseInt(parameters.get(0), CommandConstants.INVALID_TASK_INDEX);
-        Size size = ParsingHelpers.tryParseEnum(parameters.get(1), Size.class );
-        return changeStatus(storyId,size);
+        Size size = ParsingHelpers.tryParseEnum(parameters.get(1), Size.class);
+        return changeStatus(storyId, size);
     }
 
     private String changeStatus(int storyId, Size size) {
-        Story story = taskManagementRepository.findElementById(taskManagementRepository.getStories(),storyId);
+        Story story = taskManagementRepository.findElementById(taskManagementRepository.getStories(), storyId);
         story.changeSize(size);
-        return String.format(CommandConstants.SIZE_CHANGED_SUCCESSFULLY,story.getName());
+        return String.format(CommandConstants.SIZE_CHANGED_SUCCESSFULLY, story.getName());
     }
 
 

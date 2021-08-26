@@ -23,13 +23,13 @@ public class ListStoriesSortBySizeCommand implements Command {
 
     @Override
     public String executeCommand(List<String> parameters) {
-        ValidationHelpers.validateArgumentsCount(parameters,EXPECTED_NUMBER_OF_ARGUMENTS);
-        Size size = ParsingHelpers.tryParseEnum(parameters.get(0),Size.class );
+        ValidationHelpers.validateArgumentsCount(parameters, EXPECTED_NUMBER_OF_ARGUMENTS);
+        Size size = ParsingHelpers.tryParseEnum(parameters.get(0), Size.class);
         return listBugs(size);
     }
 
     private String listBugs(Size size) {
-        List<Story> storiesFilter ;
+        List<Story> storiesFilter;
         storiesFilter = taskManagementRepository.getStories().stream()
                 .filter(story -> story.getSize().equals(size)).collect(Collectors.toList());
         return ListingHelpers.elementsToString(storiesFilter);

@@ -20,7 +20,7 @@ public class ListAllTasksSortByTitle implements Command {
 
     @Override
     public String executeCommand(List<String> parameters) {
-        ValidationHelpers.validateArgumentsCount(parameters,EXPECTED_NUMBER_OF_ARGUMENTS);
+        ValidationHelpers.validateArgumentsCount(parameters, EXPECTED_NUMBER_OF_ARGUMENTS);
         List<WorkingItem> workingItems = taskManagementRepository.getWorkingItems();
         workingItems.sort(Comparator.comparing(o -> o.getName().toUpperCase()));
         return ListingHelpers.elementsToString(workingItems);

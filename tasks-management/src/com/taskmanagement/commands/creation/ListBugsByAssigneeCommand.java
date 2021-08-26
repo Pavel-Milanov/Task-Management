@@ -3,15 +3,11 @@ package com.taskmanagement.commands.creation;
 import com.taskmanagement.commands.contracts.Command;
 import com.taskmanagement.constants.CommandConstants;
 import com.taskmanagement.core.contacts.TaskManagementRepository;
-import com.taskmanagement.exceptions.ElementNotFoundException;
 import com.taskmanagement.exceptions.InvalidUserInputException;
 import com.taskmanagement.models.contracts.Bug;
-import com.taskmanagement.models.contracts.Task;
 import com.taskmanagement.utils.ListingHelpers;
-import com.taskmanagement.utils.ParsingHelpers;
 import com.taskmanagement.utils.ValidationHelpers;
 
-import java.util.InvalidPropertiesFormatException;
 import java.util.List;
 import java.util.stream.Collectors;
 

@@ -7,7 +7,8 @@ import com.taskmanagement.utils.ValidationHelpers;
 
 import java.util.List;
 
-import static com.taskmanagement.constants.ModelConstants.*;
+import static com.taskmanagement.constants.ModelConstants.BUG_STEPS_HEADER;
+import static com.taskmanagement.constants.ModelConstants.NO_BUG_STEPS_HEADER;
 
 
 public class ShowBugStepsCommand implements Command {
@@ -28,7 +29,6 @@ public class ShowBugStepsCommand implements Command {
         List<Bug> bugs = taskManagementRepository.getBugs();
 
 
-
         return showBugSteps(bugs);
     }
 
@@ -46,7 +46,7 @@ public class ShowBugStepsCommand implements Command {
             } else {
                 for (String s : bug.getStepsToReproduce()) {
                     sb.append(BUG_STEPS_HEADER);
-                    sb.append(String.format("%d",count++));
+                    sb.append(String.format("%d", count++));
                     sb.append(s);
                 }
             }

@@ -20,7 +20,7 @@ public class AddMemberToTeamCommand_Test {
     private Command command;
 
     @BeforeEach
-    public void before(){
+    public void before() {
         this.taskManagementRepository = new TaskManagementRepositoryImpl();
         this.command = new AddMemberToTeamCommand(taskManagementRepository);
     }

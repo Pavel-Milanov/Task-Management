@@ -21,15 +21,16 @@ public class ListStoriesSortByPriorityCommand implements Command {
     public ListStoriesSortByPriorityCommand(TaskManagementRepository taskManagementRepository) {
         this.taskManagementRepository = taskManagementRepository;
     }
+
     @Override
     public String executeCommand(List<String> parameters) {
-        ValidationHelpers.validateArgumentsCount(parameters,EXPECTED_NUMBER_OF_ARGUMENTS);
+        ValidationHelpers.validateArgumentsCount(parameters, EXPECTED_NUMBER_OF_ARGUMENTS);
         return sortedStoriesByPriority();
     }
 
     private String sortedStoriesByPriority() {
 
-        if (taskManagementRepository.getStories().isEmpty()){
+        if (taskManagementRepository.getStories().isEmpty()) {
             throw new InvalidUserInputException(CommandConstants.EMPTY_LIST_STORIES);
         }
 

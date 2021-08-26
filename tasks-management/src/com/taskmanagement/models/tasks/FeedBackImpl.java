@@ -1,10 +1,9 @@
 package com.taskmanagement.models.tasks;
 
+import com.taskmanagement.constants.ModelConstants;
 import com.taskmanagement.models.ActivityHistoryImpl;
-import com.taskmanagement.models.contracts.Comment;
 import com.taskmanagement.models.contracts.FeedBack;
 import com.taskmanagement.models.enums.FeedBackStatus;
-import com.taskmanagement.models.enums.TaskType;
 
 import java.time.LocalDateTime;
 
@@ -15,17 +14,8 @@ public class FeedBackImpl extends WorkingItemImpl implements FeedBack {
 
     public FeedBackImpl(int id, String title, String description, int rating, FeedBackStatus feedBackStatus) {
         super(id, title, description);
-        this.rating = rating;
-        this.feedBackStatus = feedBackStatus;
-    }
-
-
-    public void setRating(int rating) {
-        this.rating = rating;
-    }
-
-    public void setFeedBackStatus(FeedBackStatus feedBackStatus) {
-        this.feedBackStatus = feedBackStatus;
+        setRating(rating);
+        setFeedBackStatus(feedBackStatus);
     }
 
     @Override
@@ -33,33 +23,34 @@ public class FeedBackImpl extends WorkingItemImpl implements FeedBack {
         return rating;
     }
 
+    private void setRating(int rating) {
+        this.rating = rating;
+    }
+
     @Override
     public FeedBackStatus getFeedBackStatus() {
         return feedBackStatus;
     }
 
+    private void setFeedBackStatus(FeedBackStatus feedBackStatus) {
+        this.feedBackStatus = feedBackStatus;
+    }
+
     @Override
     public void changeFeedbackRating(int rating) {
-        getActivityHistory().add(new ActivityHistoryImpl(String.format("Feedback rating was changed from %s to %s", getRating(), rating), LocalDateTime.now()));
-
+        addActivityHistory(new ActivityHistoryImpl(String.format(ModelConstants.FEEDBACK_RATING_CHANGED, getRating(), rating), LocalDateTime.now()));
         setRating(rating);
     }
 
     @Override
     public void changeFeedbackStatus(FeedBackStatus feedBackStatus) {
-
-            getActivityHistory().add(new ActivityHistoryImpl(String.format("Feedback status was changed from %s to %s", getFeedBackStatus(), feedBackStatus), LocalDateTime.now()));
-            setFeedBackStatus(feedBackStatus);
-        }
-
-
-    @Override
-    public void addComment(Comment comment) {
-
+        addActivityHistory(new ActivityHistoryImpl(String.format(ModelConstants.FEEDBACK_STATUS_CHANGED, getFeedBackStatus(), feedBackStatus), LocalDateTime.now()));
+        setFeedBackStatus(feedBackStatus);
     }
 
     @Override
-    public TaskType getType() {
-        return TaskType.FEEDBACK;
+    public String getAsString() {
+        return "Feedback : " + super.getAsString() + " : " +
+                ", Status " + getFeedBackStatus() + ", Rating " + getRating();
     }
 }

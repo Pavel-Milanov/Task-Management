@@ -21,16 +21,16 @@ public class ChangeBugStatusCommand implements Command {
 
     @Override
     public String executeCommand(List<String> parameters) {
-        ValidationHelpers.validateArgumentsCount(parameters,EXPECTED_NUMBER_OF_ARGUMENTS);
+        ValidationHelpers.validateArgumentsCount(parameters, EXPECTED_NUMBER_OF_ARGUMENTS);
         int bugId = ParsingHelpers.tryParseInt(parameters.get(0), CommandConstants.INVALID_TASK_INDEX);
-        BugStatus status = ParsingHelpers.tryParseEnum(parameters.get(1),BugStatus.class );
-        return changeStatus(bugId,status);
+        BugStatus status = ParsingHelpers.tryParseEnum(parameters.get(1), BugStatus.class);
+        return changeStatus(bugId, status);
     }
 
     private String changeStatus(int bugId, BugStatus status) {
-        Bug bug = taskManagementRepository.findElementById(taskManagementRepository.getBugs(),bugId);
+        Bug bug = taskManagementRepository.findElementById(taskManagementRepository.getBugs(), bugId);
         bug.changeBugStatus(status);
-        return String.format(CommandConstants.STATUS_CHANGED_SUCCESSFULLY,bug.getName());
+        return String.format(CommandConstants.STATUS_CHANGED_SUCCESSFULLY, bug.getName());
     }
     //Pavel
 }

@@ -8,7 +8,8 @@ import com.taskmanagement.utils.ValidationHelpers;
 
 import java.util.List;
 
-import static com.taskmanagement.constants.CommandConstants.*;
+import static com.taskmanagement.constants.CommandConstants.INVALID_TASK_INDEX;
+import static com.taskmanagement.constants.CommandConstants.TASK_REMOVED_SUCCESSFULLY;
 
 
 public class RemoveTaskCommand implements Command {
@@ -24,7 +25,7 @@ public class RemoveTaskCommand implements Command {
     @Override
     public String executeCommand(List<String> parameters) {
 
-        ValidationHelpers.validateArgumentsCount(parameters,EXPECTED_NUMBER_OF_ARGUMENTS);
+        ValidationHelpers.validateArgumentsCount(parameters, EXPECTED_NUMBER_OF_ARGUMENTS);
 
         int taskIndex = ParsingHelpers.tryParseInt(parameters.get(0), INVALID_TASK_INDEX);
         return removeTask(taskIndex);

@@ -25,17 +25,17 @@ public class ChangeStoryPriorityCommand implements Command {
 
     @Override
     public String executeCommand(List<String> parameters) {
-        ValidationHelpers.validateArgumentsCount(parameters,EXPECTED_NUMBER_OF_ARGUMENTS);
+        ValidationHelpers.validateArgumentsCount(parameters, EXPECTED_NUMBER_OF_ARGUMENTS);
         int storyId = ParsingHelpers.tryParseInt(parameters.get(0), CommandConstants.INVALID_TASK_INDEX);
-        Priority priority = ParsingHelpers.tryParseEnum(parameters.get(1),Priority.class );
-        return changeStoryPriority(storyId,priority);
+        Priority priority = ParsingHelpers.tryParseEnum(parameters.get(1), Priority.class);
+        return changeStoryPriority(storyId, priority);
     }
 
     private String changeStoryPriority(int storyId, Priority priority) {
 
-        Story story = taskManagementRepository.findElementById(taskManagementRepository.getStories(),storyId);
+        Story story = taskManagementRepository.findElementById(taskManagementRepository.getStories(), storyId);
 
-        story.changeStoryPriority(priority);
+        story.changePriority(priority);
 
         return LABEL_CHANGED_SUCCESSFULLY;
     }

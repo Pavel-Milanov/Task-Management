@@ -23,14 +23,14 @@ public class ListStoriesFilterByStatusAndAssigneeCommand implements Command {
 
     @Override
     public String executeCommand(List<String> parameters) {
-        ValidationHelpers.validateArgumentsCount(parameters,EXPECTED_NUMBER_OF_ARGUMENTS);
-        StoryStatus status = ParsingHelpers.tryParseEnum(parameters.get(0),StoryStatus.class );
+        ValidationHelpers.validateArgumentsCount(parameters, EXPECTED_NUMBER_OF_ARGUMENTS);
+        StoryStatus status = ParsingHelpers.tryParseEnum(parameters.get(0), StoryStatus.class);
         String assignee = parameters.get(1);
-        return listBugs(status,assignee);
+        return listBugs(status, assignee);
     }
 
     private String listBugs(StoryStatus status, String assignee) {
-        List<Story> storiesFilter ;
+        List<Story> storiesFilter;
         storiesFilter = taskManagementRepository.getStories().stream()
                 .filter(story -> story.getStoryStatus().equals(status) && story.getAssignee().equals(assignee)).collect(Collectors.toList());
         return ListingHelpers.elementsToString(storiesFilter);

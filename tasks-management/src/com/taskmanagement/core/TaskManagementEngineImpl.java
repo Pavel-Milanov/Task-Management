@@ -28,23 +28,23 @@ public class TaskManagementEngineImpl implements TaskManagementEngine {
     public void start() {
         Scanner scanner = new Scanner(System.in);
 
-        while (true){
+        while (true) {
 
             try {
                 String inputLine = scanner.nextLine();
-                if (inputLine.isBlank()){
+                if (inputLine.isBlank()) {
                     print(EMPTY_COMMAND_ERROR);
                     continue;
                 }
 
-                if (inputLine.equalsIgnoreCase(TERMINATION_COMMAND)){
+                if (inputLine.equalsIgnoreCase(TERMINATION_COMMAND)) {
                     break;
                 }
                 processCommand(inputLine);
-            }catch (Exception ex){
-                if (ex.getMessage() != null && !ex.getMessage().isEmpty()){
+            } catch (Exception ex) {
+                if (ex.getMessage() != null && !ex.getMessage().isEmpty()) {
                     print(ex.getMessage());
-                }else {
+                } else {
                     print(ex.toString());
                 }
             }
@@ -55,14 +55,13 @@ public class TaskManagementEngineImpl implements TaskManagementEngine {
     private void processCommand(String inputLine) {
         String commandName = extractCommandName(inputLine);
         List<String> parameters = extractCommandParameters(inputLine);
-        Command command = commandFactory.createCommandFromCommandName(commandName,taskManagementRepository);
+        Command command = commandFactory.createCommandFromCommandName(commandName, taskManagementRepository);
         String executionResult = command.executeCommand(parameters);
         print(executionResult);
 
 
-
-
     }
+
     /**
      * Receives a full line and extracts the parameters that are needed for the command to execute.
      * For example, if the input line is "RegisterMember Mark",
@@ -72,7 +71,7 @@ public class TaskManagementEngineImpl implements TaskManagementEngine {
      * @return A list of the parameters needed to execute the command
      */
     private List<String> extractCommandParameters(String inputLine) {
-        String [] commandParts = inputLine.split("~");
+        String[] commandParts = inputLine.split("~");
 
         return new ArrayList<>(Arrays.asList(commandParts).subList(1, commandParts.length));
     }

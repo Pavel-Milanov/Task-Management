@@ -288,7 +288,7 @@ public class TaskManagementRepositoryImpl implements TaskManagementRepository {
             throw new InvalidUserInputException("The priority is the same as previous!");
         }
 
-        story.changeStoryPriority(priority);
+        story.changePriority(priority);
     }
 
     @Override
@@ -323,7 +323,7 @@ public class TaskManagementRepositoryImpl implements TaskManagementRepository {
         if (bug.getPriority() == priority) {
             throw new InvalidUserInputException("The priority is the same as previous!");
         }
-        bug.changeBugPriority(priority);
+        bug.changePriority(priority);
 
     }
 
@@ -346,7 +346,7 @@ public class TaskManagementRepositoryImpl implements TaskManagementRepository {
 
     @Override
     public Team createTeam(String teamName) {
-        Team team = new TeamImpl(teamName);
+        Team team = new TeamImpl(++nextId, teamName);
 
         teams.add(team);
         return team;
@@ -431,7 +431,7 @@ public class TaskManagementRepositoryImpl implements TaskManagementRepository {
     public List<Bug> getBugsFilteredByBugStatusAndAssignee(BugStatus bugStatus, String nameAssignee) {
         List<Bug> filteredBugs = new ArrayList<>();
         for (Bug bug : getBugs()) {
-            if (bug.getBugStatus().equals(bugStatus) || bug.getAssignee().equalsIgnoreCase(nameAssignee)){
+            if (bug.getBugStatus().equals(bugStatus) || bug.getAssignee().equalsIgnoreCase(nameAssignee)) {
                 filteredBugs.add(bug);
             }
         }

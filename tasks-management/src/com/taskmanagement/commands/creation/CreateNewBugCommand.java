@@ -27,29 +27,29 @@ public class CreateNewBugCommand implements Command {
     @Override
     public String executeCommand(List<String> parameters) {
         try {
-            ValidationHelpers.validateArgumentsCount(parameters,EXPECTED_NUMBER_OF_ARGUMENTS);
-        }catch (IllegalArgumentException exception){
-            ValidationHelpers.validateArgumentsCount(parameters,(EXPECTED_NUMBER_OF_ARGUMENTS - 1));
+            ValidationHelpers.validateArgumentsCount(parameters, EXPECTED_NUMBER_OF_ARGUMENTS);
+        } catch (IllegalArgumentException exception) {
+            ValidationHelpers.validateArgumentsCount(parameters, (EXPECTED_NUMBER_OF_ARGUMENTS - 1));
         }
         Board board = taskManagementRepository.findBoard(parameters.get(0));
         String name = parameters.get(1);
         String description = parameters.get(2);
-        Priority priority = ParsingHelpers.tryParseEnum(parameters.get(3),Priority.class );
-        Severity severity = ParsingHelpers.tryParseEnum(parameters.get(4), Severity.class );
+        Priority priority = ParsingHelpers.tryParseEnum(parameters.get(3), Priority.class);
+        Severity severity = ParsingHelpers.tryParseEnum(parameters.get(4), Severity.class);
         BugStatus status = ParsingHelpers.tryParseEnum(parameters.get(5), BugStatus.class);
         String assignee = "";
 
         if (parameters.size() == 7) {
-           assignee = parameters.get(6);
-           taskManagementRepository.validateAssigneeIsMemberOfTeam(board, assignee);
+            assignee = parameters.get(6);
+            taskManagementRepository.validateAssigneeIsMemberOfTeam(board, assignee);
         }
 
 
-        return createBug(board,name,description,priority,severity,status,assignee);
+        return createBug(board, name, description, priority, severity, status, assignee);
     }
 
     private String createBug(Board board, String name, String description, Priority priority, Severity severity, BugStatus status, String assignee) {
-        Bug bug = taskManagementRepository.createBug(name,description,priority,severity,status,assignee);
+        Bug bug = taskManagementRepository.createBug(name, description, priority, severity, status, assignee);
         taskManagementRepository.getBoard(board).addTask(bug);
         return String.format(CommandConstants.TASK_ADDED_SUCCESSFULLY, name);
     }

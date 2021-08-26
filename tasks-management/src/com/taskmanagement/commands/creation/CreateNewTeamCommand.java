@@ -7,7 +7,8 @@ import com.taskmanagement.utils.ValidationHelpers;
 
 import java.util.List;
 
-import static com.taskmanagement.constants.CommandConstants.*;
+import static com.taskmanagement.constants.CommandConstants.TEAM_ALREADY_EXISTS;
+import static com.taskmanagement.constants.CommandConstants.TEAM_CREATED;
 
 
 public class CreateNewTeamCommand implements Command {
@@ -23,7 +24,7 @@ public class CreateNewTeamCommand implements Command {
     @Override
     public String executeCommand(List<String> parameters) {
 
-        ValidationHelpers.validateArgumentsCount(parameters,EXPECTED_NUMBER_OF_ARGUMENTS);
+        ValidationHelpers.validateArgumentsCount(parameters, EXPECTED_NUMBER_OF_ARGUMENTS);
 
         String teamName = parameters.get(0);
 
@@ -33,13 +34,13 @@ public class CreateNewTeamCommand implements Command {
 
     private String createTeam(String teamName) {
 
-        if (taskManagementRepository.teamExist(teamName)){
-            throw new InvalidUserInputException(String.format(TEAM_ALREADY_EXISTS,teamName));
+        if (taskManagementRepository.teamExist(teamName)) {
+            throw new InvalidUserInputException(String.format(TEAM_ALREADY_EXISTS, teamName));
         }
 
         taskManagementRepository.createTeam(teamName);
 
-        return String.format(TEAM_CREATED,teamName);
+        return String.format(TEAM_CREATED, teamName);
     }
 }
 

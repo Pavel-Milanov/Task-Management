@@ -24,8 +24,8 @@ public class ListBugsFilterByAssigneeCommand implements Command {
     @Override
     public String executeCommand(List<String> parameters) {
 
-        ValidationHelpers.validateArgumentsCount(parameters,EXPECTED_NUMBER_OF_ARGUMENTS);
-         String nameAssignee = parameters.get(0);
+        ValidationHelpers.validateArgumentsCount(parameters, EXPECTED_NUMBER_OF_ARGUMENTS);
+        String nameAssignee = parameters.get(0);
 
 
         return listBugsFilterByAssignee(nameAssignee);
@@ -33,13 +33,13 @@ public class ListBugsFilterByAssigneeCommand implements Command {
 
     private String listBugsFilterByAssignee(String nameAssignee) {
 
-        if (taskManagementRepository.getBugs().isEmpty()){
+        if (taskManagementRepository.getBugs().isEmpty()) {
             throw new InvalidUserInputException(CommandConstants.EMPTY_LIST_BUGS);
         }
-     List<Bug> filteredBugs = taskManagementRepository.getBugs()
-             .stream().filter(bug -> bug.getAssignee().equalsIgnoreCase(nameAssignee)).collect(Collectors.toList());
+        List<Bug> filteredBugs = taskManagementRepository.getBugs()
+                .stream().filter(bug -> bug.getAssignee().equalsIgnoreCase(nameAssignee)).collect(Collectors.toList());
 
-     return ListingHelpers.elementsToString(filteredBugs);
+        return ListingHelpers.elementsToString(filteredBugs);
     }
 
     //Ralitsa
