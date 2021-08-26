@@ -4,7 +4,6 @@ import com.taskmanagеment.commands.contracts.Command;
 import com.taskmanagеment.commands.creation.AddMemberToTeamCommand;
 import com.taskmanagеment.core.TaskManagementRepositoryImpl;
 import com.taskmanagеment.core.contacts.TaskManagementRepository;
-import com.taskmanagеment.exceptions.InvalidUserInputException;
 import com.taskmanagеment.models.contracts.Team;
 import com.taskmanagеment.utils.TestUtilities;
 import org.junit.jupiter.api.Assertions;

@@ -1,22 +1,5 @@
 package com.taskmanagеment.commands;
 
-import com.taskmanagеment.commands.contracts.Command;
-import com.taskmanagеment.commands.creation.ListTasksWithAssigneeFilterByAssigneeCommand;
-import com.taskmanagеment.commands.creation.ListTasksWithAssigneeFilterByStatusCommand;
-import com.taskmanagеment.core.TaskManagementRepositoryImpl;
-import com.taskmanagеment.core.contacts.TaskManagementRepository;
-import com.taskmanagеment.exceptions.InvalidUserInputException;
-import com.taskmanagеment.models.contracts.Bug;
-import com.taskmanagеment.models.enums.*;
-import com.taskmanagеment.utils.TestUtilities;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
-
-import java.util.List;
-
 public class ListTasksWithAssigneeFilterByStatusCommand_Test {
 //    private TaskManagementRepository taskManagementRepository;
 //    private Command command;
