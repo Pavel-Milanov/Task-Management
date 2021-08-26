@@ -1,45 +1,62 @@
 package com.taskmanagement.commands;
 
+import com.taskmanagement.commands.contracts.Command;
+import com.taskmanagement.commands.creation.CreateNewBugCommand;
+import com.taskmanagement.commands.creation.ListTasksWithAssigneeFilterByAssigneeCommand;
+import com.taskmanagement.core.TaskManagementRepositoryImpl;
+import com.taskmanagement.core.contacts.TaskManagementRepository;
+import com.taskmanagement.models.contracts.Board;
+import com.taskmanagement.models.contracts.Bug;
+import com.taskmanagement.models.contracts.Member;
+import com.taskmanagement.models.contracts.Team;
+import com.taskmanagement.models.enums.*;
+import com.taskmanagement.models.tasks.BugImpl;
+import com.taskmanagement.utils.TestUtilities;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
+
+import java.awt.*;
+import java.util.List;
+
 public class ListTasksWithAssigneeFilterByAssigneeCommand_Test {
-//    private TaskManagementRepository taskManagementRepository;
-//    private Command command;
-//
-//    @BeforeEach
-//    public void before() {
-//        this.taskManagementRepository = new TaskManagementRepositoryImpl();
-//        this.command = new ListTasksWithAssigneeFilterByAssigneeCommand(taskManagementRepository);
-//    }
-//
-//    @ParameterizedTest(name = "with arguments count: {0}")
-//    @ValueSource(ints = {ListTasksWithAssigneeFilterByAssigneeCommand.EXPECTED_NUMBER_OF_ARGUMENTS + 1, ListTasksWithAssigneeFilterByAssigneeCommand.EXPECTED_NUMBER_OF_ARGUMENTS - 1})
-//    public void execute_should_throwException_when_argumentsCountDifferentThanExpected(int argumentsCount) {
-//        // Arrange
-//        List<String> arguments = TestUtilities.initializeListWithSize(argumentsCount);
-//
-//        // Act, Assert
-//        Assertions.assertThrows(IllegalArgumentException.class, () -> command.executeCommand(arguments));
-//    }
-//
-//
-//    @Test
-//    public void execute_should_registerUser_when_passedValidInput() {
-//        taskManagementRepository.createMember("aaaaa");
-//        taskManagementRepository.createStory("bugtitleeeee","description", Priority.HIGH, Size.LARGE, StoryStatus.NOTDONE,"aaaaa");
-//
-//        command.executeCommand(List.of("aaaaa"));
-//        Bug bug =taskManagementRepository.getBugs().get(0);
-//        Assertions.assertDoesNotThrow(() -> command.executeCommand(List.of("aaaaa")));
-//
-//    }
-//
-//    @Test
-//    public void execute_should_when_passedValidInput() {
-//        taskManagementRepository.createMember("aaaaa");
-//        taskManagementRepository.createBug("bugtitleeeee","description", Priority.LOW, Severity.CRITICAL, BugStatus.ACTIVE,"aaaaa");
-//
-//        command.executeCommand(List.of("aaaaa"));
-//        Bug bug = taskManagementRepository.getBugs().get(0);
-//        String output = command.executeCommand(List.of("aaaaa"));
-//        Assertions.assertEquals(output,"Bug      : id=2, title: 'bugtitleeeee', description: 'description', Status Active, Priority High, Severity Critical, Assignee aaaaa");
-//    }
+    private TaskManagementRepository taskManagementRepository;
+    private Command command;
+    private Command command1;
+
+    @BeforeEach
+    public void before() {
+        this.taskManagementRepository = new TaskManagementRepositoryImpl();
+        this.command = new ListTasksWithAssigneeFilterByAssigneeCommand(taskManagementRepository);
+        this.command1 = new CreateNewBugCommand(taskManagementRepository);
+    }
+
+    @ParameterizedTest(name = "with arguments count: {0}")
+    @ValueSource(ints = {ListTasksWithAssigneeFilterByAssigneeCommand.EXPECTED_NUMBER_OF_ARGUMENTS + 1, ListTasksWithAssigneeFilterByAssigneeCommand.EXPECTED_NUMBER_OF_ARGUMENTS - 1})
+    public void execute_should_throwException_when_argumentsCountDifferentThanExpected(int argumentsCount) {
+        // Arrange
+        List<String> arguments = TestUtilities.initializeListWithSize(argumentsCount);
+
+        // Act, Assert
+        Assertions.assertThrows(IllegalArgumentException.class, () -> command.executeCommand(arguments));
+    }
+
+
+    @Test
+    public void execute_should_when_passedValidInput() {
+        Member member = taskManagementRepository.createMember("aaaaa");
+        Team team = taskManagementRepository.createTeam("team1");
+        Board board = taskManagementRepository.createBoard("board1");
+        taskManagementRepository.addMemberToTeam(member,team);
+        taskManagementRepository.addBoardToTeam(board,team);
+        //taskManagementRepository.createBug("bugtitleeeee","description", Priority.LOW, Severity.CRITICAL, BugStatus.ACTIVE,"aaaaa");
+
+        command1.executeCommand(List.of("board1","bugtitleeeee", "descriptionon", "low","Critical","active","aaaaa"));
+        command.executeCommand(List.of("aaaaa"));
+        Bug bug = taskManagementRepository.getBugs().get(0);
+        String output = command.executeCommand(List.of("aaaaa"));
+        Assertions.assertEquals("Bug      : id=4, name: 'bugtitleeeee', description: 'descriptionon', Bug Status Active, Severity Critical, Priority: Low, Assignee: aaaaa",output);
+    }
 }

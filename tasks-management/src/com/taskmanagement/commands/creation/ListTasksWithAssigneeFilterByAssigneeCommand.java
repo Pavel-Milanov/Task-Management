@@ -33,7 +33,7 @@ public class ListTasksWithAssigneeFilterByAssigneeCommand implements Command {
 
     private String filterByAssignee(String nameAssignee) {
 
-        if (taskManagementRepository.assigneeIsExist(nameAssignee)) {
+        if (!taskManagementRepository.assigneeIsExist(nameAssignee)) {
             throw new InvalidUserInputException(String.format(CommandConstants.ASSIGNEE_NOT_EXIST, nameAssignee));
         }
 

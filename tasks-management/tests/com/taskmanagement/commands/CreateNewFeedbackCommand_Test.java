@@ -4,9 +4,10 @@ import com.taskmanagement.commands.contracts.Command;
 import com.taskmanagement.commands.creation.CreateNewFeedbackCommand;
 import com.taskmanagement.core.TaskManagementRepositoryImpl;
 import com.taskmanagement.core.contacts.TaskManagementRepository;
-import com.taskmanagement.models.contracts.Board;
-import com.taskmanagement.models.contracts.Member;
-import com.taskmanagement.models.contracts.Team;
+import com.taskmanagement.exceptions.ElementNotFoundException;
+import com.taskmanagement.models.contracts.*;
+import com.taskmanagement.models.enums.FeedBackStatus;
+import com.taskmanagement.models.tasks.FeedBackImpl;
 import com.taskmanagement.utils.TestUtilities;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -33,21 +34,18 @@ public class CreateNewFeedbackCommand_Test {
         List<String> arguments = TestUtilities.initializeListWithSize(argumentsCount);
 
         // Act, Assert
-        Assertions.assertThrows(IllegalArgumentException.class, () -> command.executeCommand(arguments));
+        Assertions.assertThrows(ElementNotFoundException.class, () -> command.executeCommand(arguments));
     }
+
+
 
     @Test
     public void execute_should_addTaskToBoard_when_passedValidInput() {
-        Member member = taskManagementRepository.createMember("user1");
-        Team team = taskManagementRepository.createTeam("team1");
-        Board board = taskManagementRepository.createBoard("title1");
-        taskManagementRepository.addBoardToTeam(board, team);
-        taskManagementRepository.addMemberToTeam(member, team);
+        FeedBack feedBack = new FeedBackImpl(1,"feedbacktitile","feedbackdescription",10, FeedBackStatus.NEW);
+        taskManagementRepository.createBoard("board1");
+        command.executeCommand(List.of("board1","feedbacktitile","feedbackdescription","10", "NEW"));
 
-        Assertions.assertAll(
-                Assertions.assertDoesNotThrow(() -> command.executeCommand(List.of("title1", "story", "storytitleeeeeeeeeee", "aaaaaaaaaaaaaa", "user1"))),
-                () -> Assertions.assertFalse(taskManagementRepository.getBoards().isEmpty()),
-                () -> Assertions.assertFalse(taskManagementRepository.getBoard(board).getTasks().isEmpty())
-        );
+
+        Assertions.assertEquals(taskManagementRepository.getFeedBacks().get(0).getName(),feedBack.getName());
     }
 }

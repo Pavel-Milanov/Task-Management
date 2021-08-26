@@ -40,15 +40,9 @@ public class RemoveBoardCommand_Test {
     @Test
     public void execute_should_removeBoard_when_passedValidInput() {
         Board board = taskManagementRepository.createBoard("board1");
-        Team team = taskManagementRepository.createTeam("team1");
-        taskManagementRepository.addBoardToTeam(board, team);
 
-
-        Assertions.assertAll(
-                Assertions.assertDoesNotThrow(() -> command.executeCommand(List.of("board1", "team1"))),
-                () -> Assertions.assertFalse(taskManagementRepository.getBoards().isEmpty())
-
-        );
+        command.executeCommand(List.of("board1"));
+       Assertions.assertEquals(0,taskManagementRepository.getBoards().size());
 
     }
 }

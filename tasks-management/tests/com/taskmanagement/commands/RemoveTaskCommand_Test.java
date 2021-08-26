@@ -8,6 +8,7 @@ import com.taskmanagement.models.contracts.Board;
 import com.taskmanagement.models.contracts.Bug;
 import com.taskmanagement.models.contracts.Member;
 import com.taskmanagement.models.enums.BugStatus;
+import com.taskmanagement.models.enums.FeedBackStatus;
 import com.taskmanagement.models.enums.Priority;
 import com.taskmanagement.models.enums.Severity;
 import com.taskmanagement.utils.TestUtilities;
@@ -41,16 +42,10 @@ public class RemoveTaskCommand_Test {
 
     @Test
     public void execute_should_removeTask_when_passedValidInput() {
+        taskManagementRepository.createFeedback("bugtitleee", "bugdescription", 10, FeedBackStatus.NEW);
 
-        Member member = taskManagementRepository.createMember("member1");
-        Board board = taskManagementRepository.createBoard("titlee");
-        Bug bug = taskManagementRepository.createBug("bugtitleee", "bugdescription", Priority.HIGH, Severity.CRITICAL, BugStatus.ACTIVE, "member1");
-        board.addTask(bug);
+        command.executeCommand(List.of("1"));
 
-        Assertions.assertAll(
-                Assertions.assertDoesNotThrow(() -> command.executeCommand(List.of("2", "3", "user1"))),
-                () -> Assertions.assertTrue(taskManagementRepository.getBoard(board).getTasks().isEmpty())
-        );
-
+        Assertions.assertEquals(0,taskManagementRepository.getFeedBacks().size());
     }
 }

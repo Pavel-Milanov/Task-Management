@@ -36,7 +36,7 @@ public class ShowBugStepsCommand_Test {
     }
 
     @ParameterizedTest(name = "with arguments count: {0}")
-    @ValueSource(ints = {ShowBugStepsCommand.EXPECTED_NUMBER_OF_ARGUMENTS + 1, ShowBugStepsCommand.EXPECTED_NUMBER_OF_ARGUMENTS - 1})
+    @ValueSource(ints = {ShowBugStepsCommand.EXPECTED_NUMBER_OF_ARGUMENTS + 1})
     public void execute_should_throwException_when_argumentsCountDifferentThanExpected(int argumentsCount) {
         // Arrange
         List<String> arguments = TestUtilities.initializeListWithSize(argumentsCount);
@@ -59,9 +59,9 @@ public class ShowBugStepsCommand_Test {
         taskManagementRepository.createMember("aaaaa");
         taskManagementRepository.createBug("bugtitleeeee", "description", Priority.LOW, Severity.CRITICAL, BugStatus.ACTIVE, "aaaaa");
 
-        command.executeCommand(List.of("1"));
+        command.executeCommand(List.of());
         Bug bug = taskManagementRepository.getBugs().get(0);
-        Assertions.assertDoesNotThrow(() -> command.executeCommand(List.of("1")));
+        Assertions.assertDoesNotThrow(() -> command.executeCommand(List.of()));
 
     }
 
@@ -69,7 +69,7 @@ public class ShowBugStepsCommand_Test {
     public void execute_should_when_passedValidInput() {
         taskManagementRepository.createMember("aaaaa");
         taskManagementRepository.createBug("bugtitleeeee", "description", Priority.LOW, Severity.CRITICAL, BugStatus.ACTIVE, "aaaaa");
-        command1.executeCommand(List.of("1. First step; 2 Second step"));
+        command1.executeCommand(List.of("2","aaaaa","1. First step; 2 Second step"));
         command.executeCommand(List.of("1"));
 
         Bug bug = (Bug) taskManagementRepository.getTasks().get(0);
