@@ -358,10 +358,12 @@ public class TaskManagementRepositoryImpl implements TaskManagementRepository {
 
         boards.removeIf(board -> board.getName().equals(boardName));
     }
-
+    // 3 commands
     @Override
     public void removeTask(WorkingItem workingItem) {
-        getWorkingItems().removeIf(task1 -> workingItem.getName().equalsIgnoreCase(workingItem.getName()));
+
+//        bugs.stream().filter(bug -> bug.getId() == id).findFirst()
+//                .orElse(stories.stream().filter(story -> story.getId() == id))
 
     }
 
@@ -388,7 +390,7 @@ public class TaskManagementRepositoryImpl implements TaskManagementRepository {
 
         return new ArrayList<>(tasks);
     }
-
+    //TODO
     @Override
     public boolean validateAssigneeIsMemberOfTeam(Board board, String assignee) {
         Team team = getTeams().stream()
@@ -400,7 +402,7 @@ public class TaskManagementRepositoryImpl implements TaskManagementRepository {
         }
         return true;
     }
-
+   // test
     @Override
     public Team getTeam(String teamName) {
         return getTeams().stream()
@@ -410,16 +412,16 @@ public class TaskManagementRepositoryImpl implements TaskManagementRepository {
     }
 
     @Override
-    public boolean titleExist(String title) {
+    public boolean doesBugExist(String title) {
 
         return getBugs().stream().anyMatch(bug -> bug.getName().equalsIgnoreCase(title));
     }
 
     @Override
-    public boolean assigneeIsExist(String nameAssignee) {
+    public boolean assigneeExist(String nameAssignee) {
 
 
-        return getTasks().stream().anyMatch(task -> task.getAssignee().equalsIgnoreCase(nameAssignee));
+        return getTasks().stream().noneMatch(task -> task.getAssignee().equalsIgnoreCase(nameAssignee));
     }
 
     @Override
@@ -441,9 +443,9 @@ public class TaskManagementRepositoryImpl implements TaskManagementRepository {
     @Override
     public List<Story> getStoriesFilteredByStoryStatus(StoryStatus storyStatus) {
 
-        List<Story> filteredStories = getStories().stream()
+       return getStories().stream()
                 .filter(story -> story.getStoryStatus().equals(storyStatus)).collect(Collectors.toList());
-        return filteredStories;
+       
     }
 }
 

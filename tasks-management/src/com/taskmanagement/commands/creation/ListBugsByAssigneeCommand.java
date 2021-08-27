@@ -33,7 +33,7 @@ public class ListBugsByAssigneeCommand implements Command {
 
     private String listBugsByAssignee(String nameAssignee) {
 
-        if (!taskManagementRepository.assigneeIsExist(nameAssignee)) {
+        if (taskManagementRepository.assigneeExist(nameAssignee)) {
             throw new InvalidUserInputException(String.format(CommandConstants.ASSIGNEE_NOT_EXIST, nameAssignee));
         }
         if (taskManagementRepository.getBugs().isEmpty()) {

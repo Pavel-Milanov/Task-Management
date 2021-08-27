@@ -35,6 +35,7 @@ public class ListTasksWithAssigneeFilterByStoryStatusCommand implements Command 
 
         Task task = taskManagementRepository.findElementById(taskManagementRepository.getTasks(), tasId);
 
+        //TODO
         List<Story> filteredStoryTasks = taskManagementRepository.getStoriesFilteredByStoryStatus(storyStatus);
 
         return ListingHelpers.elementsToString(filteredStoryTasks);

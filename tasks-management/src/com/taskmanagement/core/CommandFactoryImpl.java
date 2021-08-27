@@ -99,14 +99,18 @@ public class CommandFactoryImpl implements CommandFactory {
                 //  return new RemoveAssigneeCommand(taskManagementRepository);
             case REMOVEBOARD:
                 return new RemoveBoardCommand(taskManagementRepository);
+            case REMOVEBUG:
+//                return new RemoveBugCommand(taskManagementRepository);
             case REMOVECOMMENTFROMTASK:
                 return new RemoveCommentFromTaskCommand(taskManagementRepository);
+            case REMOVEFEEDBACK:
+//                return new RemoveFeedbackCommand(taskManagementRepository);
             case REMOVEMEMBER:
-                // return new RemoveMemberCommand(taskManagementRepository);
-            case REMOVETASK:
-                return new RemoveTaskCommand(taskManagementRepository);
+//                 return new RemoveMemberCommand(taskManagementRepository);
+            case REMOVESTORY:
+//                return new RemoveStoryCommand(taskManagementRepository);
             case REMOVETEAM:
-                //  return new RemoveTeamCommand(taskManagementRepository);
+                  return new RemoveTeamCommand(taskManagementRepository);
             case SHOWACTIVITYBOARD:
                 return new ShowActivityBoardCommand(taskManagementRepository);
             case SHOWACTIVITYMEMBER:

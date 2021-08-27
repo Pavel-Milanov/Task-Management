@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MemberImpl implements Member {
-
+    //remove teamList
     private final List<ActivityHistory> activityHistories;
     private final List<Team> teamList;
     private final int id;

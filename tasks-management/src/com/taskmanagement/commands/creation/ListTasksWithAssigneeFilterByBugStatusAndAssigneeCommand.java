@@ -40,6 +40,8 @@ public class ListTasksWithAssigneeFilterByBugStatusAndAssigneeCommand implements
 
         Task task = taskManagementRepository.findElementById(taskManagementRepository.getTasks(), taskId);
 
+
+        // TODO
         List<Bug> filteredTasks = taskManagementRepository.getBugsFilteredByBugStatusAndAssignee(bugStatus, nameAssignee);
 
         return ListingHelpers.elementsToString(filteredTasks);
