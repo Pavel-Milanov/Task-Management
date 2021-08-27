@@ -445,7 +445,7 @@ public class TaskManagementRepositoryImpl implements TaskManagementRepository {
 
        return getStories().stream()
                 .filter(story -> story.getStoryStatus().equals(storyStatus)).collect(Collectors.toList());
-       
+
     }
 }
 
