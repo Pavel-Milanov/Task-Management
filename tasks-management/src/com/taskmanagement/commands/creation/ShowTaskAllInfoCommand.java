@@ -1,6 +1,7 @@
 package com.taskmanagement.commands.creation;
 
 import com.taskmanagement.commands.contracts.Command;
+import com.taskmanagement.core.TaskManagementHelperRepositoryImpl;
 import com.taskmanagement.core.contacts.TaskManagementRepository;
 import com.taskmanagement.models.contracts.WorkingItem;
 import com.taskmanagement.utils.ListingHelpers;
@@ -14,10 +15,10 @@ import static com.taskmanagement.constants.CommandConstants.INVALID_TASK_INDEX;
 public class ShowTaskAllInfoCommand implements Command {
     public static final int EXPECTED_NUMBER_OF_ARGUMENTS = 1;
 
-    private final TaskManagementRepository taskManagementRepository;
+    private final TaskManagementHelperRepositoryImpl helperRepository;
 
     public ShowTaskAllInfoCommand(TaskManagementRepository taskManagementRepository) {
-        this.taskManagementRepository = taskManagementRepository;
+        this.helperRepository = new TaskManagementHelperRepositoryImpl(taskManagementRepository);
     }
 
     @Override
@@ -28,7 +29,7 @@ public class ShowTaskAllInfoCommand implements Command {
     }
 
     private String showTaskAllInfo(int id) {
-        WorkingItem workingItem = taskManagementRepository.findElementById(taskManagementRepository.getWorkingItems(), id);
+        WorkingItem workingItem = helperRepository.findElementById(helperRepository.getWorkingItems(), id);
 
         StringBuilder output = new StringBuilder();
 

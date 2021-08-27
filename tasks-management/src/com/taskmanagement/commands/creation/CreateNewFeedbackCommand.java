@@ -2,6 +2,7 @@ package com.taskmanagement.commands.creation;
 
 import com.taskmanagement.commands.contracts.Command;
 import com.taskmanagement.constants.CommandConstants;
+import com.taskmanagement.core.TaskManagementHelperRepositoryImpl;
 import com.taskmanagement.core.contacts.TaskManagementRepository;
 import com.taskmanagement.models.contracts.Board;
 import com.taskmanagement.models.contracts.FeedBack;
@@ -17,16 +18,18 @@ public class CreateNewFeedbackCommand implements Command {
     public static final int EXPECTED_NUMBER_OF_ARGUMENTS = 5;
 
     private final TaskManagementRepository taskManagementRepository;
+    private final TaskManagementHelperRepositoryImpl helperRepository;
 
 
     public CreateNewFeedbackCommand(TaskManagementRepository taskManagementRepository) {
         this.taskManagementRepository = taskManagementRepository;
+        this.helperRepository = new TaskManagementHelperRepositoryImpl(taskManagementRepository);
     }
 
     @Override
     public String executeCommand(List<String> parameters) {
 
-        Board board = taskManagementRepository.findBoard(parameters.get(0));
+        Board board = helperRepository.findBoard(parameters.get(0));
         String title = parameters.get(1);
         String description = parameters.get(2);
         int rating = tryParseInt(parameters.get(3), INVALID_RATING);
@@ -39,7 +42,7 @@ public class CreateNewFeedbackCommand implements Command {
 
         FeedBack feedBack = taskManagementRepository.createFeedback(title, description, rating, feedBackStatus);
 
-        taskManagementRepository.getBoard(board).addTask(feedBack);
+        helperRepository.getBoard(board).addTask(feedBack);
 
         return String.format(CommandConstants.TASK_ADDED_SUCCESSFULLY, title);
     }

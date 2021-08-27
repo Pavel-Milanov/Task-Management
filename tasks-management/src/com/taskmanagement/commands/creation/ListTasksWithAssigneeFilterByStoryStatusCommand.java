@@ -2,6 +2,7 @@ package com.taskmanagement.commands.creation;
 
 import com.taskmanagement.commands.contracts.Command;
 import com.taskmanagement.constants.CommandConstants;
+import com.taskmanagement.core.TaskManagementHelperRepositoryImpl;
 import com.taskmanagement.core.contacts.TaskManagementRepository;
 import com.taskmanagement.models.contracts.Story;
 import com.taskmanagement.models.contracts.Task;
@@ -11,15 +12,18 @@ import com.taskmanagement.utils.ParsingHelpers;
 import com.taskmanagement.utils.ValidationHelpers;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ListTasksWithAssigneeFilterByStoryStatusCommand implements Command {
 
     public static final int EXPECTED_NUMBER_OF_ARGUMENTS = 2;
 
     private final TaskManagementRepository taskManagementRepository;
+    private final TaskManagementHelperRepositoryImpl helperRepository;
 
     public ListTasksWithAssigneeFilterByStoryStatusCommand(TaskManagementRepository taskManagementRepository) {
         this.taskManagementRepository = taskManagementRepository;
+        this.helperRepository = new TaskManagementHelperRepositoryImpl(taskManagementRepository);
     }
 
     @Override
@@ -33,10 +37,10 @@ public class ListTasksWithAssigneeFilterByStoryStatusCommand implements Command 
 
     private String tasksFilteredByStoryStatus(int tasId, StoryStatus storyStatus) {
 
-        Task task = taskManagementRepository.findElementById(taskManagementRepository.getTasks(), tasId);
+        Task task = helperRepository.findElementById(helperRepository.getTasks(), tasId);
 
-        //TODO
-        List<Story> filteredStoryTasks = taskManagementRepository.getStoriesFilteredByStoryStatus(storyStatus);
+        List<Story> filteredStoryTasks = taskManagementRepository.getStories().stream()
+                .filter(story -> story.getStoryStatus().equals(storyStatus)).collect(Collectors.toList());
 
         return ListingHelpers.elementsToString(filteredStoryTasks);
     }

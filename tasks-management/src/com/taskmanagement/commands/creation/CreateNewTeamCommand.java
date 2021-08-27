@@ -1,6 +1,7 @@
 package com.taskmanagement.commands.creation;
 
 import com.taskmanagement.commands.contracts.Command;
+import com.taskmanagement.core.TaskManagementHelperRepositoryImpl;
 import com.taskmanagement.core.contacts.TaskManagementRepository;
 import com.taskmanagement.exceptions.InvalidUserInputException;
 import com.taskmanagement.utils.ValidationHelpers;
@@ -15,9 +16,11 @@ public class CreateNewTeamCommand implements Command {
     public static final int EXPECTED_NUMBER_OF_ARGUMENTS = 1;
 
     private final TaskManagementRepository taskManagementRepository;
+    private final TaskManagementHelperRepositoryImpl helperRepository;
 
     public CreateNewTeamCommand(TaskManagementRepository taskManagementRepository) {
         this.taskManagementRepository = taskManagementRepository;
+        this.helperRepository = new TaskManagementHelperRepositoryImpl(taskManagementRepository);
     }
 
 
@@ -34,7 +37,7 @@ public class CreateNewTeamCommand implements Command {
 
     private String createTeam(String teamName) {
 
-        if (taskManagementRepository.teamExist(teamName)) {
+        if (helperRepository.teamExist(teamName)) {
             throw new InvalidUserInputException(String.format(TEAM_ALREADY_EXISTS, teamName));
         }
 

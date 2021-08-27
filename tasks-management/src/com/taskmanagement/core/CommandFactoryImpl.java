@@ -110,7 +110,7 @@ public class CommandFactoryImpl implements CommandFactory {
             case REMOVESTORY:
 //                return new RemoveStoryCommand(taskManagementRepository);
             case REMOVETEAM:
-                  return new RemoveTeamCommand(taskManagementRepository);
+                return new RemoveTeamCommand(taskManagementRepository);
             case SHOWACTIVITYBOARD:
                 return new ShowActivityBoardCommand(taskManagementRepository);
             case SHOWACTIVITYMEMBER:

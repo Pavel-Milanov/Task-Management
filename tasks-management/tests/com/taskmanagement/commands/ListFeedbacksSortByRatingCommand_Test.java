@@ -42,10 +42,10 @@ public class ListFeedbacksSortByRatingCommand_Test {
     @Test
     public void execute_should_registerUser_when_passedValidInput1() {
         taskManagementRepository.createMember("aaaaa");
-        taskManagementRepository.createFeedback("bugtitleeeee","description",15, FeedBackStatus.NEW);
+        taskManagementRepository.createFeedback("bugtitleeeee", "description", 15, FeedBackStatus.NEW);
 
         command.executeCommand(List.of());
-        FeedBack feedBack =taskManagementRepository.getFeedBacks().get(0);
+        FeedBack feedBack = taskManagementRepository.getFeedBacks().get(0);
         Assertions.assertDoesNotThrow(() -> command.executeCommand(List.of()));
 
     }
@@ -53,12 +53,12 @@ public class ListFeedbacksSortByRatingCommand_Test {
     @Test
     public void execute_should_when_passedValidInput() {
         taskManagementRepository.createMember("aaaaa");
-        taskManagementRepository.createBug("bugtitleeeee","description", Priority.LOW, Severity.CRITICAL, BugStatus.ACTIVE,"aaaaa");
-        taskManagementRepository.createFeedback("bugtitleeeee","description",15, FeedBackStatus.NEW);
+        taskManagementRepository.createBug("bugtitleeeee", "description", Priority.LOW, Severity.CRITICAL, BugStatus.ACTIVE, "aaaaa");
+        taskManagementRepository.createFeedback("bugtitleeeee", "description", 15, FeedBackStatus.NEW);
 
         command.executeCommand(List.of());
-        FeedBack feedBack =taskManagementRepository.getFeedBacks().get(0);
+        FeedBack feedBack = taskManagementRepository.getFeedBacks().get(0);
         String output = command.executeCommand(List.of());
-        Assertions.assertEquals("Feedback : id=3, name: 'bugtitleeeee', description: 'description' : , Status New, Rating 15",output);
+        Assertions.assertEquals("Feedback : id=3, name: 'bugtitleeeee', description: 'description' : , Status New, Rating 15", output);
     }
 }

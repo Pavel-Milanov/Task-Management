@@ -1,6 +1,7 @@
 package com.taskmanagement.commands.creation;
 
 import com.taskmanagement.commands.contracts.Command;
+import com.taskmanagement.core.TaskManagementHelperRepositoryImpl;
 import com.taskmanagement.core.contacts.TaskManagementRepository;
 import com.taskmanagement.models.contracts.Task;
 import com.taskmanagement.utils.ParsingHelpers;
@@ -15,10 +16,10 @@ public class ChangeAssigneeCommand implements Command {
 
     public static final int EXPECTED_NUMBER_OF_ARGUMENTS = 2;
 
-    private final TaskManagementRepository taskManagementRepository;
+    private final TaskManagementHelperRepositoryImpl helperRepository;
 
     public ChangeAssigneeCommand(TaskManagementRepository taskManagementRepository) {
-        this.taskManagementRepository = taskManagementRepository;
+        this.helperRepository = new TaskManagementHelperRepositoryImpl(taskManagementRepository);
     }
 
     @Override
@@ -31,8 +32,8 @@ public class ChangeAssigneeCommand implements Command {
 
     private String validateUserFromTeam(int taskId, String assignee) {
 
-        taskManagementRepository.validateMemberIsFromTeam(taskId, assignee);
-        Task task = taskManagementRepository.findElementById(taskManagementRepository.getTasks(), taskId);
+        helperRepository.validateMemberIsFromTeam(taskId, assignee);
+        Task task = helperRepository.findElementById(helperRepository.getTasks(), taskId);
         return changeAssignee(task, assignee);
     }
 

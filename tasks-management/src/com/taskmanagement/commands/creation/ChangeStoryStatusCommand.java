@@ -1,6 +1,7 @@
 package com.taskmanagement.commands.creation;
 
 import com.taskmanagement.commands.contracts.Command;
+import com.taskmanagement.core.TaskManagementHelperRepositoryImpl;
 import com.taskmanagement.core.contacts.TaskManagementRepository;
 import com.taskmanagement.models.contracts.Story;
 import com.taskmanagement.models.enums.StoryStatus;
@@ -18,9 +19,11 @@ public class ChangeStoryStatusCommand implements Command {
     public static final int EXPECTED_NUMBER_OF_ARGUMENTS = 2;
 
     private final TaskManagementRepository taskManagementRepository;
+    private final TaskManagementHelperRepositoryImpl helperRepository;
 
     public ChangeStoryStatusCommand(TaskManagementRepository taskManagementRepository) {
         this.taskManagementRepository = taskManagementRepository;
+        this.helperRepository = new TaskManagementHelperRepositoryImpl(taskManagementRepository);
     }
 
 
@@ -34,7 +37,7 @@ public class ChangeStoryStatusCommand implements Command {
 
     private String changeStoryStatus(int storyId, StoryStatus storyStatus) {
 
-        Story story = taskManagementRepository.findElementById(taskManagementRepository.getStories(), storyId);
+        Story story = helperRepository.findElementById(taskManagementRepository.getStories(), storyId);
 
         story.changeStoryStatus(storyStatus);
 

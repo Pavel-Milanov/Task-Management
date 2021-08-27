@@ -1,6 +1,7 @@
 package com.taskmanagement.commands.creation;
 
 import com.taskmanagement.commands.contracts.Command;
+import com.taskmanagement.core.TaskManagementHelperRepositoryImpl;
 import com.taskmanagement.core.contacts.TaskManagementRepository;
 import com.taskmanagement.models.contracts.Task;
 import com.taskmanagement.utils.ListingHelpers;
@@ -12,10 +13,10 @@ import java.util.stream.Collectors;
 public class ListTasksWithAssigneeSortByTitleCommand implements Command {
     public static final int EXPECTED_NUMBER_OF_ARGUMENTS = 1;
 
-    private final TaskManagementRepository taskManagementRepository;
+    private final TaskManagementHelperRepositoryImpl helperRepository;
 
     public ListTasksWithAssigneeSortByTitleCommand(TaskManagementRepository taskManagementRepository) {
-        this.taskManagementRepository = taskManagementRepository;
+        this.helperRepository = new TaskManagementHelperRepositoryImpl(taskManagementRepository);
     }
 
 
@@ -28,7 +29,7 @@ public class ListTasksWithAssigneeSortByTitleCommand implements Command {
 
     private String listTasks(String assignee) {
         List<Task> taskFilter;
-        taskFilter = taskManagementRepository.getTasks().stream()
+        taskFilter = helperRepository.getTasks().stream()
                 .filter(task -> task.getAssignee().equals(assignee)).collect(Collectors.toList());
         return ListingHelpers.elementsToString(taskFilter);
     }

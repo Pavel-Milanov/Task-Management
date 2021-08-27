@@ -3,14 +3,13 @@ package com.taskmanagement.commands;
 import com.taskmanagement.commands.contracts.Command;
 import com.taskmanagement.commands.creation.CreateNewBugCommand;
 import com.taskmanagement.commands.creation.ListTasksWithAssigneeFilterByAssigneeCommand;
+import com.taskmanagement.core.TaskManagementHelperRepositoryImpl;
 import com.taskmanagement.core.TaskManagementRepositoryImpl;
 import com.taskmanagement.core.contacts.TaskManagementRepository;
 import com.taskmanagement.models.contracts.Board;
 import com.taskmanagement.models.contracts.Bug;
 import com.taskmanagement.models.contracts.Member;
 import com.taskmanagement.models.contracts.Team;
-import com.taskmanagement.models.enums.*;
-import com.taskmanagement.models.tasks.BugImpl;
 import com.taskmanagement.utils.TestUtilities;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,19 +17,20 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import java.awt.*;
 import java.util.List;
 
 public class ListTasksWithAssigneeFilterByAssigneeCommand_Test {
     private TaskManagementRepository taskManagementRepository;
     private Command command;
     private Command command1;
+    private TaskManagementHelperRepositoryImpl helperRepository;
 
     @BeforeEach
     public void before() {
         this.taskManagementRepository = new TaskManagementRepositoryImpl();
         this.command = new ListTasksWithAssigneeFilterByAssigneeCommand(taskManagementRepository);
         this.command1 = new CreateNewBugCommand(taskManagementRepository);
+        this.helperRepository = new TaskManagementHelperRepositoryImpl(taskManagementRepository);
     }
 
     @ParameterizedTest(name = "with arguments count: {0}")
@@ -49,14 +49,14 @@ public class ListTasksWithAssigneeFilterByAssigneeCommand_Test {
         Member member = taskManagementRepository.createMember("aaaaa");
         Team team = taskManagementRepository.createTeam("team1");
         Board board = taskManagementRepository.createBoard("board1");
-        taskManagementRepository.addMemberToTeam(member,team);
-        taskManagementRepository.addBoardToTeam(board,team);
+        helperRepository.addMemberToTeam(member, team);
+        helperRepository.addBoardToTeam(board, team);
         //taskManagementRepository.createBug("bugtitleeeee","description", Priority.LOW, Severity.CRITICAL, BugStatus.ACTIVE,"aaaaa");
 
-        command1.executeCommand(List.of("board1","bugtitleeeee", "descriptionon", "low","Critical","active","aaaaa"));
+        command1.executeCommand(List.of("board1", "bugtitleeeee", "descriptionon", "low", "Critical", "active", "aaaaa"));
         command.executeCommand(List.of("aaaaa"));
         Bug bug = taskManagementRepository.getBugs().get(0);
         String output = command.executeCommand(List.of("aaaaa"));
-        Assertions.assertEquals("Bug      : id=4, name: 'bugtitleeeee', description: 'descriptionon', Bug Status Active, Severity Critical, Priority: Low, Assignee: aaaaa",output);
+        Assertions.assertEquals("Bug      : id=4, name: 'bugtitleeeee', description: 'descriptionon', Bug Status Active, Severity Critical, Priority: Low, Assignee: aaaaa", output);
     }
 }

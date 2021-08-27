@@ -2,6 +2,7 @@ package com.taskmanagement.commands.creation;
 
 import com.taskmanagement.commands.contracts.Command;
 import com.taskmanagement.constants.CommandConstants;
+import com.taskmanagement.core.TaskManagementHelperRepositoryImpl;
 import com.taskmanagement.core.contacts.TaskManagementRepository;
 import com.taskmanagement.models.contracts.Bug;
 import com.taskmanagement.models.enums.Priority;
@@ -14,9 +15,11 @@ public class ChangeBugPriorityCommand implements Command {
     public static final int EXPECTED_NUMBER_OF_ARGUMENTS = 2;
 
     private final TaskManagementRepository taskManagementRepository;
+    private final TaskManagementHelperRepositoryImpl helperRepository;
 
     public ChangeBugPriorityCommand(TaskManagementRepository taskManagementRepository) {
         this.taskManagementRepository = taskManagementRepository;
+        this.helperRepository = new TaskManagementHelperRepositoryImpl(taskManagementRepository);
     }
 
 
@@ -29,7 +32,7 @@ public class ChangeBugPriorityCommand implements Command {
     }
 
     private String changePriority(int bugId, Priority priority) {
-        Bug bug = taskManagementRepository.findElementById(taskManagementRepository.getBugs(), bugId);
+        Bug bug = helperRepository.findElementById(taskManagementRepository.getBugs(), bugId);
         bug.changePriority(priority);
         return String.format(CommandConstants.PRIORITY_CHANGED_SUCCESSFULLY, bug.getName());
     }

@@ -2,6 +2,7 @@ package com.taskmanagement.commands.creation;
 
 import com.taskmanagement.commands.contracts.Command;
 import com.taskmanagement.constants.CommandConstants;
+import com.taskmanagement.core.TaskManagementHelperRepositoryImpl;
 import com.taskmanagement.core.contacts.TaskManagementRepository;
 import com.taskmanagement.models.contracts.Bug;
 import com.taskmanagement.models.enums.BugStatus;
@@ -14,9 +15,11 @@ public class ChangeBugStatusCommand implements Command {
     public static final int EXPECTED_NUMBER_OF_ARGUMENTS = 2;
 
     private final TaskManagementRepository taskManagementRepository;
+    private final TaskManagementHelperRepositoryImpl helperRepository;
 
     public ChangeBugStatusCommand(TaskManagementRepository taskManagementRepository) {
         this.taskManagementRepository = taskManagementRepository;
+        this.helperRepository = new TaskManagementHelperRepositoryImpl(taskManagementRepository);
     }
 
     @Override
@@ -28,7 +31,7 @@ public class ChangeBugStatusCommand implements Command {
     }
 
     private String changeStatus(int bugId, BugStatus status) {
-        Bug bug = taskManagementRepository.findElementById(taskManagementRepository.getBugs(), bugId);
+        Bug bug = helperRepository.findElementById(taskManagementRepository.getBugs(), bugId);
         bug.changeBugStatus(status);
         return String.format(CommandConstants.STATUS_CHANGED_SUCCESSFULLY, bug.getName());
     }

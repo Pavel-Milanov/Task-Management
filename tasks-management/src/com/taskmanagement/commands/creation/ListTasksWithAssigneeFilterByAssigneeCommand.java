@@ -2,6 +2,7 @@ package com.taskmanagement.commands.creation;
 
 import com.taskmanagement.commands.contracts.Command;
 import com.taskmanagement.constants.CommandConstants;
+import com.taskmanagement.core.TaskManagementHelperRepositoryImpl;
 import com.taskmanagement.core.contacts.TaskManagementRepository;
 import com.taskmanagement.exceptions.InvalidUserInputException;
 import com.taskmanagement.models.contracts.Task;
@@ -15,10 +16,10 @@ public class ListTasksWithAssigneeFilterByAssigneeCommand implements Command {
 
     public static final int EXPECTED_NUMBER_OF_ARGUMENTS = 1;
 
-    private final TaskManagementRepository taskManagementRepository;
+    private final TaskManagementHelperRepositoryImpl helperRepository;
 
     public ListTasksWithAssigneeFilterByAssigneeCommand(TaskManagementRepository taskManagementRepository) {
-        this.taskManagementRepository = taskManagementRepository;
+        this.helperRepository = new TaskManagementHelperRepositoryImpl(taskManagementRepository);
     }
 
     @Override
@@ -33,11 +34,11 @@ public class ListTasksWithAssigneeFilterByAssigneeCommand implements Command {
 
     private String filterByAssignee(String nameAssignee) {
 
-        if (taskManagementRepository.assigneeExist(nameAssignee)) {
+        if (helperRepository.assigneeExist(nameAssignee)) {
             throw new InvalidUserInputException(String.format(CommandConstants.ASSIGNEE_NOT_EXIST, nameAssignee));
         }
 
-        List<Task> filteredByAssignee = taskManagementRepository.getTasks()
+        List<Task> filteredByAssignee = helperRepository.getTasks()
                 .stream().filter(task -> task.getAssignee().equalsIgnoreCase(nameAssignee)).collect(Collectors.toList());
 
         return ListingHelpers.elementsToString(filteredByAssignee);

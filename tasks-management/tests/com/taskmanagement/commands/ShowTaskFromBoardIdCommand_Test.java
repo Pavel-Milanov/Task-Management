@@ -2,6 +2,7 @@ package com.taskmanagement.commands;
 
 import com.taskmanagement.commands.contracts.Command;
 import com.taskmanagement.commands.creation.ShowTaskFromBoardIdCommand;
+import com.taskmanagement.core.TaskManagementHelperRepositoryImpl;
 import com.taskmanagement.core.TaskManagementRepositoryImpl;
 import com.taskmanagement.core.contacts.TaskManagementRepository;
 import com.taskmanagement.models.contracts.Board;
@@ -17,11 +18,13 @@ import java.util.List;
 public class ShowTaskFromBoardIdCommand_Test {
     private TaskManagementRepository taskManagementRepository;
     private Command command;
+    private TaskManagementHelperRepositoryImpl helperRepository;
 
     @BeforeEach
     public void before() {
         this.taskManagementRepository = new TaskManagementRepositoryImpl();
         this.command = new ShowTaskFromBoardIdCommand(taskManagementRepository);
+        this.helperRepository = new TaskManagementHelperRepositoryImpl(taskManagementRepository);
     }
 
     @ParameterizedTest(name = "with arguments count: {0}")
@@ -41,7 +44,7 @@ public class ShowTaskFromBoardIdCommand_Test {
         Assertions.assertAll(
                 Assertions.assertDoesNotThrow(() -> command.executeCommand(List.of("1"))),
                 () -> Assertions.assertFalse(taskManagementRepository.getBoards().isEmpty()),
-                () -> Assertions.assertTrue(taskManagementRepository.getBoard(board).getTasks().isEmpty())
+                () -> Assertions.assertTrue(helperRepository.getBoard(board).getTasks().isEmpty())
         );
     }
 }

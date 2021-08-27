@@ -2,18 +2,12 @@ package com.taskmanagement.commands;
 
 import com.taskmanagement.commands.contracts.Command;
 import com.taskmanagement.commands.creation.AddNewBoardInTeamCommand;
+import com.taskmanagement.core.TaskManagementHelperRepositoryImpl;
 import com.taskmanagement.core.TaskManagementRepositoryImpl;
 import com.taskmanagement.core.contacts.TaskManagementRepository;
 import com.taskmanagement.exceptions.InvalidUserInputException;
 import com.taskmanagement.models.contracts.Board;
-
-import com.taskmanagement.models.contracts.Bug;
-import com.taskmanagement.models.contracts.Member;
 import com.taskmanagement.models.contracts.Team;
-
-import com.taskmanagement.models.enums.BugStatus;
-import com.taskmanagement.models.enums.Priority;
-import com.taskmanagement.models.enums.Severity;
 import com.taskmanagement.utils.TestUtilities;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -26,11 +20,13 @@ import java.util.List;
 public class AddNewBoardInTeamCommand_Test {
     private TaskManagementRepository taskManagementRepository;
     private Command command;
+    private TaskManagementHelperRepositoryImpl helperRepository;
 
     @BeforeEach
     public void before() {
         this.taskManagementRepository = new TaskManagementRepositoryImpl();
         this.command = new AddNewBoardInTeamCommand(taskManagementRepository);
+        this.helperRepository = new TaskManagementHelperRepositoryImpl(taskManagementRepository);
     }
 
     @ParameterizedTest(name = "with arguments count: {0}")
@@ -64,7 +60,7 @@ public class AddNewBoardInTeamCommand_Test {
 
         Assertions.assertAll(
                 Assertions.assertDoesNotThrow(() -> command.executeCommand(List.of("Trello", "Team11"))),
-                () -> Assertions.assertFalse(taskManagementRepository.boardExist("Trella")),
+                () -> Assertions.assertFalse(helperRepository.boardExist("Trella")),
                 () -> Assertions.assertFalse(taskManagementRepository.getTeams().isEmpty()),
                 () -> Assertions.assertEquals("Trello", taskManagementRepository.getBoards().get(0).getName())
         );
@@ -73,14 +69,13 @@ public class AddNewBoardInTeamCommand_Test {
 
     @Test
     public void execute_should_throwException_when_BoardNotAttached() {
-      Board board = taskManagementRepository.createBoard("Tasks");
-      Team team = taskManagementRepository.createTeam("Team11");
+        Board board = taskManagementRepository.createBoard("Tasks");
+        Team team = taskManagementRepository.createTeam("Team11");
         List<String> parameters = List.of("Tasks", "Team11");
         command.executeCommand(parameters);
 
         Assertions.assertThrows(InvalidUserInputException.class, () -> command.executeCommand(parameters));
     }
-
 
 
 }

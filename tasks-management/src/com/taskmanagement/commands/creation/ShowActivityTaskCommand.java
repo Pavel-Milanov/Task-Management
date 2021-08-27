@@ -1,6 +1,7 @@
 package com.taskmanagement.commands.creation;
 
 import com.taskmanagement.commands.contracts.Command;
+import com.taskmanagement.core.TaskManagementHelperRepositoryImpl;
 import com.taskmanagement.core.contacts.TaskManagementRepository;
 import com.taskmanagement.models.contracts.WorkingItem;
 import com.taskmanagement.utils.ListingHelpers;
@@ -15,10 +16,10 @@ public class ShowActivityTaskCommand implements Command {
 
     public static final int EXPECTED_NUMBER_OF_ARGUMENTS = 1;
 
-    private final TaskManagementRepository taskManagementRepository;
+    private final TaskManagementHelperRepositoryImpl helperRepository;
 
     public ShowActivityTaskCommand(TaskManagementRepository taskManagementRepository) {
-        this.taskManagementRepository = taskManagementRepository;
+        this.helperRepository = new TaskManagementHelperRepositoryImpl(taskManagementRepository);
     }
 
     @Override
@@ -31,7 +32,7 @@ public class ShowActivityTaskCommand implements Command {
 
     private String showActivity(int id) {
 
-        WorkingItem workingItem = taskManagementRepository.findElementById(taskManagementRepository.getWorkingItems(), id);
+        WorkingItem workingItem = helperRepository.findElementById(helperRepository.getWorkingItems(), id);
         return ListingHelpers.elementsToString(workingItem.getActivityHistory());
     }
 

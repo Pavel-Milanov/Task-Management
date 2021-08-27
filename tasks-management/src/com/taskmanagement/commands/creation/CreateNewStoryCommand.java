@@ -2,6 +2,7 @@ package com.taskmanagement.commands.creation;
 
 import com.taskmanagement.commands.contracts.Command;
 import com.taskmanagement.constants.CommandConstants;
+import com.taskmanagement.core.TaskManagementHelperRepositoryImpl;
 import com.taskmanagement.core.contacts.TaskManagementRepository;
 import com.taskmanagement.models.contracts.Board;
 import com.taskmanagement.models.contracts.Story;
@@ -17,9 +18,11 @@ public class CreateNewStoryCommand implements Command {
     public static final int EXPECTED_NUMBER_OF_ARGUMENTS = 7;
 
     private final TaskManagementRepository taskManagementRepository;
+    private final TaskManagementHelperRepositoryImpl helperRepository;
 
     public CreateNewStoryCommand(TaskManagementRepository taskManagementRepository) {
         this.taskManagementRepository = taskManagementRepository;
+        this.helperRepository = new TaskManagementHelperRepositoryImpl(taskManagementRepository);
     }
 
 
@@ -30,7 +33,7 @@ public class CreateNewStoryCommand implements Command {
         } catch (IllegalArgumentException exception) {
             ValidationHelpers.validateArgumentsCount(parameters, (EXPECTED_NUMBER_OF_ARGUMENTS - 1));
         }
-        Board board = taskManagementRepository.findBoard(parameters.get(0));
+        Board board = helperRepository.findBoard(parameters.get(0));
         String name = parameters.get(1);
         String description = parameters.get(2);
         Priority priority = ParsingHelpers.tryParseEnum(parameters.get(3), Priority.class);
@@ -40,14 +43,14 @@ public class CreateNewStoryCommand implements Command {
         if (EXPECTED_NUMBER_OF_ARGUMENTS != 7) {
             assignee = "";
         }
-        taskManagementRepository.validateAssigneeIsMemberOfTeam(board, assignee);
+        helperRepository.validateAssigneeIsMemberOfTeam(board, assignee);
         return createStory(board, name, description, priority, size, status, assignee);
 
     }
 
     private String createStory(Board board, String name, String description, Priority priority, Size size, StoryStatus status, String assignee) {
         Story story = taskManagementRepository.createStory(name, description, priority, size, status, assignee);
-        taskManagementRepository.getBoard(board).addTask(story);
+        helperRepository.getBoard(board).addTask(story);
         return String.format(CommandConstants.TASK_ADDED_SUCCESSFULLY, name);
     }
 }

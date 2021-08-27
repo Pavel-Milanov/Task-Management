@@ -1,6 +1,7 @@
 package com.taskmanagement.commands.creation;
 
 import com.taskmanagement.commands.contracts.Command;
+import com.taskmanagement.core.TaskManagementHelperRepositoryImpl;
 import com.taskmanagement.core.contacts.TaskManagementRepository;
 import com.taskmanagement.exceptions.InvalidUserInputException;
 import com.taskmanagement.models.contracts.Comment;
@@ -16,10 +17,10 @@ import static com.taskmanagement.constants.CommandConstants.*;
 public class RemoveCommentFromTaskCommand implements Command {
     public static final int EXPECTED_NUMBER_OF_ARGUMENTS = 3;
 
-    private final TaskManagementRepository taskManagementRepository;
+    private final TaskManagementHelperRepositoryImpl helperRepository;
 
     public RemoveCommentFromTaskCommand(TaskManagementRepository taskManagementRepository) {
-        this.taskManagementRepository = taskManagementRepository;
+        this.helperRepository = new TaskManagementHelperRepositoryImpl(taskManagementRepository);
     }
 
     @Override
@@ -32,15 +33,15 @@ public class RemoveCommentFromTaskCommand implements Command {
     }
 
     private String removeComment(int taskIndex, String commentContent, String memberName) {
-        taskManagementRepository.validateMemberIsFromTeam(taskIndex, memberName);
+        helperRepository.validateMemberIsFromTeam(taskIndex, memberName);
 
-        WorkingItem workingItem = taskManagementRepository.findElementById(taskManagementRepository.getWorkingItems(), taskIndex);
+        WorkingItem workingItem = helperRepository.findElementById(helperRepository.getWorkingItems(), taskIndex);
 
         Comment comment = workingItem.getComments().stream()
                 .filter(comment1 -> comment1.getContent().equals(commentContent)).findAny()
                 .orElseThrow(() -> new InvalidUserInputException(String.format(INVALID_COMMENT, commentContent)));
 
-        taskManagementRepository.removeComment(comment, workingItem);
+        helperRepository.removeComment(comment, workingItem);
 
         return String.format(COMMENT_REMOVED_SUCCESSFULLY, memberName);
     }

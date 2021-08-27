@@ -5,7 +5,7 @@ import com.taskmanagement.commands.creation.CreateNewFeedbackCommand;
 import com.taskmanagement.core.TaskManagementRepositoryImpl;
 import com.taskmanagement.core.contacts.TaskManagementRepository;
 import com.taskmanagement.exceptions.ElementNotFoundException;
-import com.taskmanagement.models.contracts.*;
+import com.taskmanagement.models.contracts.FeedBack;
 import com.taskmanagement.models.enums.FeedBackStatus;
 import com.taskmanagement.models.tasks.FeedBackImpl;
 import com.taskmanagement.utils.TestUtilities;
@@ -38,14 +38,13 @@ public class CreateNewFeedbackCommand_Test {
     }
 
 
-
     @Test
     public void execute_should_addTaskToBoard_when_passedValidInput() {
-        FeedBack feedBack = new FeedBackImpl(1,"feedbacktitile","feedbackdescription",10, FeedBackStatus.NEW);
+        FeedBack feedBack = new FeedBackImpl(1, "feedbacktitile", "feedbackdescription", 10, FeedBackStatus.NEW);
         taskManagementRepository.createBoard("board1");
-        command.executeCommand(List.of("board1","feedbacktitile","feedbackdescription","10", "NEW"));
+        command.executeCommand(List.of("board1", "feedbacktitile", "feedbackdescription", "10", "NEW"));
 
 
-        Assertions.assertEquals(taskManagementRepository.getFeedBacks().get(0).getName(),feedBack.getName());
+        Assertions.assertEquals(taskManagementRepository.getFeedBacks().get(0).getName(), feedBack.getName());
     }
 }

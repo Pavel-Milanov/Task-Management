@@ -2,6 +2,7 @@ package com.taskmanagement.commands.creation;
 
 import com.taskmanagement.commands.contracts.Command;
 import com.taskmanagement.constants.CommandConstants;
+import com.taskmanagement.core.TaskManagementHelperRepositoryImpl;
 import com.taskmanagement.core.contacts.TaskManagementRepository;
 import com.taskmanagement.models.contracts.Story;
 import com.taskmanagement.models.enums.Size;
@@ -14,9 +15,11 @@ public class ChangeStorySizeCommand implements Command {
     public static final int EXPECTED_NUMBER_OF_ARGUMENTS = 2;
 
     private final TaskManagementRepository taskManagementRepository;
+    private final TaskManagementHelperRepositoryImpl helperRepository;
 
     public ChangeStorySizeCommand(TaskManagementRepository taskManagementRepository) {
         this.taskManagementRepository = taskManagementRepository;
+        this.helperRepository = new TaskManagementHelperRepositoryImpl(taskManagementRepository);
     }
 
     @Override
@@ -28,7 +31,7 @@ public class ChangeStorySizeCommand implements Command {
     }
 
     private String changeStatus(int storyId, Size size) {
-        Story story = taskManagementRepository.findElementById(taskManagementRepository.getStories(), storyId);
+        Story story = helperRepository.findElementById(taskManagementRepository.getStories(), storyId);
         story.changeSize(size);
         return String.format(CommandConstants.SIZE_CHANGED_SUCCESSFULLY, story.getName());
     }

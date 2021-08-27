@@ -41,10 +41,10 @@ public class ListStoriesSortByPriorityCommand_Test {
     @Test
     public void execute_should_registerUser_when_passedValidInput() {
         taskManagementRepository.createMember("aaaaa");
-        taskManagementRepository.createStory("bugtitleeeee","description", Priority.HIGH, Size.LARGE, StoryStatus.NOTDONE,"aaaaa");
+        taskManagementRepository.createStory("bugtitleeeee", "description", Priority.HIGH, Size.LARGE, StoryStatus.NOTDONE, "aaaaa");
 
         command.executeCommand(List.of());
-        Story story =taskManagementRepository.getStories().get(0);
+        Story story = taskManagementRepository.getStories().get(0);
         Assertions.assertDoesNotThrow(() -> command.executeCommand(List.of()));
 
     }
@@ -52,11 +52,11 @@ public class ListStoriesSortByPriorityCommand_Test {
     @Test
     public void execute_should_when_passedValidInput() {
         taskManagementRepository.createMember("aaaaa");
-        taskManagementRepository.createStory("bugtitleeeee","description",Priority.HIGH, Size.LARGE, StoryStatus.NOTDONE,"aaaaa");
+        taskManagementRepository.createStory("bugtitleeeee", "description", Priority.HIGH, Size.LARGE, StoryStatus.NOTDONE, "aaaaa");
 
         command.executeCommand(List.of());
-        Story story =taskManagementRepository.getStories().get(0);
+        Story story = taskManagementRepository.getStories().get(0);
         String output = command.executeCommand(List.of());
-        Assertions.assertEquals("Story    : id=2, name: 'bugtitleeeee', description: 'description', Status Not Done, Size Large, Priority: High, Assignee: aaaaa",output);
+        Assertions.assertEquals("Story    : id=2, name: 'bugtitleeeee', description: 'description', Status Not Done, Size Large, Priority: High, Assignee: aaaaa", output);
     }
 }

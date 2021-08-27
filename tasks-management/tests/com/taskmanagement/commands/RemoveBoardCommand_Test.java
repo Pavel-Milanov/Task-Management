@@ -5,7 +5,6 @@ import com.taskmanagement.commands.creation.RemoveBoardCommand;
 import com.taskmanagement.core.TaskManagementRepositoryImpl;
 import com.taskmanagement.core.contacts.TaskManagementRepository;
 import com.taskmanagement.models.contracts.Board;
-import com.taskmanagement.models.contracts.Team;
 import com.taskmanagement.utils.TestUtilities;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -42,7 +41,7 @@ public class RemoveBoardCommand_Test {
         Board board = taskManagementRepository.createBoard("board1");
 
         command.executeCommand(List.of("board1"));
-       Assertions.assertEquals(0,taskManagementRepository.getBoards().size());
+        Assertions.assertEquals(0, taskManagementRepository.getBoards().size());
 
     }
 }

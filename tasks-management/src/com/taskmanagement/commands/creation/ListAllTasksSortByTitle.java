@@ -1,6 +1,7 @@
 package com.taskmanagement.commands.creation;
 
 import com.taskmanagement.commands.contracts.Command;
+import com.taskmanagement.core.TaskManagementHelperRepositoryImpl;
 import com.taskmanagement.core.contacts.TaskManagementRepository;
 import com.taskmanagement.models.contracts.WorkingItem;
 import com.taskmanagement.utils.ListingHelpers;
@@ -12,16 +13,16 @@ import java.util.List;
 public class ListAllTasksSortByTitle implements Command {
     public static final int EXPECTED_NUMBER_OF_ARGUMENTS = 0;
 
-    private final TaskManagementRepository taskManagementRepository;
+    private final TaskManagementHelperRepositoryImpl helperRepository;
 
     public ListAllTasksSortByTitle(TaskManagementRepository taskManagementRepository) {
-        this.taskManagementRepository = taskManagementRepository;
+        this.helperRepository = new TaskManagementHelperRepositoryImpl(taskManagementRepository);
     }
 
     @Override
     public String executeCommand(List<String> parameters) {
         ValidationHelpers.validateArgumentsCount(parameters, EXPECTED_NUMBER_OF_ARGUMENTS);
-        List<WorkingItem> workingItems = taskManagementRepository.getWorkingItems();
+        List<WorkingItem> workingItems = helperRepository.getWorkingItems();
         workingItems.sort(Comparator.comparing(o -> o.getName().toUpperCase()));
         return ListingHelpers.elementsToString(workingItems);
     }

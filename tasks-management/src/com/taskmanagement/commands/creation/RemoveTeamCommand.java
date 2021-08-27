@@ -2,6 +2,7 @@ package com.taskmanagement.commands.creation;
 
 import com.taskmanagement.commands.contracts.Command;
 import com.taskmanagement.constants.CommandConstants;
+import com.taskmanagement.core.TaskManagementHelperRepositoryImpl;
 import com.taskmanagement.core.contacts.TaskManagementRepository;
 import com.taskmanagement.exceptions.InvalidUserInputException;
 import com.taskmanagement.utils.ValidationHelpers;
@@ -13,9 +14,11 @@ public class RemoveTeamCommand implements Command {
     public static final int EXPECTED_NUMBER_OF_ARGUMENTS = 1;
 
     private final TaskManagementRepository taskManagementRepository;
+    private final TaskManagementHelperRepositoryImpl helperRepository;
 
     public RemoveTeamCommand(TaskManagementRepository taskManagementRepository) {
         this.taskManagementRepository = taskManagementRepository;
+        this.helperRepository = new TaskManagementHelperRepositoryImpl(taskManagementRepository);
     }
 
     @Override
@@ -31,7 +34,7 @@ public class RemoveTeamCommand implements Command {
 
     private String removeTeam(String teamName) {
 
-        if (!taskManagementRepository.teamExist(teamName)) {
+        if (!helperRepository.teamExist(teamName)) {
             throw new InvalidUserInputException(String.format(CommandConstants.TEAM_NOT_EXISTS, teamName));
         }
 

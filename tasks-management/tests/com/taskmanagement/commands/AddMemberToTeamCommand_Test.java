@@ -2,6 +2,7 @@ package com.taskmanagement.commands;
 
 import com.taskmanagement.commands.contracts.Command;
 import com.taskmanagement.commands.creation.AddMemberToTeamCommand;
+import com.taskmanagement.core.TaskManagementHelperRepositoryImpl;
 import com.taskmanagement.core.TaskManagementRepositoryImpl;
 import com.taskmanagement.core.contacts.TaskManagementRepository;
 import com.taskmanagement.models.contracts.Team;
@@ -18,11 +19,13 @@ public class AddMemberToTeamCommand_Test {
 
     private TaskManagementRepository taskManagementRepository;
     private Command command;
+    private TaskManagementHelperRepositoryImpl helperRepository;
 
     @BeforeEach
     public void before() {
         this.taskManagementRepository = new TaskManagementRepositoryImpl();
         this.command = new AddMemberToTeamCommand(taskManagementRepository);
+        this.helperRepository = new TaskManagementHelperRepositoryImpl(taskManagementRepository);
     }
 
     @ParameterizedTest(name = "with arguments count: {0}")
@@ -43,7 +46,7 @@ public class AddMemberToTeamCommand_Test {
                 Assertions.assertDoesNotThrow(() -> command.executeCommand(List.of("user1", "team1"))),
                 () -> Assertions.assertFalse(taskManagementRepository.getMembers().isEmpty()),
                 () -> Assertions.assertFalse(taskManagementRepository.getTeams().isEmpty()),
-                () -> Assertions.assertEquals("user1", taskManagementRepository.getTeam("team1").getMembers().get(0).getName())
+                () -> Assertions.assertEquals("user1", helperRepository.getTeam("team1").getMembers().get(0).getName())
         );
     }
 

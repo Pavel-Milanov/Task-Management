@@ -2,6 +2,7 @@ package com.taskmanagement.commands.creation;
 
 import com.taskmanagement.commands.contracts.Command;
 import com.taskmanagement.constants.CommandConstants;
+import com.taskmanagement.core.TaskManagementHelperRepositoryImpl;
 import com.taskmanagement.core.contacts.TaskManagementRepository;
 import com.taskmanagement.models.contracts.Board;
 import com.taskmanagement.models.contracts.Bug;
@@ -17,10 +18,11 @@ public class CreateNewBugCommand implements Command {
     public static final int EXPECTED_NUMBER_OF_ARGUMENTS = 7;
 
     private final TaskManagementRepository taskManagementRepository;
-
+    private final TaskManagementHelperRepositoryImpl helperRepository;
 
     public CreateNewBugCommand(TaskManagementRepository taskManagementRepository) {
         this.taskManagementRepository = taskManagementRepository;
+        this.helperRepository = new TaskManagementHelperRepositoryImpl(taskManagementRepository);
     }
 
 
@@ -31,7 +33,7 @@ public class CreateNewBugCommand implements Command {
         } catch (IllegalArgumentException exception) {
             ValidationHelpers.validateArgumentsCount(parameters, (EXPECTED_NUMBER_OF_ARGUMENTS - 1));
         }
-        Board board = taskManagementRepository.findBoard(parameters.get(0));
+        Board board = helperRepository.findBoard(parameters.get(0));
         String name = parameters.get(1);
         String description = parameters.get(2);
         Priority priority = ParsingHelpers.tryParseEnum(parameters.get(3), Priority.class);
@@ -41,7 +43,7 @@ public class CreateNewBugCommand implements Command {
 
         if (parameters.size() == 7) {
             assignee = parameters.get(6);
-            taskManagementRepository.validateAssigneeIsMemberOfTeam(board, assignee);
+            helperRepository.validateAssigneeIsMemberOfTeam(board, assignee);
         }
 
 
@@ -50,7 +52,7 @@ public class CreateNewBugCommand implements Command {
 
     private String createBug(Board board, String name, String description, Priority priority, Severity severity, BugStatus status, String assignee) {
         Bug bug = taskManagementRepository.createBug(name, description, priority, severity, status, assignee);
-        taskManagementRepository.getBoard(board).addTask(bug);
+        helperRepository.getBoard(board).addTask(bug);
         return String.format(CommandConstants.TASK_ADDED_SUCCESSFULLY, name);
     }
 

@@ -2,6 +2,7 @@ package com.taskmanagement.commands.creation;
 
 import com.taskmanagement.commands.contracts.Command;
 import com.taskmanagement.constants.CommandConstants;
+import com.taskmanagement.core.TaskManagementHelperRepositoryImpl;
 import com.taskmanagement.core.contacts.TaskManagementRepository;
 import com.taskmanagement.models.contracts.Story;
 import com.taskmanagement.models.enums.Priority;
@@ -17,9 +18,11 @@ public class ChangeStoryPriorityCommand implements Command {
     public static final int EXPECTED_NUMBER_OF_ARGUMENTS = 2;
 
     private final TaskManagementRepository taskManagementRepository;
+    private final TaskManagementHelperRepositoryImpl helperRepository;
 
     public ChangeStoryPriorityCommand(TaskManagementRepository taskManagementRepository) {
         this.taskManagementRepository = taskManagementRepository;
+        this.helperRepository = new TaskManagementHelperRepositoryImpl(taskManagementRepository);
     }
 
 
@@ -33,7 +36,7 @@ public class ChangeStoryPriorityCommand implements Command {
 
     private String changeStoryPriority(int storyId, Priority priority) {
 
-        Story story = taskManagementRepository.findElementById(taskManagementRepository.getStories(), storyId);
+        Story story = helperRepository.findElementById(taskManagementRepository.getStories(), storyId);
 
         story.changePriority(priority);
 

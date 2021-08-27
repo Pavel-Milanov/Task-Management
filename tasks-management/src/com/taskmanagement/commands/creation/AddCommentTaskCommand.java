@@ -1,7 +1,9 @@
 package com.taskmanagement.commands.creation;
 
 import com.taskmanagement.commands.contracts.Command;
+import com.taskmanagement.core.TaskManagementHelperRepositoryImpl;
 import com.taskmanagement.core.contacts.TaskManagementRepository;
+import com.taskmanagement.models.CommentImpl;
 import com.taskmanagement.models.contracts.Comment;
 import com.taskmanagement.models.contracts.Member;
 import com.taskmanagement.models.contracts.WorkingItem;
@@ -17,10 +19,10 @@ public class AddCommentTaskCommand implements Command {
 
     public static final int EXPECTED_NUMBER_OF_ARGUMENTS = 3;
 
-    private final TaskManagementRepository taskManagementRepository;
+    private final TaskManagementHelperRepositoryImpl helperRepository;
 
     public AddCommentTaskCommand(TaskManagementRepository taskManagementRepository) {
-        this.taskManagementRepository = taskManagementRepository;
+        this.helperRepository = new TaskManagementHelperRepositoryImpl(taskManagementRepository);
     }
 
     @Override
@@ -33,13 +35,13 @@ public class AddCommentTaskCommand implements Command {
     }
 
     private String addComment(int taskIndex, String content, String author) {
-        Member member = taskManagementRepository.findMemberByName(author);
+        Member member = helperRepository.findMemberByName(author);
 
-        WorkingItem workingItem = taskManagementRepository.findElementById(taskManagementRepository.getWorkingItems(), taskIndex);
+        WorkingItem workingItem = helperRepository.findElementById(helperRepository.getWorkingItems(), taskIndex);
 
-        taskManagementRepository.validateMemberIsFromTeam(taskIndex, author);
+        helperRepository.validateMemberIsFromTeam(taskIndex, author);
 
-        Comment comment = taskManagementRepository.createComment(content, author);
+        Comment comment = new CommentImpl(content, author);
 
         workingItem.addComment(comment);
 

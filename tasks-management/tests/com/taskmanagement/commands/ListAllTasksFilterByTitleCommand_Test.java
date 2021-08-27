@@ -57,6 +57,6 @@ public class ListAllTasksFilterByTitleCommand_Test {
         command.executeCommand(List.of("bugtitleeeee"));
         Bug bug = taskManagementRepository.getBugs().get(0);
         String output = command.executeCommand(List.of("bugtitleeeee"));
-        Assertions.assertEquals("Bug      : id=2, name: 'bugtitleeeee', description: 'description', Bug Status Active, Severity Critical, Priority: Low, Assignee: aaaaa",output);
+        Assertions.assertEquals("Bug      : id=2, name: 'bugtitleeeee', description: 'description', Bug Status Active, Severity Critical, Priority: Low, Assignee: aaaaa", output);
     }
 }

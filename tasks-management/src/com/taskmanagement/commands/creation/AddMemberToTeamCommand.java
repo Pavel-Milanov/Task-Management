@@ -2,6 +2,7 @@ package com.taskmanagement.commands.creation;
 
 import com.taskmanagement.commands.contracts.Command;
 import com.taskmanagement.constants.CommandConstants;
+import com.taskmanagement.core.TaskManagementHelperRepositoryImpl;
 import com.taskmanagement.core.contacts.TaskManagementRepository;
 import com.taskmanagement.exceptions.InvalidUserInputException;
 import com.taskmanagement.models.contracts.Member;
@@ -18,10 +19,10 @@ public class AddMemberToTeamCommand implements Command {
 
     public static final int EXPECTED_NUMBER_OF_ARGUMENTS = 2;
 
-    private final TaskManagementRepository taskManagementRepository;
+    private final TaskManagementHelperRepositoryImpl helperRepository;
 
     public AddMemberToTeamCommand(TaskManagementRepository taskManagementRepository) {
-        this.taskManagementRepository = taskManagementRepository;
+        this.helperRepository = new TaskManagementHelperRepositoryImpl(taskManagementRepository);
     }
 
     @Override
@@ -37,17 +38,17 @@ public class AddMemberToTeamCommand implements Command {
 
     private String addMemberToTeam(String memberName, String teamName) {
 
-        if (!taskManagementRepository.teamExist(teamName)) {
+        if (!helperRepository.teamExist(teamName)) {
             throw new InvalidUserInputException(String.format(TEAM_NOT_EXISTS, teamName));
         }
 
-        if (!taskManagementRepository.memberExist(memberName)) {
+        if (!helperRepository.memberExist(memberName)) {
             throw new InvalidUserInputException(String.format(MEMBER_NOT_EXISTS, teamName));
         }
-        Member member = taskManagementRepository.findByMemberName(memberName);
-        Team team = taskManagementRepository.findByTeamName(teamName);
+        Member member = helperRepository.findByMemberName(memberName);
+        Team team = helperRepository.findByTeamName(teamName);
 
-        taskManagementRepository.addMemberToTeam(member, team);
+        helperRepository.addMemberToTeam(member, team);
 
         return String.format(CommandConstants.MEMBER_ADDED_TO_TEAM_SUCCESSFULLY, memberName, team.getName());
     }

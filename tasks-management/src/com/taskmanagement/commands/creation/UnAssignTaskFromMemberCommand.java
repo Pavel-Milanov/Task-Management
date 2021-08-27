@@ -1,6 +1,7 @@
 package com.taskmanagement.commands.creation;
 
 import com.taskmanagement.commands.contracts.Command;
+import com.taskmanagement.core.TaskManagementHelperRepositoryImpl;
 import com.taskmanagement.core.contacts.TaskManagementRepository;
 import com.taskmanagement.models.contracts.Task;
 import com.taskmanagement.utils.ParsingHelpers;
@@ -14,10 +15,10 @@ import static com.taskmanagement.constants.CommandConstants.INVALID_TASK_INDEX;
 public class UnAssignTaskFromMemberCommand implements Command {
     public static final int EXPECTED_NUMBER_OF_ARGUMENTS = 1;
 
-    private final TaskManagementRepository taskManagementRepository;
+    private final TaskManagementHelperRepositoryImpl helperRepository;
 
     public UnAssignTaskFromMemberCommand(TaskManagementRepository taskManagementRepository) {
-        this.taskManagementRepository = taskManagementRepository;
+        this.helperRepository = new TaskManagementHelperRepositoryImpl(taskManagementRepository);
     }
 
     @Override
@@ -29,7 +30,7 @@ public class UnAssignTaskFromMemberCommand implements Command {
 
     private String unAssignee(int taskId) {
 
-        Task task = taskManagementRepository.findElementById(taskManagementRepository.getTasks(), taskId);
+        Task task = helperRepository.findElementById(helperRepository.getTasks(), taskId);
         task.changeAssignee("");
 
         return ASSIGNEE_REMOVED;
