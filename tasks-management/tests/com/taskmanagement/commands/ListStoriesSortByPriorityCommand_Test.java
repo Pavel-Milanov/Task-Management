@@ -2,8 +2,10 @@ package com.taskmanagement.commands;
 
 import com.taskmanagement.commands.contracts.Command;
 import com.taskmanagement.commands.creation.ListBugsSortByPriorityCommand;
+import com.taskmanagement.commands.creation.ListStoriesSortByPriorityCommand;
 import com.taskmanagement.core.TaskManagementRepositoryImpl;
 import com.taskmanagement.core.contacts.TaskManagementRepository;
+import com.taskmanagement.exceptions.InvalidUserInputException;
 import com.taskmanagement.models.contracts.Story;
 import com.taskmanagement.models.enums.Priority;
 import com.taskmanagement.models.enums.Size;
@@ -24,7 +26,7 @@ public class ListStoriesSortByPriorityCommand_Test {
     @BeforeEach
     public void before() {
         this.taskManagementRepository = new TaskManagementRepositoryImpl();
-        this.command = new ListBugsSortByPriorityCommand(taskManagementRepository);
+        this.command = new ListStoriesSortByPriorityCommand(taskManagementRepository);
     }
 
     @ParameterizedTest(name = "with arguments count: {0}")
@@ -58,5 +60,11 @@ public class ListStoriesSortByPriorityCommand_Test {
         Story story = taskManagementRepository.getStories().get(0);
         String output = command.executeCommand(List.of());
         Assertions.assertEquals("Story    : id=2, name: 'bugtitleeeee', description: 'description', Status Not Done, Size Large, Priority: High, Assignee: aaaaa", output);
+    }
+
+    @Test
+    public void execute_should_throwException_when_listIsEmpty() {
+
+        Assertions.assertThrows(InvalidUserInputException.class,()-> command.executeCommand(List.of()));
     }
 }

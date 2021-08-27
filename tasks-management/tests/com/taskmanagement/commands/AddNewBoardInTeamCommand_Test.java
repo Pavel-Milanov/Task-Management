@@ -36,7 +36,7 @@ public class AddNewBoardInTeamCommand_Test {
         List<String> arguments = TestUtilities.initializeListWithSize(argumentsCount);
 
         // Act, Assert
-        Assertions.assertThrows(InvalidUserInputException.class, () -> command.executeCommand(arguments));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> command.executeCommand(arguments));
     }
 
 
@@ -77,5 +77,11 @@ public class AddNewBoardInTeamCommand_Test {
         Assertions.assertThrows(InvalidUserInputException.class, () -> command.executeCommand(parameters));
     }
 
+    @Test
+    public void execute_should_throwException_when_notValidMember() {
+        Board board = taskManagementRepository.createBoard("Tasks");
+        Team team = taskManagementRepository.createTeam("team1");
 
+        Assertions.assertThrows(InvalidUserInputException.class,() -> command.executeCommand(List.of("Tasks", "team11")));
+    }
 }

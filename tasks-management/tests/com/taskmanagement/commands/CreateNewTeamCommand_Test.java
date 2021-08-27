@@ -4,6 +4,7 @@ import com.taskmanagement.commands.contracts.Command;
 import com.taskmanagement.commands.creation.CreateNewTeamCommand;
 import com.taskmanagement.core.TaskManagementRepositoryImpl;
 import com.taskmanagement.core.contacts.TaskManagementRepository;
+import com.taskmanagement.exceptions.InvalidUserInputException;
 import com.taskmanagement.utils.TestUtilities;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -42,5 +43,12 @@ public class CreateNewTeamCommand_Test {
                 () -> Assertions.assertFalse(taskManagementRepository.getTeams().isEmpty())
 
         );
+    }
+
+    @Test
+    public void execute_should_throwException_when_teamExist() {
+        taskManagementRepository.createTeam("team1");
+
+        Assertions.assertThrows(InvalidUserInputException.class, () -> command.executeCommand(List.of("team1")));
     }
 }

@@ -4,6 +4,7 @@ import com.taskmanagement.commands.contracts.Command;
 import com.taskmanagement.commands.creation.ListBugsSortByTitleCommand;
 import com.taskmanagement.core.TaskManagementRepositoryImpl;
 import com.taskmanagement.core.contacts.TaskManagementRepository;
+import com.taskmanagement.exceptions.InvalidUserInputException;
 import com.taskmanagement.models.contracts.Bug;
 import com.taskmanagement.models.enums.BugStatus;
 import com.taskmanagement.models.enums.Priority;
@@ -58,5 +59,11 @@ public class ListBugsSortByTitleCommand_Test {
         Bug bug = taskManagementRepository.getBugs().get(0);
         String output = command.executeCommand(List.of());
         Assertions.assertEquals("Bug      : id=2, name: 'bugtitleeeee', description: 'description', Bug Status Active, Severity Critical, Priority: Low, Assignee: aaaaa", output);
+    }
+
+    @Test
+    public void execute_should_throwException_when_listIsEmpty() {
+
+        Assertions.assertThrows(InvalidUserInputException.class,()-> command.executeCommand(List.of()));
     }
 }

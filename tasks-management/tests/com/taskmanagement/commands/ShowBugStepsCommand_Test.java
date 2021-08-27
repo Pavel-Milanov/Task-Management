@@ -75,7 +75,7 @@ public class ShowBugStepsCommand_Test {
         command1.executeCommand(List.of("2", "aaaaa", "1. First step; 2 Second step"));
         command.executeCommand(List.of("1"));
 
-        Bug bug = (Bug) helperRepository.getTasks().get(0);
+        Bug bug = taskManagementRepository.getBugs().get(0);
         String output = command.executeCommand(List.of("1"));
         Assertions.assertEquals(output, "1. First step;\n 2 Second step");
     }

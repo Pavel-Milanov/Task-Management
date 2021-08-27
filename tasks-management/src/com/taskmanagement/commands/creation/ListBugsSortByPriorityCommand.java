@@ -4,6 +4,7 @@ import com.taskmanagement.commands.contracts.Command;
 import com.taskmanagement.constants.CommandConstants;
 import com.taskmanagement.core.contacts.TaskManagementRepository;
 import com.taskmanagement.exceptions.InvalidUserInputException;
+import com.taskmanagement.models.contracts.Bug;
 import com.taskmanagement.models.contracts.Story;
 import com.taskmanagement.utils.ListingHelpers;
 import com.taskmanagement.utils.ValidationHelpers;
@@ -32,14 +33,14 @@ public class ListBugsSortByPriorityCommand implements Command {
 
     private String listBugsSortByPriority() {
 
-        if (taskManagementRepository.getStories().isEmpty()) {
+        if (taskManagementRepository.getBugs().isEmpty()) {
             throw new InvalidUserInputException(CommandConstants.EMPTY_LIST_BUGS);
         }
 
-        List<Story> sortedStoryByPriority = taskManagementRepository.getStories()
-                .stream().sorted(Comparator.comparing(Story::getPriority)).collect(Collectors.toList());
+        List<Bug> sortedBugByPriority = taskManagementRepository.getBugs()
+                .stream().sorted(Comparator.comparing(Bug::getPriority)).collect(Collectors.toList());
 
-        return ListingHelpers.elementsToString(sortedStoryByPriority);
+        return ListingHelpers.elementsToString(sortedBugByPriority);
     }
 
     //Ralitsa

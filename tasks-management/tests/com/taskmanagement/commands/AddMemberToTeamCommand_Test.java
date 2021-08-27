@@ -5,6 +5,7 @@ import com.taskmanagement.commands.creation.AddMemberToTeamCommand;
 import com.taskmanagement.core.TaskManagementHelperRepositoryImpl;
 import com.taskmanagement.core.TaskManagementRepositoryImpl;
 import com.taskmanagement.core.contacts.TaskManagementRepository;
+import com.taskmanagement.exceptions.InvalidUserInputException;
 import com.taskmanagement.models.contracts.Team;
 import com.taskmanagement.utils.TestUtilities;
 import org.junit.jupiter.api.Assertions;
@@ -48,6 +49,21 @@ public class AddMemberToTeamCommand_Test {
                 () -> Assertions.assertFalse(taskManagementRepository.getTeams().isEmpty()),
                 () -> Assertions.assertEquals("user1", helperRepository.getTeam("team1").getMembers().get(0).getName())
         );
+    }
+    @Test
+    public void execute_should_throwException_when_notValidTeam() {
+        taskManagementRepository.createMember("user1");
+        Team team = taskManagementRepository.createTeam("team1");
+
+        Assertions.assertThrows(InvalidUserInputException.class,() -> command.executeCommand(List.of("user1", "team11")));
+
+    }
+    @Test
+    public void execute_should_throwException_when_notValidMember() {
+        taskManagementRepository.createMember("user1");
+        Team team = taskManagementRepository.createTeam("team1");
+
+        Assertions.assertThrows(InvalidUserInputException.class,() -> command.executeCommand(List.of("user11", "team1")));
     }
 
 }

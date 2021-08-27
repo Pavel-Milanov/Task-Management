@@ -6,6 +6,7 @@ import com.taskmanagement.commands.creation.ListTasksWithAssigneeFilterByAssigne
 import com.taskmanagement.core.TaskManagementHelperRepositoryImpl;
 import com.taskmanagement.core.TaskManagementRepositoryImpl;
 import com.taskmanagement.core.contacts.TaskManagementRepository;
+import com.taskmanagement.exceptions.InvalidUserInputException;
 import com.taskmanagement.models.contracts.Board;
 import com.taskmanagement.models.contracts.Bug;
 import com.taskmanagement.models.contracts.Member;
@@ -58,5 +59,11 @@ public class ListTasksWithAssigneeFilterByAssigneeCommand_Test {
         Bug bug = taskManagementRepository.getBugs().get(0);
         String output = command.executeCommand(List.of("aaaaa"));
         Assertions.assertEquals("Bug      : id=4, name: 'bugtitleeeee', description: 'descriptionon', Bug Status Active, Severity Critical, Priority: Low, Assignee: aaaaa", output);
+    }
+
+    @Test
+    public void execute_should_throwException_when_listIsEmpty() {
+
+        Assertions.assertThrows(IllegalArgumentException.class,()-> command.executeCommand(List.of()));
     }
 }

@@ -5,6 +5,7 @@ import com.taskmanagement.commands.creation.ListBugsSortByTitleCommand;
 import com.taskmanagement.commands.creation.ListStoriesSortByTitleCommand;
 import com.taskmanagement.core.TaskManagementRepositoryImpl;
 import com.taskmanagement.core.contacts.TaskManagementRepository;
+import com.taskmanagement.exceptions.InvalidUserInputException;
 import com.taskmanagement.models.contracts.Story;
 import com.taskmanagement.models.enums.Priority;
 import com.taskmanagement.models.enums.Size;
@@ -59,5 +60,11 @@ public class ListStoriesSortByTitleCommand_Test {
         Story story = taskManagementRepository.getStories().get(0);
         String output = command.executeCommand(List.of());
         Assertions.assertEquals("Story    : id=2, name: 'bugtitleeeee', description: 'description', Status Not Done, Size Large, Priority: High, Assignee: aaaaa", output);
+    }
+
+    @Test
+    public void execute_should_throwException_when_listIsEmpty() {
+
+        Assertions.assertThrows(InvalidUserInputException.class,()-> command.executeCommand(List.of()));
     }
 }

@@ -4,6 +4,7 @@ import com.taskmanagement.commands.contracts.Command;
 import com.taskmanagement.commands.creation.ListBugsFilterByAssigneeCommand;
 import com.taskmanagement.core.TaskManagementRepositoryImpl;
 import com.taskmanagement.core.contacts.TaskManagementRepository;
+import com.taskmanagement.exceptions.InvalidUserInputException;
 import com.taskmanagement.models.contracts.Bug;
 import com.taskmanagement.models.enums.BugStatus;
 import com.taskmanagement.models.enums.Priority;
@@ -58,5 +59,12 @@ public class ListBugsFilterByAssigneeCommand_Test {
         Bug bug = taskManagementRepository.getBugs().get(0);
         String output = command.executeCommand(List.of("aaaaa"));
         Assertions.assertEquals(output, "Bug      : id=2, name: 'bugtitleeeee', description: 'description', Bug Status Active, Severity Critical, Priority: Low, Assignee: aaaaa");
+    }
+
+    @Test
+    public void execute_should_throwException_when_listIsEmpty() {
+        taskManagementRepository.createMember("aaaaa");
+
+        Assertions.assertThrows(InvalidUserInputException.class,()-> command.executeCommand(List.of("aaaaa")));
     }
 }

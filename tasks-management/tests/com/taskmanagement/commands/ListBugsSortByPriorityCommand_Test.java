@@ -43,7 +43,6 @@ public class ListBugsSortByPriorityCommand_Test {
         taskManagementRepository.createMember("aaaaa");
         taskManagementRepository.createBug("bugtitleeeee", "description", Priority.LOW, Severity.CRITICAL, BugStatus.ACTIVE, "aaaaa");
 
-        command.executeCommand(List.of());
         Bug bug = taskManagementRepository.getBugs().get(0);
         Assertions.assertDoesNotThrow(() -> command.executeCommand(List.of()));
 
@@ -57,6 +56,6 @@ public class ListBugsSortByPriorityCommand_Test {
         command.executeCommand(List.of());
         Bug bug = taskManagementRepository.getBugs().get(0);
         String output = command.executeCommand(List.of());
-        Assertions.assertEquals(output, "Bug      : id=2, title: 'bugtitleeeee', description: 'description', Status Active, Priority High, Severity Critical, Assignee aaaaa");
+        Assertions.assertEquals( "Bug      : id=2, name: 'bugtitleeeee', description: 'description', Bug Status Active, Severity Critical, Priority: Low, Assignee: aaaaa",output);
     }
 }

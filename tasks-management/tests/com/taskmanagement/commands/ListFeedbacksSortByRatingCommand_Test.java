@@ -4,6 +4,7 @@ import com.taskmanagement.commands.contracts.Command;
 import com.taskmanagement.commands.creation.ListFeedbacksSortByRatingCommand;
 import com.taskmanagement.core.TaskManagementRepositoryImpl;
 import com.taskmanagement.core.contacts.TaskManagementRepository;
+import com.taskmanagement.exceptions.InvalidUserInputException;
 import com.taskmanagement.models.contracts.FeedBack;
 import com.taskmanagement.models.enums.BugStatus;
 import com.taskmanagement.models.enums.FeedBackStatus;
@@ -60,5 +61,11 @@ public class ListFeedbacksSortByRatingCommand_Test {
         FeedBack feedBack = taskManagementRepository.getFeedBacks().get(0);
         String output = command.executeCommand(List.of());
         Assertions.assertEquals("Feedback : id=3, name: 'bugtitleeeee', description: 'description' : , Status New, Rating 15", output);
+    }
+
+    @Test
+    public void execute_should_throwException_when_listIsEmpty() {
+
+        Assertions.assertThrows(InvalidUserInputException.class,()-> command.executeCommand(List.of()));
     }
 }

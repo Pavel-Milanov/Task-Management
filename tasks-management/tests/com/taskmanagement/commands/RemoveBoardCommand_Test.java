@@ -4,6 +4,7 @@ import com.taskmanagement.commands.contracts.Command;
 import com.taskmanagement.commands.creation.RemoveBoardCommand;
 import com.taskmanagement.core.TaskManagementRepositoryImpl;
 import com.taskmanagement.core.contacts.TaskManagementRepository;
+import com.taskmanagement.exceptions.InvalidUserInputException;
 import com.taskmanagement.models.contracts.Board;
 import com.taskmanagement.utils.TestUtilities;
 import org.junit.jupiter.api.Assertions;
@@ -43,5 +44,11 @@ public class RemoveBoardCommand_Test {
         command.executeCommand(List.of("board1"));
         Assertions.assertEquals(0, taskManagementRepository.getBoards().size());
 
+    }
+
+    @Test
+    public void execute_should_throwException_when_listIsEmpty() {
+
+        Assertions.assertThrows(InvalidUserInputException.class,()-> command.executeCommand(List.of("board1")));
     }
 }
