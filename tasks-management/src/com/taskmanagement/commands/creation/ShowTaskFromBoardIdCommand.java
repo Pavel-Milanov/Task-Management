@@ -1,13 +1,14 @@
 package com.taskmanagement.commands.creation;
 
 import com.taskmanagement.commands.contracts.Command;
+import com.taskmanagement.constants.ModelConstants;
+import com.taskmanagement.core.TaskManagementHelperRepositoryImpl;
 import com.taskmanagement.core.contacts.TaskManagementRepository;
 import com.taskmanagement.models.contracts.Board;
-import com.taskmanagement.models.contracts.WorkingItem;
+import com.taskmanagement.utils.ListingHelpers;
 import com.taskmanagement.utils.ParsingHelpers;
 import com.taskmanagement.utils.ValidationHelpers;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static com.taskmanagement.constants.CommandConstants.INVALID_BOARD_INDEX;
@@ -19,9 +20,11 @@ public class ShowTaskFromBoardIdCommand implements Command {
     public static final int EXPECTED_NUMBER_OF_ARGUMENTS = 1;
 
     private final TaskManagementRepository taskManagementRepository;
+    private final TaskManagementHelperRepositoryImpl helperRepository;
 
     public ShowTaskFromBoardIdCommand(TaskManagementRepository taskManagementRepository) {
         this.taskManagementRepository = taskManagementRepository;
+        this.helperRepository = new TaskManagementHelperRepositoryImpl(taskManagementRepository);
     }
 
     @Override
@@ -35,28 +38,14 @@ public class ShowTaskFromBoardIdCommand implements Command {
     }
 
     private String showTaskFromBoardId(int id) {
-        StringBuilder sb = new StringBuilder();
-        List<WorkingItem> workingItems = new ArrayList<>();
-
-
-        int count = 1;
-        sb.append(TASK_HEADER);
-        sb.append(System.lineSeparator());
-
-        List<Board> boards = taskManagementRepository.getBoards();
-        for (Board board : boards) {
-            if (board.getId() == id) {
-                workingItems.addAll(board.getTasks());
-            }
+        Board board = helperRepository.findElementById(taskManagementRepository.getBoards(), id);
+        StringBuilder output = new StringBuilder();
+        if (board.getTasks().isEmpty()) {
+            output.append(ModelConstants.NO_TASK);
+        } else {
+            output.append(TASK_HEADER).append(System.lineSeparator());
         }
-
-        for (WorkingItem workingItem : workingItems) {
-            sb.append(String.format("%d: ", count++));
-            sb.append(System.lineSeparator());
-            sb.append(workingItem.getAsString());
-        }
-
-        return sb.toString();
+        return output + ListingHelpers.elementsToString(board.getTasks());
     }
 }
 

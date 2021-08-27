@@ -42,7 +42,7 @@ public class AddNewBoardInTeamCommand implements Command {
         }
 
         Team team = helperRepository.findTeamByName(teamTittle);
-        Board board = helperRepository.findBoard(boardTittle);
+        Board board = helperRepository.findBoardByName(boardTittle);
 
         if (validateBoardNotAttached(board)) {
             throw new InvalidUserInputException(String.format(BOARD_ATTACHED, board.getName()));

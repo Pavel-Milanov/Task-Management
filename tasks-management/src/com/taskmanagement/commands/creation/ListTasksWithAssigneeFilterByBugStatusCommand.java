@@ -30,7 +30,7 @@ public class ListTasksWithAssigneeFilterByBugStatusCommand implements Command {
 
     private String filterByBugStatusAndAssignee(BugStatus bugStatus) {
         List<Bug> filteredBugs = taskManagementRepository.getBugs().stream()
-                .filter(bug -> bug.getBugStatus().equals(bugStatus)).collect(Collectors.toList());
+                .filter(bug -> bug.getBugStatus().equals(bugStatus) && !bug.getAssignee().equals("")).collect(Collectors.toList());
 
         return ListingHelpers.elementsToString(filteredBugs);
     }

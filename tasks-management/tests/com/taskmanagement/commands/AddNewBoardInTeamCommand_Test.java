@@ -82,6 +82,6 @@ public class AddNewBoardInTeamCommand_Test {
         Board board = taskManagementRepository.createBoard("Tasks");
         Team team = taskManagementRepository.createTeam("team1");
 
-        Assertions.assertThrows(InvalidUserInputException.class,() -> command.executeCommand(List.of("Tasks", "team11")));
+        Assertions.assertThrows(InvalidUserInputException.class, () -> command.executeCommand(List.of("Tasks", "team11")));
     }
 }

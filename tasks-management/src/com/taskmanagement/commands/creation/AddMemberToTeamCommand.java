@@ -45,8 +45,8 @@ public class AddMemberToTeamCommand implements Command {
         if (!helperRepository.memberExist(memberName)) {
             throw new InvalidUserInputException(String.format(MEMBER_NOT_EXISTS, teamName));
         }
-        Member member = helperRepository.findByMemberName(memberName);
-        Team team = helperRepository.findByTeamName(teamName);
+        Member member = helperRepository.findMemberByName(memberName);
+        Team team = helperRepository.findTeamByName(teamName);
 
         helperRepository.addMemberToTeam(member, team);
 

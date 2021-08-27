@@ -76,7 +76,7 @@ public class AddStepsToBugCommand_Test {
         Bug bug = taskManagementRepository.createBug("bug titleeeee", "bugdescriptionnnnn", Priority.HIGH, Severity.CRITICAL, BugStatus.ACTIVE, "zzzzzz");
         Assertions.assertEquals(4, bug.getId());
 
-        Assertions.assertThrows(InvalidUserInputException.class,() -> command.executeCommand(List.of("4", "zzzzzzz", "Step")));
+        Assertions.assertThrows(InvalidUserInputException.class, () -> command.executeCommand(List.of("4", "zzzzzzz", "Step")));
 
 
     }

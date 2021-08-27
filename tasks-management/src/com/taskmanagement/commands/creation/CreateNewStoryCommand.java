@@ -33,7 +33,7 @@ public class CreateNewStoryCommand implements Command {
         } catch (IllegalArgumentException exception) {
             ValidationHelpers.validateArgumentsCount(parameters, (EXPECTED_NUMBER_OF_ARGUMENTS - 1));
         }
-        Board board = helperRepository.findBoard(parameters.get(0));
+        Board board = helperRepository.findBoardByName(parameters.get(0));
         String name = parameters.get(1);
         String description = parameters.get(2);
         Priority priority = ParsingHelpers.tryParseEnum(parameters.get(3), Priority.class);

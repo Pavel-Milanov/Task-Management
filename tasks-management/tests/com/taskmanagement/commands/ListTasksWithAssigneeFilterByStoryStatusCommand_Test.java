@@ -1,13 +1,13 @@
 package com.taskmanagement.commands;
 
 import com.taskmanagement.commands.contracts.Command;
-import com.taskmanagement.commands.creation.*;
+import com.taskmanagement.commands.creation.CreateNewStoryCommand;
+import com.taskmanagement.commands.creation.ListTasksWithAssigneeFilterByAssigneeCommand;
+import com.taskmanagement.commands.creation.ListTasksWithAssigneeFilterByStoryStatusCommand;
 import com.taskmanagement.core.TaskManagementHelperRepositoryImpl;
 import com.taskmanagement.core.TaskManagementRepositoryImpl;
 import com.taskmanagement.core.contacts.TaskManagementRepository;
-import com.taskmanagement.exceptions.InvalidUserInputException;
 import com.taskmanagement.models.contracts.Board;
-import com.taskmanagement.models.contracts.Bug;
 import com.taskmanagement.models.contracts.Member;
 import com.taskmanagement.models.contracts.Team;
 import com.taskmanagement.models.enums.Priority;
@@ -54,14 +54,14 @@ public class ListTasksWithAssigneeFilterByStoryStatusCommand_Test {
         Board board = taskManagementRepository.createBoard("board1");
         helperRepository.addMemberToTeam(member, team);
         helperRepository.addBoardToTeam(board, team);
-        taskManagementRepository.createStory("storyNameeeeee","aaaaaaaaaaaaa", Priority.HIGH, Size.LARGE, StoryStatus.DONE,"aaaaa");
+        taskManagementRepository.createStory("storyNameeeeee", "aaaaaaaaaaaaa", Priority.HIGH, Size.LARGE, StoryStatus.DONE, "aaaaa");
         String output = command.executeCommand(List.of("done"));
-        Assertions.assertEquals("", output);
+        Assertions.assertEquals("Story    : id=4, name: 'storyNameeeeee', description: 'aaaaaaaaaaaaa', Status Done, Size Large, Priority: High, Assignee: aaaaa", output);
     }
 
     @Test
     public void execute_should_throwException_when_listIsEmpty() {
 
-        Assertions.assertThrows(IllegalArgumentException.class,()-> command.executeCommand(List.of()));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> command.executeCommand(List.of()));
     }
 }

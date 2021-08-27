@@ -6,7 +6,6 @@ import com.taskmanagement.commands.creation.ListTasksWithAssigneeFilterByAssigne
 import com.taskmanagement.core.TaskManagementHelperRepositoryImpl;
 import com.taskmanagement.core.TaskManagementRepositoryImpl;
 import com.taskmanagement.core.contacts.TaskManagementRepository;
-import com.taskmanagement.exceptions.InvalidUserInputException;
 import com.taskmanagement.models.contracts.Board;
 import com.taskmanagement.models.contracts.Bug;
 import com.taskmanagement.models.contracts.Member;
@@ -64,6 +63,6 @@ public class ListTasksWithAssigneeFilterByAssigneeCommand_Test {
     @Test
     public void execute_should_throwException_when_listIsEmpty() {
 
-        Assertions.assertThrows(IllegalArgumentException.class,()-> command.executeCommand(List.of()));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> command.executeCommand(List.of()));
     }
 }

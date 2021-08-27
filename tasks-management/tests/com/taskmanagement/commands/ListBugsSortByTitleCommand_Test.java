@@ -64,6 +64,6 @@ public class ListBugsSortByTitleCommand_Test {
     @Test
     public void execute_should_throwException_when_listIsEmpty() {
 
-        Assertions.assertThrows(InvalidUserInputException.class,()-> command.executeCommand(List.of()));
+        Assertions.assertThrows(InvalidUserInputException.class, () -> command.executeCommand(List.of()));
     }
 }

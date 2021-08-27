@@ -2,12 +2,10 @@ package com.taskmanagement.commands;
 
 import com.taskmanagement.commands.contracts.Command;
 import com.taskmanagement.commands.creation.CreateNewBugCommand;
-import com.taskmanagement.commands.creation.ListTasksWithAssigneeFilterByAssigneeCommand;
 import com.taskmanagement.commands.creation.ListTasksWithAssigneeFilterByBugStatusAndAssigneeCommand;
 import com.taskmanagement.core.TaskManagementHelperRepositoryImpl;
 import com.taskmanagement.core.TaskManagementRepositoryImpl;
 import com.taskmanagement.core.contacts.TaskManagementRepository;
-import com.taskmanagement.exceptions.InvalidUserInputException;
 import com.taskmanagement.models.contracts.Board;
 import com.taskmanagement.models.contracts.Bug;
 import com.taskmanagement.models.contracts.Member;
@@ -36,7 +34,7 @@ public class ListTasksWithAssigneeFilterByBugStatusAndAssigneeCommand_Test {
     }
 
     @ParameterizedTest(name = "with arguments count: {0}")
-    @ValueSource(ints = {ListTasksWithAssigneeFilterByAssigneeCommand.EXPECTED_NUMBER_OF_ARGUMENTS + 1, ListTasksWithAssigneeFilterByAssigneeCommand.EXPECTED_NUMBER_OF_ARGUMENTS - 1})
+    @ValueSource(ints = {ListTasksWithAssigneeFilterByBugStatusAndAssigneeCommand.EXPECTED_NUMBER_OF_ARGUMENTS + 1, ListTasksWithAssigneeFilterByBugStatusAndAssigneeCommand.EXPECTED_NUMBER_OF_ARGUMENTS - 1})
     public void execute_should_throwException_when_argumentsCountDifferentThanExpected(int argumentsCount) {
         // Arrange
         List<String> arguments = TestUtilities.initializeListWithSize(argumentsCount);
@@ -56,15 +54,15 @@ public class ListTasksWithAssigneeFilterByBugStatusAndAssigneeCommand_Test {
         //taskManagementRepository.createBug("bugtitleeeee","description", Priority.LOW, Severity.CRITICAL, BugStatus.ACTIVE,"aaaaa");
 
         command1.executeCommand(List.of("board1", "bugtitleeeee", "descriptionon", "low", "Critical", "active", "aaaaa"));
-        command.executeCommand(List.of("active","aaaaa"));
+        command.executeCommand(List.of("active", "aaaaa"));
         Bug bug = taskManagementRepository.getBugs().get(0);
-        String output = command.executeCommand(List.of("active","aaaaa"));
+        String output = command.executeCommand(List.of("active", "aaaaa"));
         Assertions.assertEquals("Bug      : id=4, name: 'bugtitleeeee', description: 'descriptionon', Bug Status Active, Severity Critical, Priority: Low, Assignee: aaaaa", output);
     }
 
     @Test
     public void execute_should_throwException_when_listIsEmpty() {
 
-        Assertions.assertThrows(IllegalArgumentException.class,()-> command.executeCommand(List.of()));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> command.executeCommand(List.of()));
     }
 }

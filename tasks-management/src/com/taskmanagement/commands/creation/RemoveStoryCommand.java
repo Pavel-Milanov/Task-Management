@@ -4,6 +4,7 @@ import com.taskmanagement.commands.contracts.Command;
 import com.taskmanagement.constants.CommandConstants;
 import com.taskmanagement.core.TaskManagementHelperRepositoryImpl;
 import com.taskmanagement.core.contacts.TaskManagementRepository;
+import com.taskmanagement.models.contracts.Board;
 import com.taskmanagement.models.contracts.Story;
 import com.taskmanagement.utils.ParsingHelpers;
 import com.taskmanagement.utils.ValidationHelpers;
@@ -31,6 +32,9 @@ public class RemoveStoryCommand implements Command {
 
     private String removeStory(int storyId) {
         Story story = helperRepository.findElementById(taskManagementRepository.getStories(), storyId);
+        Board board = taskManagementRepository.getBoards().stream()
+                .filter(board1 -> board1.getTasks().contains(story)).findAny().orElseThrow();
+        board.removeTask(story);
         taskManagementRepository.removeStory(story);
         return String.format(CommandConstants.TASK_REMOVED_SUCCESSFULLY, story.getName());
     }

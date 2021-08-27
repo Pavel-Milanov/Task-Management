@@ -5,7 +5,6 @@ import com.taskmanagement.constants.CommandConstants;
 import com.taskmanagement.core.contacts.TaskManagementRepository;
 import com.taskmanagement.exceptions.InvalidUserInputException;
 import com.taskmanagement.models.contracts.Bug;
-import com.taskmanagement.models.contracts.Story;
 import com.taskmanagement.utils.ListingHelpers;
 import com.taskmanagement.utils.ValidationHelpers;
 

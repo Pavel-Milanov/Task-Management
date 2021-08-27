@@ -65,6 +65,6 @@ public class ListBugsFilterByAssigneeCommand_Test {
     public void execute_should_throwException_when_listIsEmpty() {
         taskManagementRepository.createMember("aaaaa");
 
-        Assertions.assertThrows(InvalidUserInputException.class,()-> command.executeCommand(List.of("aaaaa")));
+        Assertions.assertThrows(InvalidUserInputException.class, () -> command.executeCommand(List.of("aaaaa")));
     }
 }

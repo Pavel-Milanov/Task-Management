@@ -16,15 +16,13 @@ public class ListingHelpers {
 
     public static String stepAsString(List<String> steps) {
 
-        String[] split = steps.toString().split(";");
+        String[] split = steps.toString().split("; ");
 
         StringBuilder result = new StringBuilder();
-        result.append("--STEPS--").append(System.lineSeparator());
 
         for (String s : split) {
             result.append(s).append(System.lineSeparator());
         }
-        result.replace(11, 12, " ");
-        return String.join(System.lineSeparator(), result.substring(0, result.length() - 3)).trim();
+        return String.join(System.lineSeparator(), result.substring(1, result.length() - 3)).trim();
     }
 }

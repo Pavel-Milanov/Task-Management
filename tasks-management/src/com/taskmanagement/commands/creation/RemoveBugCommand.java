@@ -4,6 +4,7 @@ import com.taskmanagement.commands.contracts.Command;
 import com.taskmanagement.constants.CommandConstants;
 import com.taskmanagement.core.TaskManagementHelperRepositoryImpl;
 import com.taskmanagement.core.contacts.TaskManagementRepository;
+import com.taskmanagement.models.contracts.Board;
 import com.taskmanagement.models.contracts.Bug;
 import com.taskmanagement.utils.ParsingHelpers;
 import com.taskmanagement.utils.ValidationHelpers;
@@ -31,6 +32,9 @@ public class RemoveBugCommand implements Command {
 
     private String removeBug(int bugId) {
         Bug bug = helperRepository.findElementById(taskManagementRepository.getBugs(), bugId);
+        Board board = taskManagementRepository.getBoards().stream()
+                .filter(board1 -> board1.getTasks().contains(bug)).findAny().orElseThrow();
+        board.removeTask(bug);
         taskManagementRepository.removeBug(bug);
         return String.format(CommandConstants.TASK_REMOVED_SUCCESSFULLY, bug.getName());
     }

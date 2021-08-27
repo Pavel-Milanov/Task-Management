@@ -122,6 +122,7 @@ public class TaskManagementRepositoryImpl implements TaskManagementRepository {
     @Override
     public void removeBug(Bug bug) {
         bugs.removeIf(bug::equals);
+
     }
 
     @Override

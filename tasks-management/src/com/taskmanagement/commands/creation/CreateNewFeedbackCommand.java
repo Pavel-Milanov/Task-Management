@@ -29,7 +29,7 @@ public class CreateNewFeedbackCommand implements Command {
     @Override
     public String executeCommand(List<String> parameters) {
 
-        Board board = helperRepository.findBoard(parameters.get(0));
+        Board board = helperRepository.findBoardByName(parameters.get(0));
         String title = parameters.get(1);
         String description = parameters.get(2);
         int rating = tryParseInt(parameters.get(3), INVALID_RATING);

@@ -7,11 +7,12 @@ import com.taskmanagement.models.contracts.Task;
 import com.taskmanagement.utils.ListingHelpers;
 import com.taskmanagement.utils.ValidationHelpers;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class ListTasksWithAssigneeSortByTitleCommand implements Command {
-    public static final int EXPECTED_NUMBER_OF_ARGUMENTS = 1;
+    public static final int EXPECTED_NUMBER_OF_ARGUMENTS = 0;
 
     private final TaskManagementHelperRepositoryImpl helperRepository;
 
@@ -23,15 +24,15 @@ public class ListTasksWithAssigneeSortByTitleCommand implements Command {
     @Override
     public String executeCommand(List<String> parameters) {
         ValidationHelpers.validateArgumentsCount(parameters, EXPECTED_NUMBER_OF_ARGUMENTS);
-        String assignee = parameters.get(1);
-        return listTasks(assignee);
+
+        return listTasks();
     }
 
-    private String listTasks(String assignee) {
-        List<Task> taskFilter;
-        taskFilter = helperRepository.getTasks().stream()
-                .filter(task -> task.getAssignee().equals(assignee)).collect(Collectors.toList());
-        return ListingHelpers.elementsToString(taskFilter);
+    private String listTasks() {
+        List<Task> taskFilter = helperRepository.getTasks();
+        taskFilter.sort(Comparator.comparing(o -> o.getName().toUpperCase()));
+        List<Task> assigneeTaskOnly = taskFilter.stream().filter(task -> !task.getAssignee().equals("")).collect(Collectors.toList());
+        return ListingHelpers.elementsToString(assigneeTaskOnly);
     }
 
 }

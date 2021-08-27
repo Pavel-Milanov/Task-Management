@@ -50,20 +50,22 @@ public class AddMemberToTeamCommand_Test {
                 () -> Assertions.assertEquals("user1", helperRepository.getTeam("team1").getMembers().get(0).getName())
         );
     }
+
     @Test
     public void execute_should_throwException_when_notValidTeam() {
         taskManagementRepository.createMember("user1");
         Team team = taskManagementRepository.createTeam("team1");
 
-        Assertions.assertThrows(InvalidUserInputException.class,() -> command.executeCommand(List.of("user1", "team11")));
+        Assertions.assertThrows(InvalidUserInputException.class, () -> command.executeCommand(List.of("user1", "team11")));
 
     }
+
     @Test
     public void execute_should_throwException_when_notValidMember() {
         taskManagementRepository.createMember("user1");
         Team team = taskManagementRepository.createTeam("team1");
 
-        Assertions.assertThrows(InvalidUserInputException.class,() -> command.executeCommand(List.of("user11", "team1")));
+        Assertions.assertThrows(InvalidUserInputException.class, () -> command.executeCommand(List.of("user11", "team1")));
     }
 
 }

@@ -62,9 +62,9 @@ public class ShowBugStepsCommand_Test {
         taskManagementRepository.createMember("aaaaa");
         taskManagementRepository.createBug("bugtitleeeee", "description", Priority.LOW, Severity.CRITICAL, BugStatus.ACTIVE, "aaaaa");
 
-        command.executeCommand(List.of());
+        command.executeCommand(List.of("2"));
         Bug bug = taskManagementRepository.getBugs().get(0);
-        Assertions.assertDoesNotThrow(() -> command.executeCommand(List.of()));
+        Assertions.assertDoesNotThrow(() -> command.executeCommand(List.of("2")));
 
     }
 
@@ -73,10 +73,12 @@ public class ShowBugStepsCommand_Test {
         taskManagementRepository.createMember("aaaaa");
         taskManagementRepository.createBug("bugtitleeeee", "description", Priority.LOW, Severity.CRITICAL, BugStatus.ACTIVE, "aaaaa");
         command1.executeCommand(List.of("2", "aaaaa", "1. First step; 2 Second step"));
-        command.executeCommand(List.of("1"));
+        command.executeCommand(List.of("2"));
 
         Bug bug = taskManagementRepository.getBugs().get(0);
-        String output = command.executeCommand(List.of("1"));
-        Assertions.assertEquals(output, "1. First step;\n 2 Second step");
+        String output = command.executeCommand(List.of("2"));
+        Assertions.assertEquals("--BUG STEPS--" + System.lineSeparator() +
+                "1. First step" + System.lineSeparator() +
+                "2 Second step", output);
     }
 }
