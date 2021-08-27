@@ -71,7 +71,7 @@ public class TaskManagementHelperRepositoryImpl {
                 .orElseThrow(() -> new InvalidUserInputException(CoreConstants.BOARD_NOT_ATTACHED_TO_TEAM));
 
         Member member = findMemberByName(memberName);
-        if (!member.getTeamList().contains(team)) {
+        if (!team.getMembers().contains(member)) {
             throw new InvalidUserInputException(String.format(MEMBER_NOT_USER_FROM_TEAM, member, team.getName()));
         }
     }
@@ -114,7 +114,7 @@ public class TaskManagementHelperRepositoryImpl {
         Member member = findMemberByName(memberName);
         Team team = findTeamByName(teamName);
 
-        return member.getTeamList().contains(team);
+        return team.getMembers().contains(member);
     }
 
     public Board getBoard(Board board) {
@@ -160,7 +160,6 @@ public class TaskManagementHelperRepositoryImpl {
         for (Team team1 : taskManagementHelperRepository.getTeams()) {
             if (team1.getName().equals(team.getName())) {
                 team1.addMember(member);
-                member.addTeam(team1);
                 isAdded = true;
             }
         }
@@ -191,8 +190,6 @@ public class TaskManagementHelperRepositoryImpl {
     }
 
     public boolean assigneeIsExist(String nameAssignee) {
-
-
         return getTasks().stream().noneMatch(task -> task.getAssignee().equalsIgnoreCase(nameAssignee));
     }
 

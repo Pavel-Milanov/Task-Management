@@ -4,7 +4,6 @@ import com.taskmanagement.constants.ModelConstants;
 import com.taskmanagement.constants.OutputMessages;
 import com.taskmanagement.models.contracts.ActivityHistory;
 import com.taskmanagement.models.contracts.Member;
-import com.taskmanagement.models.contracts.Team;
 import com.taskmanagement.utils.ValidationHelpers;
 
 import java.time.LocalDateTime;
@@ -12,9 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MemberImpl implements Member {
-    //remove teamList
+
     private final List<ActivityHistory> activityHistories;
-    private final List<Team> teamList;
     private final int id;
     private String name;
 
@@ -22,13 +20,7 @@ public class MemberImpl implements Member {
         this.id = id;
         setName(name);
         this.activityHistories = new ArrayList<>();
-        this.teamList = new ArrayList<>();
         activityHistories.add(new ActivityHistoryImpl(("Member with name " + name + " was registered."), LocalDateTime.now()));
-    }
-
-    @Override
-    public List<Team> getTeamList() {
-        return new ArrayList<>(teamList);
     }
 
     @Override
@@ -56,11 +48,5 @@ public class MemberImpl implements Member {
         return "Member{" +
                 "id=" + id +
                 ", username='" + name;
-    }
-
-    @Override
-    public void addTeam(Team team) {
-        teamList.add(team);
-        activityHistories.add(new ActivityHistoryImpl(("Member with name " + name + " was added to " + team.getName() + "."), LocalDateTime.now()));
     }
 }
