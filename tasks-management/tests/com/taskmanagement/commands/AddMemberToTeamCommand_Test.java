@@ -47,7 +47,7 @@ public class AddMemberToTeamCommand_Test {
                 Assertions.assertDoesNotThrow(() -> command.executeCommand(List.of("user1", "team1"))),
                 () -> Assertions.assertFalse(taskManagementRepository.getMembers().isEmpty()),
                 () -> Assertions.assertFalse(taskManagementRepository.getTeams().isEmpty()),
-                () -> Assertions.assertEquals("user1", helperRepository.getTeam("team1").getMembers().get(0).getName())
+                () -> Assertions.assertEquals("user1", team.getMembers().get(0).getName())
         );
     }
 

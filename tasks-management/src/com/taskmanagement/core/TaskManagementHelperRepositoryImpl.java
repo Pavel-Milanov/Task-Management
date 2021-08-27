@@ -48,13 +48,6 @@ public class TaskManagementHelperRepositoryImpl {
                 .orElseThrow(() -> new ElementNotFoundException(String.format(ELEMENT_NOT_FOUND, board.getName())));
     }
 
-    public Team getTeam(String teamName) {
-        return taskManagementHelperRepository.getTeams().stream()
-                .filter(team -> teamName.equals(team.getName())).findAny()
-                .orElseThrow(() -> new ElementNotFoundException(String.format(CoreConstants.ELEMENT_NOT_FOUND, teamName)));
-
-    }
-
     public Member findMemberByName(String name) {
         return taskManagementHelperRepository.getMembers().stream()
                 .filter(member -> name.equals(member.getName())).findAny()
@@ -76,7 +69,6 @@ public class TaskManagementHelperRepositoryImpl {
     }
 
     public <T extends Identifiable> T findElementById(List<T> elements, int id) {
-
         return elements.stream().filter(element -> element.getId() == id).findAny()
                 .orElseThrow(() -> new ElementNotFoundException(String.format("No record with ID %d", id)));
     }
@@ -108,6 +100,13 @@ public class TaskManagementHelperRepositoryImpl {
         }
     }
 
+    public boolean validateMemberIsFromTeam(String memberName, String teamName) {
+        Member member = findMemberByName(memberName);
+        Team team = findTeamByName(teamName);
+
+        return team.getMembers().contains(member);
+    }
+
     public boolean teamExist(String teamName) {
         return taskManagementHelperRepository.getTeams().stream().anyMatch(team -> team.getName().equals(teamName));
 
@@ -123,13 +122,6 @@ public class TaskManagementHelperRepositoryImpl {
 
     public boolean memberExist(String memberName) {
         return taskManagementHelperRepository.getMembers().stream().anyMatch(member -> member.getName().equals(memberName));
-    }
-
-    public boolean validateMemberIsFromTeam(String memberName, String teamName) {
-        Member member = findMemberByName(memberName);
-        Team team = findTeamByName(teamName);
-
-        return team.getMembers().contains(member);
     }
 
     public void addBoardToTeam(Board board, Team team) {
@@ -156,18 +148,5 @@ public class TaskManagementHelperRepositoryImpl {
         if (!isAdded) {
             throw new ElementNotFoundException(String.format(ELEMENT_NOT_FOUND, team.getName()));
         }
-    }
-
-    public void removeComment(Comment comment, WorkingItem workingItem) {
-        boolean removed = false;
-        for (WorkingItem workingItem1 : getWorkingItems()) {
-            if (workingItem1.getName().equals(workingItem.getName())) {
-                workingItem1.removeComment(comment);
-                removed = true;
-            }
-        }
-
-        if (!removed)
-            throw new ElementNotFoundException(String.format(ELEMENT_NOT_FOUND, comment.getContent()));
     }
 }
