@@ -35,4 +35,9 @@ public interface TaskManagementRepository {
 
     void removeTeam(String teamName);
 
+    void removeBug(Bug bug);
+
+    void removeStory(Story story);
+
+    void removeMember(Member member);
 }

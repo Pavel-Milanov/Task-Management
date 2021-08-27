@@ -118,5 +118,21 @@ public class TaskManagementRepositoryImpl implements TaskManagementRepository {
     public void removeTeam(String teamName) {
         teams.removeIf(team -> team.getName().equals(teamName));
     }
+
+    @Override
+    public void removeBug(Bug bug) {
+        bugs.removeIf(bug::equals);
+    }
+
+    @Override
+    public void removeStory(Story story) {
+        stories.removeIf(story::equals);
+    }
+
+    @Override
+    public void removeMember(Member member) {
+        members.removeIf(member::equals);
+    }
+
 }
 
