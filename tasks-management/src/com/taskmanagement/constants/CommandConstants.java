@@ -33,16 +33,11 @@ public class CommandConstants {
     public static final String NOT_SUPPORTED_OPERATION = "%s is not supported.";
     public static final String INVALID_TASK_NAME = "Task with %s not exist.";
     public static final String ASSIGNEE_REMOVED = "Assignee removed.";
-    public static final String BOARD_ATTACHED = "Board %s attached in another team.";
+    public static final String BOARD_ATTACHED = "Board %s already attached.";
     public final static String INVALID_RATING = "Invalid rating. Expected a number.";
-
-
     public static final String MEMBER_NOT_EXISTS = "Member with name %s not exists!";
     public static final String MISSING_TASK_TYPE = "This type bug is missing!";
-
-
     public static final String LABEL_CHANGED_SUCCESSFULLY = "The label is changed successfully!";
-
     public static final String PRIORITY_CHANGED_SUCCESSFULLY = "Priority of %s changed successfully.";
     public static final String STATUS_CHANGED_SUCCESSFULLY = "Status of %s changed successfully.";
     public static final String SIZE_CHANGED_SUCCESSFULLY = "Size of %s changed successfully.";
