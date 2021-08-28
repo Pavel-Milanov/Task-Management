@@ -34,7 +34,7 @@ public class CreateNewFeedbackCommand_Test {
         List<String> arguments = TestUtilities.initializeListWithSize(argumentsCount);
 
         // Act, Assert
-        Assertions.assertThrows(ElementNotFoundException.class, () -> command.executeCommand(arguments));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> command.executeCommand(arguments));
     }
 
 
@@ -42,7 +42,7 @@ public class CreateNewFeedbackCommand_Test {
     public void execute_should_addTaskToBoard_when_passedValidInput() {
         FeedBack feedBack = new FeedBackImpl(1, "feedbacktitile", "feedbackdescription", 10, FeedBackStatus.NEW);
         taskManagementRepository.createBoard("board1");
-        command.executeCommand(List.of("board1", "feedbacktitile", "feedbackdescription", "10", "NEW"));
+        command.executeCommand(List.of("1", "feedbacktitile", "feedbackdescription", "10", "NEW"));
 
 
         Assertions.assertEquals(taskManagementRepository.getFeedBacks().get(0).getName(), feedBack.getName());

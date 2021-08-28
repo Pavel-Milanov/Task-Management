@@ -2,6 +2,7 @@ package com.taskmanagement.commands.creation.creation;
 
 import com.taskmanagement.commands.contracts.Command;
 import com.taskmanagement.constants.CommandConstants;
+import com.taskmanagement.constants.ModelConstants;
 import com.taskmanagement.core.TaskManagementHelperRepositoryImpl;
 import com.taskmanagement.core.contacts.TaskManagementRepository;
 import com.taskmanagement.models.contracts.Board;
@@ -39,7 +40,7 @@ public class CreateNewBugCommand implements Command {
         Priority priority = ParsingHelpers.tryParseEnum(parameters.get(3), Priority.class);
         Severity severity = ParsingHelpers.tryParseEnum(parameters.get(4), Severity.class);
         BugStatus status = ParsingHelpers.tryParseEnum(parameters.get(5), BugStatus.class);
-        String assignee = "";
+        String assignee = CommandConstants.NO_ASSIGNEE;
 
         if (parameters.size() == 7) {
             assignee = parameters.get(6);

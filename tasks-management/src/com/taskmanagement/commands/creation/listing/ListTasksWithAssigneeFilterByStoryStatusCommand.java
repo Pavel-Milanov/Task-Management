@@ -1,6 +1,7 @@
 package com.taskmanagement.commands.creation.listing;
 
 import com.taskmanagement.commands.contracts.Command;
+import com.taskmanagement.constants.CommandConstants;
 import com.taskmanagement.core.contacts.TaskManagementRepository;
 import com.taskmanagement.models.contracts.Story;
 import com.taskmanagement.models.enums.StoryStatus;
@@ -32,7 +33,7 @@ public class ListTasksWithAssigneeFilterByStoryStatusCommand implements Command 
     private String tasksFilteredByStoryStatus(StoryStatus storyStatus) {
 
         List<Story> filteredStoryTasks = taskManagementRepository.getStories().stream()
-                .filter(story -> story.getStoryStatus().equals(storyStatus) && !story.getAssignee().isEmpty()).collect(Collectors.toList());
+                .filter(story -> story.getStoryStatus().equals(storyStatus) && !story.getAssignee().equals(CommandConstants.NO_ASSIGNEE)).collect(Collectors.toList());
 
         return ListingHelpers.elementsToString(filteredStoryTasks);
     }

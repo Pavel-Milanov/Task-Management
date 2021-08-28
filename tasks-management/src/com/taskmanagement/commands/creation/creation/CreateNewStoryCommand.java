@@ -39,7 +39,7 @@ public class CreateNewStoryCommand implements Command {
         Priority priority = ParsingHelpers.tryParseEnum(parameters.get(3), Priority.class);
         Size size = ParsingHelpers.tryParseEnum(parameters.get(4), Size.class);
         StoryStatus status = ParsingHelpers.tryParseEnum(parameters.get(5), StoryStatus.class);
-        String assignee = "";
+        String assignee = CommandConstants.NO_ASSIGNEE;
 
         if (parameters.size() == 7) {
             assignee = parameters.get(6);

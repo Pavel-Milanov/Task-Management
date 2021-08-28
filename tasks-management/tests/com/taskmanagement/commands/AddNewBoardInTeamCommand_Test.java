@@ -59,7 +59,7 @@ public class AddNewBoardInTeamCommand_Test {
         Team team = taskManagementRepository.createTeam("Team11");
 
         Assertions.assertAll(
-                Assertions.assertDoesNotThrow(() -> command.executeCommand(List.of("Trello", "Team11"))),
+                Assertions.assertDoesNotThrow(() -> command.executeCommand(List.of("1", "Team11"))),
                 () -> Assertions.assertFalse(helperRepository.boardExist("Trella")),
                 () -> Assertions.assertFalse(taskManagementRepository.getTeams().isEmpty()),
                 () -> Assertions.assertEquals("Trello", taskManagementRepository.getBoards().get(0).getName())
@@ -71,7 +71,7 @@ public class AddNewBoardInTeamCommand_Test {
     public void execute_should_throwException_when_BoardNotAttached() {
         Board board = taskManagementRepository.createBoard("Tasks");
         Team team = taskManagementRepository.createTeam("Team11");
-        List<String> parameters = List.of("Tasks", "Team11");
+        List<String> parameters = List.of("1", "Team11");
         command.executeCommand(parameters);
 
         Assertions.assertThrows(InvalidUserInputException.class, () -> command.executeCommand(parameters));
@@ -82,6 +82,6 @@ public class AddNewBoardInTeamCommand_Test {
         Board board = taskManagementRepository.createBoard("Tasks");
         Team team = taskManagementRepository.createTeam("team1");
 
-        Assertions.assertThrows(InvalidUserInputException.class, () -> command.executeCommand(List.of("Tasks", "team11")));
+        Assertions.assertThrows(InvalidUserInputException.class, () -> command.executeCommand(List.of("1", "team11")));
     }
 }

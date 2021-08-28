@@ -41,4 +41,5 @@ public class CommandConstants {
     public static final String INVALID_TEAM_INDEX = "Invalid task index. Expected a number.";
     public static final String TEAM_REMOVED_SUCCESSFULLY = "Team with name '%s' has been removed successfully";
     public static final String MEMBER_REMOVED = "Member with name '%s' has been removed successfully";
+    public static final String NO_ASSIGNEE = "--NO ASSIGNEE--";
 }

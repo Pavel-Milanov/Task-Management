@@ -53,7 +53,7 @@ public class ListTasksWithAssigneeFilterByAssigneeCommand_Test {
         helperRepository.addBoardToTeam(board, team);
         //taskManagementRepository.createBug("bugtitleeeee","description", Priority.LOW, Severity.CRITICAL, BugStatus.ACTIVE,"aaaaa");
 
-        command1.executeCommand(List.of("board1", "bugtitleeeee", "descriptionon", "low", "Critical", "active", "aaaaa"));
+        command1.executeCommand(List.of("3", "bugtitleeeee", "descriptionon", "low", "Critical", "active", "aaaaa"));
         command.executeCommand(List.of("aaaaa"));
         Bug bug = taskManagementRepository.getBugs().get(0);
         String output = command.executeCommand(List.of("aaaaa"));

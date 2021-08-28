@@ -1,6 +1,7 @@
 package com.taskmanagement.commands.creation.listing;
 
 import com.taskmanagement.commands.contracts.Command;
+import com.taskmanagement.constants.CommandConstants;
 import com.taskmanagement.core.contacts.TaskManagementRepository;
 import com.taskmanagement.models.contracts.Bug;
 import com.taskmanagement.models.enums.BugStatus;
@@ -30,7 +31,7 @@ public class ListTasksWithAssigneeFilterByBugStatusCommand implements Command {
 
     private String filterByBugStatusAndAssignee(BugStatus bugStatus) {
         List<Bug> filteredBugs = taskManagementRepository.getBugs().stream()
-                .filter(bug -> bug.getBugStatus().equals(bugStatus) && !bug.getAssignee().equals("")).collect(Collectors.toList());
+                .filter(bug -> bug.getBugStatus().equals(bugStatus) && !bug.getAssignee().equals(CommandConstants.NO_ASSIGNEE)).collect(Collectors.toList());
 
         return ListingHelpers.elementsToString(filteredBugs);
     }

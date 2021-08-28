@@ -4,6 +4,7 @@ import com.taskmanagement.commands.contracts.Command;
 import com.taskmanagement.commands.creation.removable.RemoveBoardCommand;
 import com.taskmanagement.core.TaskManagementRepositoryImpl;
 import com.taskmanagement.core.contacts.TaskManagementRepository;
+import com.taskmanagement.exceptions.ElementNotFoundException;
 import com.taskmanagement.exceptions.InvalidUserInputException;
 import com.taskmanagement.models.contracts.Board;
 import com.taskmanagement.utils.TestUtilities;
@@ -41,7 +42,7 @@ public class RemoveBoardCommand_Test {
     public void execute_should_removeBoard_when_passedValidInput() {
         Board board = taskManagementRepository.createBoard("board1");
 
-        command.executeCommand(List.of("board1"));
+        command.executeCommand(List.of("1"));
         Assertions.assertEquals(0, taskManagementRepository.getBoards().size());
 
     }
@@ -49,6 +50,6 @@ public class RemoveBoardCommand_Test {
     @Test
     public void execute_should_throwException_when_listIsEmpty() {
 
-        Assertions.assertThrows(InvalidUserInputException.class, () -> command.executeCommand(List.of("board1")));
+        Assertions.assertThrows(ElementNotFoundException.class, () -> command.executeCommand(List.of("1")));
     }
 }
