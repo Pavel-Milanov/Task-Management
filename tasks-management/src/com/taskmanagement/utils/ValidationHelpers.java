@@ -1,5 +1,7 @@
 package com.taskmanagement.utils;
 
+import com.taskmanagement.exceptions.InvalidUserInputException;
+
 import java.util.List;
 
 import static com.taskmanagement.constants.OutputMessages.INVALID_NUMBER_OF_ARGUMENTS;
@@ -16,7 +18,7 @@ public class ValidationHelpers {
     public static void validateArgumentsCount(List<String> parameters, int expectedNumberOfParameters) {
 
         if (parameters.size() != expectedNumberOfParameters) {
-            throw new IllegalArgumentException(
+            throw new InvalidUserInputException(
                     String.format(INVALID_NUMBER_OF_ARGUMENTS, expectedNumberOfParameters, parameters.size())
             );
         }

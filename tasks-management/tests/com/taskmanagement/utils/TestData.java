@@ -19,4 +19,5 @@ public class TestData {
     public static class Item {
         public static final String VALID_NAME_ITEM = TestUtilities.initializeStringWithSize(DESCRIPTION_MIN_LENGTH + 1);
     }
+
 }
