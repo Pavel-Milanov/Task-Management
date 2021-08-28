@@ -37,7 +37,7 @@ public class CreateNewTeamCommand implements Command {
 
     private String createTeam(String teamName) {
 
-        if (helperRepository.teamExist(teamName)) {
+        if (helperRepository.isTeamExist(teamName)) {
             throw new InvalidUserInputException(String.format(TEAM_ALREADY_EXISTS, teamName));
         }
 

@@ -64,7 +64,7 @@ public class TaskManagementHelperRepositoryImpl {
 
     public <T extends Identifiable> T findElementById(List<T> elements, int id) {
         return elements.stream().filter(element -> element.getId() == id).findAny()
-                .orElseThrow(() -> new ElementNotFoundException(String.format("No record with ID %d", id)));
+                .orElseThrow(() -> new ElementNotFoundException(String.format(CoreConstants.INVALID_ID, id)));
     }
 
     public void validateAssigneeIsMemberOfTeam(Board board, String assignee) {
@@ -101,20 +101,20 @@ public class TaskManagementHelperRepositoryImpl {
         return team.getMembers().contains(member);
     }
 
-    public boolean teamExist(String teamName) {
+    public boolean isTeamExist(String teamName) {
         return taskManagementHelperRepository.getTeams().stream().anyMatch(team -> team.getName().equals(teamName));
 
     }
 
-    public boolean boardExist(String boardName) {
+    public boolean isBoardExist(String boardName) {
         return taskManagementHelperRepository.getBoards().stream().anyMatch(board -> board.getName().equals(boardName));
     }
 
-    public boolean assigneeExist(String nameAssignee) {
+    public boolean isAssigneeExist(String nameAssignee) {
         return getTasks().stream().noneMatch(task -> task.getAssignee().equalsIgnoreCase(nameAssignee));
     }
 
-    public boolean memberExist(String memberName) {
+    public boolean isMemberExist(String memberName) {
         return taskManagementHelperRepository.getMembers().stream().anyMatch(member -> member.getName().equals(memberName));
     }
 

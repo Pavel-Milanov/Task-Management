@@ -31,7 +31,7 @@ public class CreateMemberCommand implements Command {
     }
 
     private String createMember(String memberName) {
-        if (helperRepository.memberExist(memberName)) {
+        if (helperRepository.isMemberExist(memberName)) {
             throw new InvalidUserInputException(String.format(MEMBER_ALREADY_EXISTS, memberName));
         }
 

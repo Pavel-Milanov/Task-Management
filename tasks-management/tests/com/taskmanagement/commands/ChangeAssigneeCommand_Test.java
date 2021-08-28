@@ -3,7 +3,7 @@ package com.taskmanagement.commands;
 import com.taskmanagement.commands.contracts.Command;
 
 
-import com.taskmanagement.commands.creation.addition.AddCommentTaskCommand;
+
 import com.taskmanagement.commands.creation.change.ChangeAssigneeCommand;
 import com.taskmanagement.core.TaskManagementRepositoryImpl;
 import com.taskmanagement.core.contacts.TaskManagementRepository;
@@ -46,7 +46,7 @@ public class ChangeAssigneeCommand_Test {
 
 
         //Assert
-        Assertions.assertEquals(AddCommentTaskCommand.EXPECTED_NUMBER_OF_ARGUMENTS, parameters.size());
+        Assertions.assertEquals(ChangeAssigneeCommand.EXPECTED_NUMBER_OF_ARGUMENTS, parameters.size());
 
     }
 

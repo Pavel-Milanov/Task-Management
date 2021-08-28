@@ -7,4 +7,5 @@ public class CoreConstants {
     public static final String TASK_NOT_ATTACHED_TO_BOARD = "Task not attached to board.";
     public static final String BOARD_NOT_ATTACHED_TO_TEAM = "Board not attached to team.";
 
+    public static final String INVALID_ID = "No record with ID: %d. ";
 }

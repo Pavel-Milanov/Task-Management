@@ -60,7 +60,7 @@ public class AddNewBoardInTeamCommand_Test {
 
         Assertions.assertAll(
                 Assertions.assertDoesNotThrow(() -> command.executeCommand(List.of("1", "Team11"))),
-                () -> Assertions.assertFalse(helperRepository.boardExist("Trella")),
+                () -> Assertions.assertFalse(helperRepository.isBoardExist("Trella")),
                 () -> Assertions.assertFalse(taskManagementRepository.getTeams().isEmpty()),
                 () -> Assertions.assertEquals("Trello", taskManagementRepository.getBoards().get(0).getName())
         );

@@ -38,11 +38,11 @@ public class AddMemberToTeamCommand implements Command {
 
     private String addMemberToTeam(String memberName, String teamName) {
 
-        if (!helperRepository.teamExist(teamName)) {
+        if (!helperRepository.isTeamExist(teamName)) {
             throw new InvalidUserInputException(String.format(TEAM_NOT_EXISTS, teamName));
         }
 
-        if (!helperRepository.memberExist(memberName)) {
+        if (!helperRepository.isMemberExist(memberName)) {
             throw new InvalidUserInputException(String.format(MEMBER_NOT_EXISTS, teamName));
         }
         Member member = helperRepository.findMemberByName(memberName);

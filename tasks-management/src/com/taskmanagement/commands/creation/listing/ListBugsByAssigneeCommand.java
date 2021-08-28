@@ -36,7 +36,7 @@ public class ListBugsByAssigneeCommand implements Command {
 
     private String listBugsByAssignee(String nameAssignee) {
 
-        if (helperRepository.assigneeExist(nameAssignee)) {
+        if (helperRepository.isAssigneeExist(nameAssignee)) {
             throw new InvalidUserInputException(String.format(CommandConstants.ASSIGNEE_NOT_EXIST, nameAssignee));
         }
         if (taskManagementRepository.getBugs().isEmpty()) {
@@ -51,5 +51,5 @@ public class ListBugsByAssigneeCommand implements Command {
 
 }
 
-//Ralitsa
+
 

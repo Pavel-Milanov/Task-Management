@@ -34,7 +34,7 @@ public class RemoveTeamCommand implements Command {
 
     private String removeTeam(String teamName) {
 
-        if (!helperRepository.teamExist(teamName)) {
+        if (!helperRepository.isTeamExist(teamName)) {
             throw new InvalidUserInputException(String.format(CommandConstants.TEAM_NOT_EXISTS, teamName));
         }
 

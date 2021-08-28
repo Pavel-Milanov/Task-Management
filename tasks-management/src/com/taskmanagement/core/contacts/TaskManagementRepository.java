@@ -40,4 +40,6 @@ public interface TaskManagementRepository {
     void removeStory(Story story);
 
     void removeMember(Member member);
+
+    void removeFeedback(FeedBack feedback);
 }

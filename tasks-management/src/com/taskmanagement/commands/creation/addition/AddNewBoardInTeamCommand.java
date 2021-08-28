@@ -7,7 +7,6 @@ import com.taskmanagement.core.contacts.TaskManagementRepository;
 import com.taskmanagement.exceptions.InvalidUserInputException;
 import com.taskmanagement.models.contracts.Board;
 import com.taskmanagement.models.contracts.Team;
-import com.taskmanagement.utils.ParsingHelpers;
 import com.taskmanagement.utils.ValidationHelpers;
 
 import java.util.List;
@@ -32,24 +31,29 @@ public class AddNewBoardInTeamCommand implements Command {
     @Override
     public String executeCommand(List<String> parameters) {
         ValidationHelpers.validateArgumentsCount(parameters, EXPECTED_NUMBER_OF_ARGUMENTS);
-        Board board = helperRepository.findElementById(taskManagementRepository.getBoards(), ParsingHelpers.tryParseInt(parameters.get(0), CommandConstants.INVALID_BOARD_INDEX));
+        String boardName = parameters.get(0);
         String teamName = parameters.get(1);
-        return addBoardToTeam(board, teamName);
+        return addBoardToTeam(boardName, teamName);
     }
 
-    private String addBoardToTeam(Board board, String teamName) {
-        if (!helperRepository.teamExist(teamName)) {
-            throw new InvalidUserInputException(String.format(TEAM_NOT_EXISTS, teamName));
-        }
+    private String addBoardToTeam(String boardTittle, String teamTittle) {
 
-        Team team = helperRepository.findTeamByName(teamName);
 
-        if (team.getBoards().contains(board)) {
+
+        Board board = helperRepository.findBoardByName(boardTittle);
+        Team team = helperRepository.findTeamByName(teamTittle);
+
+        if (validateBoardNotAttached(board)) {
             throw new InvalidUserInputException(String.format(BOARD_ATTACHED, board.getName()));
         }
 
         helperRepository.addBoardToTeam(board, team);
 
-        return String.format(CommandConstants.BOARD_ADDED_TO_TEAM_SUCCESSFULLY, board.getName(), teamName);
+        return String.format(CommandConstants.BOARD_ADDED_TO_TEAM_SUCCESSFULLY, boardTittle, teamTittle);
+    }
+
+    private boolean validateBoardNotAttached(Board board) {
+        return taskManagementRepository.getTeams().stream()
+                .anyMatch(team -> team.getBoards().contains(board));
     }
 }
