@@ -18,7 +18,7 @@ public class ValidationHelpers {
     public static void validateArgumentsCount(List<String> parameters, int expectedNumberOfParameters) {
 
         if (parameters.size() != expectedNumberOfParameters) {
-            throw new InvalidUserInputException(
+            throw new IllegalArgumentException(
                     String.format(INVALID_NUMBER_OF_ARGUMENTS, expectedNumberOfParameters, parameters.size())
             );
         }
