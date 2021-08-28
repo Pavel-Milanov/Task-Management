@@ -63,7 +63,7 @@ public class ChangeBugPriorityCommand_Test {
     }
 
     @Test
-    public void execute_should_changePriority_when_argumentIsValid() {
+    public void execute_should_changeBugPriority_when_argumentIsValid() {
 
         //Arrange
         taskManagementRepository.createBug("The program freezes", "This needs to be fixed quickly!", Priority.HIGH, Severity.CRITICAL, BugStatus.ACTIVE, "Peter");

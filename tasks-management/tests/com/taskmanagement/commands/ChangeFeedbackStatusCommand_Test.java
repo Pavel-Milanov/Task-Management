@@ -7,10 +7,7 @@ import com.taskmanagement.core.TaskManagementHelperRepositoryImpl;
 import com.taskmanagement.core.TaskManagementRepositoryImpl;
 import com.taskmanagement.core.contacts.TaskManagementRepository;
 import com.taskmanagement.exceptions.ElementNotFoundException;
-import com.taskmanagement.models.enums.BugStatus;
-import com.taskmanagement.models.enums.FeedBackStatus;
-import com.taskmanagement.models.enums.Priority;
-import com.taskmanagement.models.enums.Severity;
+import com.taskmanagement.models.enums.*;
 import com.taskmanagement.utils.TestUtilities;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -62,7 +59,7 @@ public class ChangeFeedbackStatusCommand_Test {
     }
 
     @Test
-    public void execute_should_changePriority_when_argumentIsValid() {
+    public void execute_should_changeFeedbackStatus_when_argumentIsValid() {
 
         //Arrange
         taskManagementRepository.createFeedback("The program freezes is working on it", "All bugs are fixed!",5, FeedBackStatus.NEW);
