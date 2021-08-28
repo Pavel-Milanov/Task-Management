@@ -110,8 +110,8 @@ public class TaskManagementRepositoryImpl implements TaskManagementRepository {
 
 
     @Override
-    public void removeBoard(String boardName) {
-        boards.removeIf(board -> board.getName().equals(boardName));
+    public void removeBoard(Board board) {
+        boards.removeIf(board::equals);
     }
 
     @Override
@@ -122,7 +122,6 @@ public class TaskManagementRepositoryImpl implements TaskManagementRepository {
     @Override
     public void removeBug(Bug bug) {
         bugs.removeIf(bug::equals);
-
     }
 
     @Override

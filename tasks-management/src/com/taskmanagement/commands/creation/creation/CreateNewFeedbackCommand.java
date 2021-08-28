@@ -7,6 +7,7 @@ import com.taskmanagement.core.contacts.TaskManagementRepository;
 import com.taskmanagement.models.contracts.Board;
 import com.taskmanagement.models.contracts.FeedBack;
 import com.taskmanagement.models.enums.FeedBackStatus;
+import com.taskmanagement.utils.ParsingHelpers;
 
 import java.util.List;
 
@@ -29,7 +30,7 @@ public class CreateNewFeedbackCommand implements Command {
     @Override
     public String executeCommand(List<String> parameters) {
 
-        Board board = helperRepository.findBoardByName(parameters.get(0));
+        Board board = helperRepository.findElementById(taskManagementRepository.getBoards(), ParsingHelpers.tryParseInt(parameters.get(0), CommandConstants.INVALID_TASK_INDEX));
         String title = parameters.get(1);
         String description = parameters.get(2);
         int rating = tryParseInt(parameters.get(3), INVALID_RATING);
@@ -42,10 +43,9 @@ public class CreateNewFeedbackCommand implements Command {
 
         FeedBack feedBack = taskManagementRepository.createFeedback(title, description, rating, feedBackStatus);
 
-        helperRepository.getBoard(board).addTask(feedBack);
+        board.addTask(feedBack);
 
         return String.format(CommandConstants.TASK_ADDED_SUCCESSFULLY, title);
     }
 
-    //Ralitsa
 }

@@ -33,7 +33,7 @@ public class CreateNewBugCommand implements Command {
         } catch (IllegalArgumentException exception) {
             ValidationHelpers.validateArgumentsCount(parameters, (EXPECTED_NUMBER_OF_ARGUMENTS - 1));
         }
-        Board board = helperRepository.findBoardByName(parameters.get(0));
+        Board board = helperRepository.findElementById(taskManagementRepository.getBoards(), ParsingHelpers.tryParseInt(parameters.get(0), CommandConstants.INVALID_TASK_INDEX));
         String name = parameters.get(1);
         String description = parameters.get(2);
         Priority priority = ParsingHelpers.tryParseEnum(parameters.get(3), Priority.class);
@@ -46,13 +46,12 @@ public class CreateNewBugCommand implements Command {
             helperRepository.validateAssigneeIsMemberOfTeam(board, assignee);
         }
 
-
         return createBug(board, name, description, priority, severity, status, assignee);
     }
 
     private String createBug(Board board, String name, String description, Priority priority, Severity severity, BugStatus status, String assignee) {
         Bug bug = taskManagementRepository.createBug(name, description, priority, severity, status, assignee);
-        helperRepository.getBoard(board).addTask(bug);
+        board.addTask(bug);
         return String.format(CommandConstants.TASK_ADDED_SUCCESSFULLY, name);
     }
 

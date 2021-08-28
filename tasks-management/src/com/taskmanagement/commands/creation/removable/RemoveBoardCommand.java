@@ -1,9 +1,12 @@
 package com.taskmanagement.commands.creation.removable;
 
 import com.taskmanagement.commands.contracts.Command;
+import com.taskmanagement.constants.CommandConstants;
 import com.taskmanagement.core.TaskManagementHelperRepositoryImpl;
 import com.taskmanagement.core.contacts.TaskManagementRepository;
 import com.taskmanagement.exceptions.InvalidUserInputException;
+import com.taskmanagement.models.contracts.Board;
+import com.taskmanagement.utils.ParsingHelpers;
 import com.taskmanagement.utils.ValidationHelpers;
 
 import java.util.List;
@@ -28,20 +31,20 @@ public class RemoveBoardCommand implements Command {
 
         ValidationHelpers.validateArgumentsCount(parameters, EXPECTED_NUMBER_OF_ARGUMENTS);
 
-        String boardName = parameters.get(0);
+        Board board = helperRepository.findElementById(taskManagementRepository.getBoards(), ParsingHelpers.tryParseInt(parameters.get(0), CommandConstants.INVALID_BOARD_INDEX));
 
 
-        return removeBoard(boardName);
+        return removeBoard(board);
     }
 
-    private String removeBoard(String boardName) {
+    private String removeBoard(Board board) {
 
-        if (!helperRepository.boardExist(boardName)) {
-            throw new InvalidUserInputException(String.format(BOARD_NOT_EXISTS, boardName));
+        if (!helperRepository.boardExist(board.getName())) {
+            throw new InvalidUserInputException(String.format(BOARD_NOT_EXISTS, board.getName()));
         }
 
-        taskManagementRepository.removeBoard(boardName);
+        taskManagementRepository.removeBoard(board);
 
-        return String.format(BOARD_REMOVED_SUCCESSFULLY, boardName);
+        return String.format(BOARD_REMOVED_SUCCESSFULLY, board.getName());
     }
 }

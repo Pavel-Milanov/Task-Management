@@ -42,12 +42,6 @@ public class TaskManagementHelperRepositoryImpl {
         return new ArrayList<>(tasks);
     }
 
-    public Board getBoard(Board board) {
-        return taskManagementHelperRepository.getBoards().stream()
-                .filter(board1 -> board1.equals(board)).findAny()
-                .orElseThrow(() -> new ElementNotFoundException(String.format(ELEMENT_NOT_FOUND, board.getName())));
-    }
-
     public Member findMemberByName(String name) {
         return taskManagementHelperRepository.getMembers().stream()
                 .filter(member -> name.equals(member.getName())).findAny()

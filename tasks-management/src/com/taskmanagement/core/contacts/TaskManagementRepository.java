@@ -31,7 +31,7 @@ public interface TaskManagementRepository {
 
     Member createMember(String memberName);
 
-    void removeBoard(String boardName);
+    void removeBoard(Board boardName);
 
     void removeTeam(String teamName);
 
