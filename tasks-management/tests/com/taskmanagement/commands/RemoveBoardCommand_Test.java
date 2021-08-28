@@ -5,7 +5,6 @@ import com.taskmanagement.commands.creation.removable.RemoveBoardCommand;
 import com.taskmanagement.core.TaskManagementRepositoryImpl;
 import com.taskmanagement.core.contacts.TaskManagementRepository;
 import com.taskmanagement.exceptions.ElementNotFoundException;
-import com.taskmanagement.exceptions.InvalidUserInputException;
 import com.taskmanagement.models.contracts.Board;
 import com.taskmanagement.utils.TestUtilities;
 import org.junit.jupiter.api.Assertions;

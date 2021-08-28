@@ -1,7 +1,5 @@
 package com.taskmanagement.utils;
 
-import com.taskmanagement.exceptions.InvalidUserInputException;
-
 import java.util.List;
 
 import static com.taskmanagement.constants.OutputMessages.INVALID_NUMBER_OF_ARGUMENTS;

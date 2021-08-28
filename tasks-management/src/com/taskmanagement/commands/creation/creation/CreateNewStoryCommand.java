@@ -41,7 +41,7 @@ public class CreateNewStoryCommand implements Command {
         StoryStatus status = ParsingHelpers.tryParseEnum(parameters.get(5), StoryStatus.class);
         String assignee = CommandConstants.NO_ASSIGNEE;
 
-        if (parameters.size() == 7) {
+        if (parameters.size() == EXPECTED_NUMBER_OF_ARGUMENTS) {
             assignee = parameters.get(6);
             helperRepository.validateAssigneeIsMemberOfTeam(board, assignee);
         }

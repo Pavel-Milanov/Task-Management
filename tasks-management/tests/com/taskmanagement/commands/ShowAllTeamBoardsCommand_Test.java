@@ -5,7 +5,6 @@ import com.taskmanagement.commands.creation.shown.ShowAllTeamBoardsCommand;
 import com.taskmanagement.core.TaskManagementHelperRepositoryImpl;
 import com.taskmanagement.core.TaskManagementRepositoryImpl;
 import com.taskmanagement.core.contacts.TaskManagementRepository;
-import com.taskmanagement.exceptions.InvalidUserInputException;
 import com.taskmanagement.models.contracts.Board;
 import com.taskmanagement.models.contracts.Team;
 import com.taskmanagement.utils.TestUtilities;

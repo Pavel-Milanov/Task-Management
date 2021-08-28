@@ -7,10 +7,6 @@ import com.taskmanagement.commands.creation.removable.RemoveFeedbackCommand;
 import com.taskmanagement.core.TaskManagementRepositoryImpl;
 import com.taskmanagement.core.contacts.TaskManagementRepository;
 import com.taskmanagement.exceptions.ElementNotFoundException;
-import com.taskmanagement.exceptions.InvalidUserInputException;
-import com.taskmanagement.models.contracts.FeedBack;
-import com.taskmanagement.models.enums.FeedBackStatus;
-import com.taskmanagement.models.tasks.FeedBackImpl;
 import com.taskmanagement.utils.TestUtilities;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -49,7 +45,7 @@ public class RemoveFeedbackCommand_Test {
 
         taskManagementRepository.createBoard("board1");
 
-        command1.executeCommand(List.of("1","feedbacktitle","descriptionnnn","10","new"));
+        command1.executeCommand(List.of("1", "feedbacktitle", "descriptionnnn", "10", "new"));
 
         command.executeCommand(List.of("2"));
         Assertions.assertEquals(0, taskManagementRepository.getFeedBacks().size());
@@ -59,6 +55,6 @@ public class RemoveFeedbackCommand_Test {
     @Test
     public void execute_should_throwException_when_listIsEmpty() {
 
-        Assertions.assertThrows(ElementNotFoundException.class,()-> command.executeCommand(List.of("1")));
+        Assertions.assertThrows(ElementNotFoundException.class, () -> command.executeCommand(List.of("1")));
     }
 }
