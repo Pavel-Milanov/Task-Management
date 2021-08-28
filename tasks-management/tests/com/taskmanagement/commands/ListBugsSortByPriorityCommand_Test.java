@@ -1,7 +1,7 @@
 package com.taskmanagement.commands;
 
 import com.taskmanagement.commands.contracts.Command;
-import com.taskmanagement.commands.creation.ListBugsSortByPriorityCommand;
+import com.taskmanagement.commands.creation.listing.ListBugsSortByPriorityCommand;
 import com.taskmanagement.core.TaskManagementRepositoryImpl;
 import com.taskmanagement.core.contacts.TaskManagementRepository;
 import com.taskmanagement.models.contracts.Bug;

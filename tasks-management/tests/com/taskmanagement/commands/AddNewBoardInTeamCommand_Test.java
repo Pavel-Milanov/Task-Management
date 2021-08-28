@@ -1,7 +1,7 @@
 package com.taskmanagement.commands;
 
 import com.taskmanagement.commands.contracts.Command;
-import com.taskmanagement.commands.creation.AddNewBoardInTeamCommand;
+import com.taskmanagement.commands.creation.addition.AddNewBoardInTeamCommand;
 import com.taskmanagement.core.TaskManagementHelperRepositoryImpl;
 import com.taskmanagement.core.TaskManagementRepositoryImpl;
 import com.taskmanagement.core.contacts.TaskManagementRepository;

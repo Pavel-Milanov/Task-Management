@@ -1,8 +1,8 @@
 package com.taskmanagement.commands;
 
 import com.taskmanagement.commands.contracts.Command;
-import com.taskmanagement.commands.creation.AddStepsToBugCommand;
-import com.taskmanagement.commands.creation.ShowBugStepsCommand;
+import com.taskmanagement.commands.creation.addition.AddStepsToBugCommand;
+import com.taskmanagement.commands.creation.shown.ShowBugStepsCommand;
 import com.taskmanagement.core.TaskManagementHelperRepositoryImpl;
 import com.taskmanagement.core.TaskManagementRepositoryImpl;
 import com.taskmanagement.core.contacts.TaskManagementRepository;

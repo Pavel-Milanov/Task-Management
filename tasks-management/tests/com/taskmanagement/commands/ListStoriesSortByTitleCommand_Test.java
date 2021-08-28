@@ -1,8 +1,8 @@
 package com.taskmanagement.commands;
 
 import com.taskmanagement.commands.contracts.Command;
-import com.taskmanagement.commands.creation.ListBugsSortByTitleCommand;
-import com.taskmanagement.commands.creation.ListStoriesSortByTitleCommand;
+import com.taskmanagement.commands.creation.listing.ListBugsSortByTitleCommand;
+import com.taskmanagement.commands.creation.listing.ListStoriesSortByTitleCommand;
 import com.taskmanagement.core.TaskManagementRepositoryImpl;
 import com.taskmanagement.core.contacts.TaskManagementRepository;
 import com.taskmanagement.exceptions.InvalidUserInputException;

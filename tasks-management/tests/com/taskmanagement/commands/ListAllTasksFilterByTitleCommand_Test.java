@@ -1,7 +1,7 @@
 package com.taskmanagement.commands;
 
 import com.taskmanagement.commands.contracts.Command;
-import com.taskmanagement.commands.creation.ListAllTasksFilterByTitleCommand;
+import com.taskmanagement.commands.creation.listing.ListAllTasksFilterByTitleCommand;
 import com.taskmanagement.core.TaskManagementRepositoryImpl;
 import com.taskmanagement.core.contacts.TaskManagementRepository;
 import com.taskmanagement.models.contracts.Bug;

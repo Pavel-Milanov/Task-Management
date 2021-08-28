@@ -1,9 +1,9 @@
 package com.taskmanagement.commands;
 
 import com.taskmanagement.commands.contracts.Command;
-import com.taskmanagement.commands.creation.CreateNewStoryCommand;
-import com.taskmanagement.commands.creation.ListTasksWithAssigneeFilterByAssigneeCommand;
-import com.taskmanagement.commands.creation.ListTasksWithAssigneeFilterByStoryStatusCommand;
+import com.taskmanagement.commands.creation.creation.CreateNewStoryCommand;
+import com.taskmanagement.commands.creation.listing.ListTasksWithAssigneeFilterByAssigneeCommand;
+import com.taskmanagement.commands.creation.listing.ListTasksWithAssigneeFilterByStoryStatusCommand;
 import com.taskmanagement.core.TaskManagementHelperRepositoryImpl;
 import com.taskmanagement.core.TaskManagementRepositoryImpl;
 import com.taskmanagement.core.contacts.TaskManagementRepository;

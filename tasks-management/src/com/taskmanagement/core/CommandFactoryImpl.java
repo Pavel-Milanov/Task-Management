@@ -1,7 +1,15 @@
 package com.taskmanagement.core;
 
 import com.taskmanagement.commands.contracts.Command;
-import com.taskmanagement.commands.creation.*;
+import com.taskmanagement.commands.creation.addition.AddCommentTaskCommand;
+import com.taskmanagement.commands.creation.addition.AddMemberToTeamCommand;
+import com.taskmanagement.commands.creation.addition.AddNewBoardInTeamCommand;
+import com.taskmanagement.commands.creation.addition.AddStepsToBugCommand;
+import com.taskmanagement.commands.creation.change.*;
+import com.taskmanagement.commands.creation.creation.*;
+import com.taskmanagement.commands.creation.listing.*;
+import com.taskmanagement.commands.creation.removable.*;
+import com.taskmanagement.commands.creation.shown.*;
 import com.taskmanagement.commands.enums.CommandType;
 import com.taskmanagement.constants.CoreConstants;
 import com.taskmanagement.core.contacts.CommandFactory;

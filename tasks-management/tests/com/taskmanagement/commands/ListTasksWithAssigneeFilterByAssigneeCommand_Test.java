@@ -1,8 +1,8 @@
 package com.taskmanagement.commands;
 
 import com.taskmanagement.commands.contracts.Command;
-import com.taskmanagement.commands.creation.CreateNewBugCommand;
-import com.taskmanagement.commands.creation.ListTasksWithAssigneeFilterByAssigneeCommand;
+import com.taskmanagement.commands.creation.creation.CreateNewBugCommand;
+import com.taskmanagement.commands.creation.listing.ListTasksWithAssigneeFilterByAssigneeCommand;
 import com.taskmanagement.core.TaskManagementHelperRepositoryImpl;
 import com.taskmanagement.core.TaskManagementRepositoryImpl;
 import com.taskmanagement.core.contacts.TaskManagementRepository;
