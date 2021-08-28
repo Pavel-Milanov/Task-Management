@@ -80,7 +80,7 @@ public class AddCommentTaskCommand_Test {
         helperRepository.addMemberToTeam(member, team);
         helperRepository.addBoardToTeam(board, team);
 
-        taskManagementRepository.getBoards().get(0).addTask(bug);
+        taskManagementRepository.getBoards().get(0).addWorkingItem(bug);
 
 
         Assertions.assertAll(

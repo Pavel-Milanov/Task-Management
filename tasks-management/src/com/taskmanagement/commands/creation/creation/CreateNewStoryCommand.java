@@ -52,7 +52,7 @@ public class CreateNewStoryCommand implements Command {
 
     private String createStory(Board board, String name, String description, Priority priority, Size size, StoryStatus status, String assignee) {
         Story story = taskManagementRepository.createStory(name, description, priority, size, status, assignee);
-        board.addTask(story);
+        board.addWorkingItem(story);
         return String.format(CommandConstants.TASK_ADDED_SUCCESSFULLY, name);
     }
 }

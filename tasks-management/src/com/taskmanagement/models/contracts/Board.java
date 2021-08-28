@@ -4,13 +4,13 @@ import java.util.List;
 
 public interface Board extends Printable, Identifiable {
 
-    void addTask(WorkingItem workingItem);
+    void addWorkingItem(WorkingItem workingItem);
 
-    void removeTask(WorkingItem workingItem);
+    void removeWorkingItem(WorkingItem workingItem);
 
     String getName();
 
-    List<WorkingItem> getTasks();
+    List<WorkingItem> getWorkingItems();
 
     List<ActivityHistory> getActivityHistory();
 }

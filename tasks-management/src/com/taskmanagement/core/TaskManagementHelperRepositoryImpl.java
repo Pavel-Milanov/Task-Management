@@ -81,7 +81,7 @@ public class TaskManagementHelperRepositoryImpl {
         WorkingItem workingItem = findElementById(getWorkingItems(), taskId);
 
         Board board = taskManagementHelperRepository.getBoards().stream()
-                .filter(board1 -> board1.getTasks().contains(workingItem)).findAny()
+                .filter(board1 -> board1.getWorkingItems().contains(workingItem)).findAny()
                 .orElseThrow(() -> new InvalidUserInputException(CoreConstants.TASK_NOT_ATTACHED_TO_BOARD));
 
         Team team = taskManagementHelperRepository.getTeams().stream()

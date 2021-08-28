@@ -33,7 +33,7 @@ public class RemoveMemberCommand implements Command {
     private String removeMember(int memberId) {
         Member member = helperRepository.findElementById(taskManagementRepository.getMembers(), memberId);
         for (Task task : helperRepository.getTasks()) {
-            if (task.getAssignee().equals(member.getName())) task.changeAssignee("");
+            if (task.getAssignee().equals(member.getName())) task.changeAssignee(CommandConstants.NO_ASSIGNEE);
         }
         taskManagementRepository.removeMember(member);
         return String.format(CommandConstants.MEMBER_REMOVED, member.getName());

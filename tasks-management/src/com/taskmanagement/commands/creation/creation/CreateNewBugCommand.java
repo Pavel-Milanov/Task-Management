@@ -2,7 +2,6 @@ package com.taskmanagement.commands.creation.creation;
 
 import com.taskmanagement.commands.contracts.Command;
 import com.taskmanagement.constants.CommandConstants;
-import com.taskmanagement.constants.ModelConstants;
 import com.taskmanagement.core.TaskManagementHelperRepositoryImpl;
 import com.taskmanagement.core.contacts.TaskManagementRepository;
 import com.taskmanagement.models.contracts.Board;
@@ -52,7 +51,7 @@ public class CreateNewBugCommand implements Command {
 
     private String createBug(Board board, String name, String description, Priority priority, Severity severity, BugStatus status, String assignee) {
         Bug bug = taskManagementRepository.createBug(name, description, priority, severity, status, assignee);
-        board.addTask(bug);
+        board.addWorkingItem(bug);
         return String.format(CommandConstants.TASK_ADDED_SUCCESSFULLY, name);
     }
 

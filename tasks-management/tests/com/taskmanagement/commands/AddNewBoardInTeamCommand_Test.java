@@ -5,6 +5,7 @@ import com.taskmanagement.commands.creation.addition.AddNewBoardInTeamCommand;
 import com.taskmanagement.core.TaskManagementHelperRepositoryImpl;
 import com.taskmanagement.core.TaskManagementRepositoryImpl;
 import com.taskmanagement.core.contacts.TaskManagementRepository;
+import com.taskmanagement.exceptions.ElementNotFoundException;
 import com.taskmanagement.exceptions.InvalidUserInputException;
 import com.taskmanagement.models.contracts.Board;
 import com.taskmanagement.models.contracts.Team;
@@ -82,6 +83,6 @@ public class AddNewBoardInTeamCommand_Test {
         Board board = taskManagementRepository.createBoard("Tasks");
         Team team = taskManagementRepository.createTeam("team1");
 
-        Assertions.assertThrows(InvalidUserInputException.class, () -> command.executeCommand(List.of("1", "team11")));
+        Assertions.assertThrows(ElementNotFoundException.class, () -> command.executeCommand(List.of("1", "team11")));
     }
 }

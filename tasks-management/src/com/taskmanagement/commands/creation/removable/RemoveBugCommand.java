@@ -33,8 +33,8 @@ public class RemoveBugCommand implements Command {
     private String removeBug(int bugId) {
         Bug bug = helperRepository.findElementById(taskManagementRepository.getBugs(), bugId);
         Board board = taskManagementRepository.getBoards().stream()
-                .filter(board1 -> board1.getTasks().contains(bug)).findAny().orElseThrow();
-        board.removeTask(bug);
+                .filter(board1 -> board1.getWorkingItems().contains(bug)).findAny().orElseThrow();
+        board.removeWorkingItem(bug);
         taskManagementRepository.removeBug(bug);
         return String.format(CommandConstants.TASK_REMOVED_SUCCESSFULLY, bug.getName());
     }

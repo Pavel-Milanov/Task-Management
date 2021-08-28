@@ -43,7 +43,7 @@ public class BoardImpl implements Board {
     }
 
     @Override
-    public List<WorkingItem> getTasks() {
+    public List<WorkingItem> getWorkingItems() {
         return new ArrayList<>(workingItems);
     }
 
@@ -62,17 +62,17 @@ public class BoardImpl implements Board {
         return "BoardImpl  " +
                 "id=" + id +
                 ", name='" + name +
-                "\nTask Info :\n" + ListingHelpers.elementsToString(getTasks());
+                "\nTask Info :\n" + ListingHelpers.elementsToString(getWorkingItems());
     }
 
     @Override
-    public void addTask(WorkingItem workingItem) {
+    public void addWorkingItem(WorkingItem workingItem) {
         workingItems.add(workingItem);
         activityHistories.add(new ActivityHistoryImpl(("Working Item " + workingItem.getName() + " add to " + name + " Board "), LocalDateTime.now()));
     }
 
     @Override
-    public void removeTask(WorkingItem workingItem) {
+    public void removeWorkingItem(WorkingItem workingItem) {
         if (!workingItems.contains(workingItem)) {
             throw new InvalidUserInputException(String.format(ModelConstants.WORKING_ITEM_NOT_EXIST, workingItem.getName()));
         }

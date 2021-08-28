@@ -40,12 +40,12 @@ public class ShowTaskFromBoardIdCommand implements Command {
     private String showTaskFromBoardId(int id) {
         Board board = helperRepository.findElementById(taskManagementRepository.getBoards(), id);
         StringBuilder output = new StringBuilder();
-        if (board.getTasks().isEmpty()) {
+        if (board.getWorkingItems().isEmpty()) {
             output.append(ModelConstants.NO_TASK);
         } else {
             output.append(TASK_HEADER).append(System.lineSeparator());
         }
-        return output + ListingHelpers.elementsToString(board.getTasks());
+        return output + ListingHelpers.elementsToString(board.getWorkingItems());
     }
 }
 

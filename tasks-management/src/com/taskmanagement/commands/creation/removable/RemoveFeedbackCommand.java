@@ -22,9 +22,10 @@ public class RemoveFeedbackCommand implements Command {
         this.taskManagementRepository = taskManagementRepository;
         this.helperRepository = new TaskManagementHelperRepositoryImpl(taskManagementRepository);
     }
+
     @Override
     public String executeCommand(List<String> parameters) {
-        ValidationHelpers.validateArgumentsCount(parameters,EXPECTED_NUMBER_OF_ARGUMENTS);
+        ValidationHelpers.validateArgumentsCount(parameters, EXPECTED_NUMBER_OF_ARGUMENTS);
 
         int feedbackId = ParsingHelpers.tryParseInt(parameters.get(0), CommandConstants.INVALID_TASK_INDEX);
         return removeFeedback(feedbackId);
@@ -32,16 +33,17 @@ public class RemoveFeedbackCommand implements Command {
 
     private String removeFeedback(int feedbackId) {
 
-        FeedBack feedback = helperRepository.findElementById(taskManagementRepository.getFeedBacks(),feedbackId);
+        FeedBack feedback = helperRepository.findElementById(taskManagementRepository.getFeedBacks(), feedbackId);
 
         Board board = taskManagementRepository.getBoards()
-                .stream().filter(board1 -> board1.getTasks().contains(feedback)).findAny().orElseThrow();
+                .stream().filter(board1 -> board1.getWorkingItems().contains(feedback)).findAny().orElseThrow();
 
-        board.removeTask(feedback);
+        board.removeWorkingItem(feedback);
 
         taskManagementRepository.removeFeedback(feedback);
 
-        return String.format(CommandConstants.TASK_REMOVED_SUCCESSFULLY,feedback.getName());
+        return String.format(CommandConstants.TASK_REMOVED_SUCCESSFULLY, feedback.getName());
+
     }
     //Ralitsa
 }

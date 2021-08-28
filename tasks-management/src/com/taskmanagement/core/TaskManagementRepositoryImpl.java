@@ -134,7 +134,6 @@ public class TaskManagementRepositoryImpl implements TaskManagementRepository {
         members.removeIf(member::equals);
     }
 
-
     @Override
     public void removeFeedback(FeedBack feedback) {
         feedBacks.removeIf(feedback::equals);

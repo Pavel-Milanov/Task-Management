@@ -33,8 +33,8 @@ public class RemoveStoryCommand implements Command {
     private String removeStory(int storyId) {
         Story story = helperRepository.findElementById(taskManagementRepository.getStories(), storyId);
         Board board = taskManagementRepository.getBoards().stream()
-                .filter(board1 -> board1.getTasks().contains(story)).findAny().orElseThrow();
-        board.removeTask(story);
+                .filter(board1 -> board1.getWorkingItems().contains(story)).findAny().orElseThrow();
+        board.removeWorkingItem(story);
         taskManagementRepository.removeStory(story);
         return String.format(CommandConstants.TASK_REMOVED_SUCCESSFULLY, story.getName());
     }

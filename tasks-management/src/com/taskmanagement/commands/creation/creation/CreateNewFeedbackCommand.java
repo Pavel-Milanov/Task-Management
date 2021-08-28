@@ -43,7 +43,7 @@ public class CreateNewFeedbackCommand implements Command {
 
         FeedBack feedBack = taskManagementRepository.createFeedback(title, description, rating, feedBackStatus);
 
-        board.addTask(feedBack);
+        board.addWorkingItem(feedBack);
 
         return String.format(CommandConstants.TASK_ADDED_SUCCESSFULLY, title);
     }
