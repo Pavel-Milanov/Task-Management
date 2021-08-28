@@ -44,7 +44,7 @@ public class ShowTaskFromBoardIdCommand_Test {
         Assertions.assertAll(
                 Assertions.assertDoesNotThrow(() -> command.executeCommand(List.of("1"))),
                 () -> Assertions.assertFalse(taskManagementRepository.getBoards().isEmpty()),
-                () -> Assertions.assertTrue(helperRepository.getBoard(board).getTasks().isEmpty())
+                () -> Assertions.assertTrue(board.getTasks().isEmpty())
         );
     }
 }
