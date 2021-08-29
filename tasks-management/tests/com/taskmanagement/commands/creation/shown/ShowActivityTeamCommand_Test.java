@@ -6,10 +6,7 @@ import com.taskmanagement.core.TaskManagementRepositoryImpl;
 import com.taskmanagement.core.contacts.TaskManagementRepository;
 import com.taskmanagement.models.contracts.ActivityHistory;
 import com.taskmanagement.models.contracts.Member;
-import com.taskmanagement.models.contracts.Story;
-import com.taskmanagement.models.enums.Priority;
-import com.taskmanagement.models.enums.Size;
-import com.taskmanagement.models.enums.StoryStatus;
+import com.taskmanagement.models.contracts.Team;
 import com.taskmanagement.utils.ListingHelpers;
 import com.taskmanagement.utils.TestUtilities;
 import org.junit.jupiter.api.Assertions;
@@ -23,7 +20,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Locale;
 
-public class ShowActivityTaskCommand_Test {
+public class ShowActivityTeamCommand_Test {
 
     private TaskManagementRepository taskManagementRepository;
     private TaskManagementHelperRepositoryImpl helperRepository;
@@ -34,12 +31,12 @@ public class ShowActivityTaskCommand_Test {
     @BeforeEach
     public void before() {
         this.taskManagementRepository = new TaskManagementRepositoryImpl();
-        this.command = new ShowActivityTaskCommand(taskManagementRepository);
+        this.command = new ShowActivityTeamCommand(taskManagementRepository);
         this.helperRepository = new TaskManagementHelperRepositoryImpl(taskManagementRepository);
     }
 
     @ParameterizedTest(name = "with arguments count: {0}")
-    @ValueSource(ints = {ShowActivityTaskCommand.EXPECTED_NUMBER_OF_ARGUMENTS + 1})
+    @ValueSource(ints = {ShowActivityTeamCommand.EXPECTED_NUMBER_OF_ARGUMENTS + 1})
     public void execute_should_throwException_when_argumentsCountDifferentThanExpected(int argumentsCount) {
         // Arrange
         List<String> arguments = TestUtilities.initializeListWithSize(argumentsCount);
@@ -51,11 +48,10 @@ public class ShowActivityTaskCommand_Test {
     @Test
     public void execute_should_showActivityBoard_when_passedValidInput() {
 
-        Story story =  taskManagementRepository.createStory("The program freezes is open","Work on first problem"
-                , Priority.HIGH, Size.LARGE, StoryStatus.INPROGRESS,"Peter");
-        List<ActivityHistory> activityHistories = story.getActivityHistory();
+        Team team = taskManagementRepository.createTeam("Team11");
+        List<ActivityHistory> activityHistories =team.getActiveHistory();
         Assertions.assertEquals(ListingHelpers.elementsToString(activityHistories)
-                ,command.executeCommand(List.of(String.valueOf(story.getId()))));
+                ,command.executeCommand(List.of(String.valueOf(team.getId()))));
 
     }
 
