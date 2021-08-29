@@ -51,7 +51,7 @@ public class RemoveTeamCommand_Test {
     @Test
     public void execute_should_throwException_when_listIsEmpty() {
 
-        Assertions.assertThrows(ElementNotFoundException.class, () -> command.executeCommand(List.of("Team11")));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> command.executeCommand(List.of()));
     }
 }
 
