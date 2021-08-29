@@ -4,6 +4,7 @@ import com.taskmanagement.commands.contracts.Command;
 import com.taskmanagement.constants.CommandConstants;
 import com.taskmanagement.core.TaskManagementHelperRepositoryImpl;
 import com.taskmanagement.core.contacts.TaskManagementRepository;
+import com.taskmanagement.exceptions.InvalidUserInputException;
 import com.taskmanagement.models.contracts.Task;
 import com.taskmanagement.utils.ListingHelpers;
 import com.taskmanagement.utils.ValidationHelpers;
@@ -31,6 +32,10 @@ public class ListTasksWithAssigneeSortByTitleCommand implements Command {
 
     private String listTasks() {
         List<Task> taskFilter = helperRepository.getTasks();
+        if (taskFilter.isEmpty()) {
+            throw new InvalidUserInputException(CommandConstants.EMPTY_LIST_BUGS);
+        }
+
         taskFilter.sort(Comparator.comparing(o -> o.getName().toUpperCase()));
         List<Task> assigneeTaskOnly = taskFilter.stream().filter(task -> !task.getAssignee().equals(CommandConstants.NO_ASSIGNEE)).collect(Collectors.toList());
         return ListingHelpers.elementsToString(assigneeTaskOnly);

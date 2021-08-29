@@ -3,6 +3,8 @@ package com.taskmanagement.commands.creation;
 import com.taskmanagement.commands.contracts.Command;
 
 import com.taskmanagement.commands.creation.creation.CreateNewStoryCommand;
+import com.taskmanagement.constants.CommandConstants;
+import com.taskmanagement.constants.ModelConstants;
 import com.taskmanagement.core.TaskManagementHelperRepositoryImpl;
 import com.taskmanagement.core.TaskManagementRepositoryImpl;
 import com.taskmanagement.core.contacts.TaskManagementRepository;
@@ -64,11 +66,12 @@ public class CreateNewStoryCommand_Test {
 
     @Test
    public void execute_should_createNewStory_when_passValidInput(){
+        Team team = taskManagementRepository.createTeam("Team1");
+        Board board = taskManagementRepository.createBoard("Tasks");
+        helperRepository.addBoardToTeam(board,team);
+        Story story = taskManagementRepository.createStory("The program freezes is open","Work on first problem",Priority.HIGH,Size.LARGE,StoryStatus.INPROGRESS, CommandConstants.NO_ASSIGNEE);
 
-        Story story = taskManagementRepository.createStory("The program freezes is open","Work on first problem",Priority.HIGH,Size.LARGE,StoryStatus.INPROGRESS,"Peter");
-       // taskManagementRepository.createBoard("Tasks");
-
-        command.executeCommand(List.of("The program freezes is open","Work on first problem","high","large,","done","Peter"));
+        command.executeCommand(List.of("2","The program freezes is open","Work on first problem","high","large","done"));
 
         Assertions.assertEquals(taskManagementRepository.getStories().get(0).getName(),story.getName());
    }

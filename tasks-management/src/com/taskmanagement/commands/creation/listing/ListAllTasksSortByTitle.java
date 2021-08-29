@@ -1,8 +1,10 @@
 package com.taskmanagement.commands.creation.listing;
 
 import com.taskmanagement.commands.contracts.Command;
+import com.taskmanagement.constants.CommandConstants;
 import com.taskmanagement.core.TaskManagementHelperRepositoryImpl;
 import com.taskmanagement.core.contacts.TaskManagementRepository;
+import com.taskmanagement.exceptions.InvalidUserInputException;
 import com.taskmanagement.models.contracts.WorkingItem;
 import com.taskmanagement.utils.ListingHelpers;
 import com.taskmanagement.utils.ValidationHelpers;
@@ -23,6 +25,9 @@ public class ListAllTasksSortByTitle implements Command {
     public String executeCommand(List<String> parameters) {
         ValidationHelpers.validateArgumentsCount(parameters, EXPECTED_NUMBER_OF_ARGUMENTS);
         List<WorkingItem> workingItems = helperRepository.getWorkingItems();
+        if (workingItems.isEmpty()) {
+            throw new InvalidUserInputException(CommandConstants.EMPTY_LIST_BUGS);
+        }
         workingItems.sort(Comparator.comparing(o -> o.getName().toUpperCase()));
         return ListingHelpers.elementsToString(workingItems);
     }

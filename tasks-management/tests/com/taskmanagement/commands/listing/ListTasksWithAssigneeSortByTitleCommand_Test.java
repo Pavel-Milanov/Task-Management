@@ -6,6 +6,7 @@ import com.taskmanagement.commands.creation.listing.ListTasksWithAssigneeSortByT
 import com.taskmanagement.core.TaskManagementHelperRepositoryImpl;
 import com.taskmanagement.core.TaskManagementRepositoryImpl;
 import com.taskmanagement.core.contacts.TaskManagementRepository;
+import com.taskmanagement.exceptions.InvalidUserInputException;
 import com.taskmanagement.models.contracts.Bug;
 import com.taskmanagement.models.contracts.Story;
 import com.taskmanagement.models.contracts.Task;
@@ -66,7 +67,7 @@ public class ListTasksWithAssigneeSortByTitleCommand_Test {
     @Test
     public void execute_should_throwException_when_listIsEmpty() {
 
-        Assertions.assertThrows(IllegalArgumentException.class, () -> command.executeCommand(List.of()));
+        Assertions.assertThrows(InvalidUserInputException.class, () -> command.executeCommand(List.of()));
     }
 
 }

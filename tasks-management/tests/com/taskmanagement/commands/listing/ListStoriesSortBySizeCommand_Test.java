@@ -5,6 +5,7 @@ import com.taskmanagement.commands.contracts.Command;
 import com.taskmanagement.commands.creation.listing.ListStoriesSortBySizeCommand;
 import com.taskmanagement.core.TaskManagementRepositoryImpl;
 import com.taskmanagement.core.contacts.TaskManagementRepository;
+import com.taskmanagement.exceptions.InvalidUserInputException;
 import com.taskmanagement.models.contracts.Bug;
 import com.taskmanagement.models.contracts.Story;
 import com.taskmanagement.models.enums.*;
@@ -31,7 +32,7 @@ public class ListStoriesSortBySizeCommand_Test {
     }
 
     @ParameterizedTest(name = "with arguments count: {0}")
-    @ValueSource(ints = {ListStoriesSortBySizeCommand.EXPECTED_NUMBER_OF_ARGUMENTS + 1, ListStoriesSortBySizeCommand.EXPECTED_NUMBER_OF_ARGUMENTS - 1})
+    @ValueSource(ints = {ListStoriesSortBySizeCommand.EXPECTED_NUMBER_OF_ARGUMENTS + 1})
     public void execute_should_throwException_when_argumentsCountDifferentThanExpected(int argumentsCount) {
         // Arrange
         List<String> arguments = TestUtilities.initializeListWithSize(argumentsCount);
@@ -59,7 +60,7 @@ public class ListStoriesSortBySizeCommand_Test {
     @Test
     public void execute_should_throwException_when_listIsEmpty() {
 
-        Assertions.assertThrows(IllegalArgumentException.class, () -> command.executeCommand(List.of()));
+        Assertions.assertThrows(InvalidUserInputException.class, () -> command.executeCommand(List.of()));
     }
 
 }

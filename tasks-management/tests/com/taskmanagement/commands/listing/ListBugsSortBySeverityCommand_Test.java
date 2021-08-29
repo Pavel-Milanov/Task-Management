@@ -5,6 +5,7 @@ import com.taskmanagement.commands.contracts.Command;
 import com.taskmanagement.commands.creation.listing.ListBugsSortBySeverityCommand;
 import com.taskmanagement.core.TaskManagementRepositoryImpl;
 import com.taskmanagement.core.contacts.TaskManagementRepository;
+import com.taskmanagement.exceptions.InvalidUserInputException;
 import com.taskmanagement.models.contracts.Bug;
 import com.taskmanagement.models.enums.BugStatus;
 import com.taskmanagement.models.enums.Priority;
@@ -31,7 +32,7 @@ public class ListBugsSortBySeverityCommand_Test {
     }
 
     @ParameterizedTest(name = "with arguments count: {0}")
-    @ValueSource(ints = {ListBugsSortBySeverityCommand.EXPECTED_NUMBER_OF_ARGUMENTS + 1, ListBugsSortBySeverityCommand.EXPECTED_NUMBER_OF_ARGUMENTS - 1})
+    @ValueSource(ints = {ListBugsSortBySeverityCommand.EXPECTED_NUMBER_OF_ARGUMENTS + 1})
     public void execute_should_throwException_when_argumentsCountDifferentThanExpected(int argumentsCount) {
         // Arrange
         List<String> arguments = TestUtilities.initializeListWithSize(argumentsCount);
@@ -52,7 +53,7 @@ public class ListBugsSortBySeverityCommand_Test {
                 .filter(bug -> bug.getSeverity().equals(Severity.CRITICAL)).collect(Collectors.toList());
 
         //Assert
-        Assertions.assertDoesNotThrow(() -> command.executeCommand(List.of("critical")));
+        Assertions.assertDoesNotThrow(() -> command.executeCommand(List.of()));
 
 
     }
@@ -60,7 +61,7 @@ public class ListBugsSortBySeverityCommand_Test {
     @Test
     public void execute_should_throwException_when_listIsEmpty() {
 
-        Assertions.assertThrows(IllegalArgumentException.class, () -> command.executeCommand(List.of()));
+        Assertions.assertThrows(InvalidUserInputException.class, () -> command.executeCommand(List.of()));
     }
 
 }

@@ -5,6 +5,7 @@ import com.taskmanagement.commands.contracts.Command;
 import com.taskmanagement.commands.creation.listing.ListFeedbacksSortByTitleCommand;
 import com.taskmanagement.core.TaskManagementRepositoryImpl;
 import com.taskmanagement.core.contacts.TaskManagementRepository;
+import com.taskmanagement.exceptions.InvalidUserInputException;
 import com.taskmanagement.models.contracts.Bug;
 import com.taskmanagement.models.contracts.FeedBack;
 import com.taskmanagement.models.contracts.Story;
@@ -54,7 +55,7 @@ public class ListFeedbacksSortByTitleCommand_Test {
         List<FeedBack> listSortedFeedbackByTitle = taskManagementRepository.getFeedBacks()
                 .stream().sorted(Comparator.comparing(FeedBack::getName)).collect(Collectors.toList());
         //Assert
-        Assertions.assertDoesNotThrow(() -> command.executeCommand(List.of("The program freezes is working on it")));
+        Assertions.assertDoesNotThrow(() -> command.executeCommand(List.of()));
 
 
     }
@@ -62,7 +63,7 @@ public class ListFeedbacksSortByTitleCommand_Test {
     @Test
     public void execute_should_throwException_when_listIsEmpty() {
 
-        Assertions.assertThrows(IllegalArgumentException.class, () -> command.executeCommand(List.of()));
+        Assertions.assertThrows(InvalidUserInputException.class, () -> command.executeCommand(List.of()));
     }
 
 }
