@@ -39,7 +39,7 @@ public class RemoveFeedbackCommand_Test {
     }
 
     @Test
-    public void execute_should_removeBoard_when_passedValidInput() {
+    public void execute_should_removeFeedback_when_passedValidInput() {
 
         taskManagementRepository.createBoard("board1");
 

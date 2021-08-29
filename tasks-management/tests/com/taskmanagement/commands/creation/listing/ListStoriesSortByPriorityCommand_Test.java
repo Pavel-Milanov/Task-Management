@@ -39,7 +39,7 @@ public class ListStoriesSortByPriorityCommand_Test {
 
 
     @Test
-    public void execute_should_registerUser_when_passedValidInput() {
+    public void execute_should_sortStories_when_passedValidInput() {
         taskManagementRepository.createMember("aaaaa");
         taskManagementRepository.createStory("bugtitleeeee", "description", Priority.HIGH, Size.LARGE, StoryStatus.NOT_DONE, "aaaaa");
 

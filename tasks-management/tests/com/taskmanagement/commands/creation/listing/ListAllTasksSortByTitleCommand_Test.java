@@ -40,7 +40,7 @@ public class ListAllTasksSortByTitleCommand_Test {
     }
 
     @Test
-    public void execute_should_sortStoryByTitle_when_passedValidInput() {
+    public void execute_should_listAllTask_when_passedValidInput() {
 
         taskManagementRepository.createStory("The program freezes is open","Work on first problem",Priority.HIGH, Size.LARGE, StoryStatus.INPROGRESS,"Peter");
         taskManagementRepository.createStory("The test is open","Work on test",Priority.HIGH, Size.LARGE,StoryStatus.INPROGRESS,"Poli");

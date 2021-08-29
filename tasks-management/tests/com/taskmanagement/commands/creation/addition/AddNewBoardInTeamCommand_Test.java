@@ -78,7 +78,7 @@ public class AddNewBoardInTeamCommand_Test {
     }
 
     @Test
-    public void execute_should_throwException_when_notValidMember() {
+    public void execute_should_throwException_when_notValidTeam() {
         Board board = taskManagementRepository.createBoard("Tasks");
         Team team = taskManagementRepository.createTeam("team1");
 

@@ -36,7 +36,7 @@ public class ChangeBugSeverityCommand_Test {
     }
 
     @Test
-    public void execute_should_addBugStep_when_passedValidInput() {
+    public void execute_should_changeBugPriority_when_passedValidInput() {
 
         taskManagementRepository.createBug("bugtitleee", "bugdescription", Priority.HIGH, Severity.CRITICAL, BugStatus.ACTIVE, "zzzzzz");
         command.executeCommand(List.of("1", "minor"));

@@ -40,7 +40,7 @@ public class ListFeedbacksSortByRatingCommand_Test {
 
 
     @Test
-    public void execute_should_registerUser_when_passedValidInput1() {
+    public void execute_should_sortBugs_when_passedValidInput1() {
         taskManagementRepository.createMember("aaaaa");
         taskManagementRepository.createFeedback("bugtitleeeee", "description", 15, FeedBackStatus.NEW);
 

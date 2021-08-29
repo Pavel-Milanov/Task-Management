@@ -39,7 +39,7 @@ public class ListBugsFilterByAssigneeCommand_Test {
 
 
     @Test
-    public void execute_should_registerUser_when_passedValidInput() {
+    public void execute_should_listAllBugs_when_passedValidInput() {
         taskManagementRepository.createMember("aaaaa");
         taskManagementRepository.createBug("bugtitleeeee", "description", Priority.LOW, Severity.CRITICAL, BugStatus.ACTIVE, "aaaaa");
 

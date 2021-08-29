@@ -103,8 +103,6 @@ public class CommandFactoryImpl implements CommandFactory {
                 return new ListTasksWithAssigneeFilterByStoryStatusCommand(taskManagementRepository);
             case LISTTASKSWITHASSIGNEESORTBYTITLE:
                 return new ListTasksWithAssigneeSortByTitleCommand(taskManagementRepository);
-            case REMOVEASSIGNEE:
-                return new RemoveAssigneeCommand(taskManagementRepository);
             case REMOVEBOARD:
                 return new RemoveBoardCommand(taskManagementRepository);
             case REMOVEBUG:
@@ -112,7 +110,7 @@ public class CommandFactoryImpl implements CommandFactory {
             case REMOVECOMMENTFROMTASK:
                 return new RemoveCommentFromTaskCommand(taskManagementRepository);
             case REMOVEFEEDBACK:
-//                return new RemoveFeedbackCommand(taskManagementRepository);
+                return new RemoveFeedbackCommand(taskManagementRepository);
             case REMOVEMEMBER:
                 return new RemoveMemberCommand(taskManagementRepository);
             case REMOVESTORY:
@@ -130,7 +128,7 @@ public class CommandFactoryImpl implements CommandFactory {
             case SHOWALLMEMBERS:
                 return new ShowAllMembersCommand(taskManagementRepository);
             case SHOWALLTEAMBOARDS:
-                //return new ShowAllTeamBoardsCommand(taskManagementRepository);
+                return new ShowAllTeamBoardsCommand(taskManagementRepository);
             case SHOWALLTEAMMEMBERS:
                 return new ShowAllTeamMembersCommand(taskManagementRepository);
             case SHOWALLTEAMS:

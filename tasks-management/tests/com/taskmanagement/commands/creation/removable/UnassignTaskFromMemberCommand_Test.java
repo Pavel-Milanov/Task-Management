@@ -17,7 +17,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.List;
 
-public class UnassigneTaskFromMemberCommand_Test {
+public class UnassignTaskFromMemberCommand_Test {
 
     private TaskManagementRepository taskManagementRepository;
     private Command command;
@@ -40,7 +40,7 @@ public class UnassigneTaskFromMemberCommand_Test {
     }
 
     @Test
-    public void execute_should_unassigneTaskFromMember_when_passedValidInput() {
+    public void execute_should_unassignTaskFromMember_when_passedValidInput() {
         Bug bug =  taskManagementRepository.createBug("The program freezes", "This needs to be fixed quickly!"
                 , Priority.HIGH, Severity.CRITICAL, BugStatus.ACTIVE, "Peter");
 

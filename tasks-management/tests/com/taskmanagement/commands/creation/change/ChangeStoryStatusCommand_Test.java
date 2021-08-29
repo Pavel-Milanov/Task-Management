@@ -37,7 +37,7 @@ public class ChangeStoryStatusCommand_Test {
     }
 
     @Test
-    public void execute_should_addBugStep_when_passedValidInput() {
+    public void execute_should_changeStoryStatus_when_passedValidInput() {
 
         taskManagementRepository.createStory("bugtitleee", "bugdescription", Priority.HIGH, Size.LARGE, StoryStatus.NOT_DONE, "zzzzzz");
         command.executeCommand(List.of("1", "done"));

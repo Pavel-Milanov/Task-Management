@@ -39,7 +39,7 @@ public class ListBugsSortByTitleCommand_Test {
 
 
     @Test
-    public void execute_should_registerUser_when_passedValidInput() {
+    public void execute_should_sortBugs_when_passedValidInput() {
         taskManagementRepository.createMember("aaaaa");
         taskManagementRepository.createBug("bugtitleeeee", "description", Priority.LOW, Severity.CRITICAL, BugStatus.ACTIVE, "aaaaa");
 

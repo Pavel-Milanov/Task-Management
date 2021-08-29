@@ -34,7 +34,7 @@ public class ChangeFeedbackRatingCommand_Test {
     }
 
     @Test
-    public void execute_should_addBugStep_when_passedValidInput() {
+    public void execute_should_changeFeedbackRating_when_passedValidInput() {
 
         taskManagementRepository.createFeedback("bugtitleee", "bugdescription", 10, FeedBackStatus.NEW);
         command.executeCommand(List.of("1", "15"));

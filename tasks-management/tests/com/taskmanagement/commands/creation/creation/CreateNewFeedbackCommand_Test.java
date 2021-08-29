@@ -37,7 +37,7 @@ public class CreateNewFeedbackCommand_Test {
 
 
     @Test
-    public void execute_should_addTaskToBoard_when_passedValidInput() {
+    public void execute_should_createNewFeedback_when_passedValidInput() {
         FeedBack feedBack = new FeedBackImpl(1, "feedbacktitile", "feedbackdescription", 10, FeedBackStatus.NEW);
         taskManagementRepository.createBoard("board1");
         command.executeCommand(List.of("1", "feedbacktitile", "feedbackdescription", "10", "NEW"));
