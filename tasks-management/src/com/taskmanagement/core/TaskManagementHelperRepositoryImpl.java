@@ -1,6 +1,5 @@
 package com.taskmanagement.core;
 
-import com.taskmanagement.constants.CommandConstants;
 import com.taskmanagement.constants.CoreConstants;
 import com.taskmanagement.core.contacts.TaskManagementRepository;
 import com.taskmanagement.exceptions.ElementNotFoundException;
@@ -55,26 +54,15 @@ public class TaskManagementHelperRepositoryImpl {
                 .orElseThrow(() -> new ElementNotFoundException(String.format(ELEMENT_NOT_FOUND, teamName)));
     }
 
-    public Board findBoardByName(String boardName) {
-        return taskManagementHelperRepository.getBoards().stream()
-                .filter(board -> boardName.equals(board.getName())).findAny()
-                .orElseThrow(() -> new ElementNotFoundException(String.format(ELEMENT_NOT_FOUND, boardName)));
-
-    }
-
     public <T extends Identifiable> T findElementById(List<T> elements, int id) {
         return elements.stream().filter(element -> element.getId() == id).findAny()
                 .orElseThrow(() -> new ElementNotFoundException(String.format(CoreConstants.INVALID_ID, id)));
     }
 
     public void validateAssigneeIsMemberOfTeam(Board board, String assignee) {
-        Team team = taskManagementHelperRepository.getTeams().stream()
-                .filter(team1 -> team1.getBoards().contains(board)).findAny()
-                .orElseThrow(() -> new InvalidUserInputException(CommandConstants.BOARD_IN_TEAM_NOT_EXISTS));
 
-        if (!validateMemberIsFromTeam(assignee, team.getName())) {
-            throw new InvalidUserInputException(String.format(CommandConstants.MEMBER_NOT_USER_FROM_TEAM, assignee, team.getName()));
-        }
+        checkMemberFromTeam(assignee, board);
+
     }
 
     public void validateMemberIsFromTeam(int taskId, String memberName) {
@@ -84,21 +72,19 @@ public class TaskManagementHelperRepositoryImpl {
                 .filter(board1 -> board1.getWorkingItems().contains(workingItem)).findAny()
                 .orElseThrow(() -> new InvalidUserInputException(CoreConstants.TASK_NOT_ATTACHED_TO_BOARD));
 
+        checkMemberFromTeam(memberName, board);
+    }
+
+    public void checkMemberFromTeam(String memberName, Board board) {
+        Member member = findMemberByName(memberName);
+
         Team team = taskManagementHelperRepository.getTeams().stream()
                 .filter(team1 -> team1.getBoards().contains(board)).findAny()
                 .orElseThrow(() -> new InvalidUserInputException(CoreConstants.BOARD_NOT_ATTACHED_TO_TEAM));
 
-        Member member = findMemberByName(memberName);
         if (!team.getMembers().contains(member)) {
-            throw new InvalidUserInputException(String.format(MEMBER_NOT_USER_FROM_TEAM, member, team.getName()));
+            throw new InvalidUserInputException(String.format(MEMBER_NOT_USER_FROM_TEAM, memberName, team.getName()));
         }
-    }
-
-    public boolean validateMemberIsFromTeam(String memberName, String teamName) {
-        Member member = findMemberByName(memberName);
-        Team team = findTeamByName(teamName);
-
-        return team.getMembers().contains(member);
     }
 
     public boolean isTeamExist(String teamName) {
