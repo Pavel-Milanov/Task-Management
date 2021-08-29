@@ -51,5 +51,3 @@ public class ListBugsByAssigneeCommand implements Command {
 
 }
 
-
-
