@@ -1,14 +1,15 @@
 package com.taskmanagement.commands.creation.removable;
 
 import com.taskmanagement.commands.contracts.Command;
-import com.taskmanagement.commands.creation.addition.AddCommentTaskCommand;
 import com.taskmanagement.core.TaskManagementHelperRepositoryImpl;
 import com.taskmanagement.core.TaskManagementRepositoryImpl;
 import com.taskmanagement.core.contacts.TaskManagementRepository;
 import com.taskmanagement.exceptions.ElementNotFoundException;
 import com.taskmanagement.models.CommentImpl;
 import com.taskmanagement.models.contracts.*;
-import com.taskmanagement.models.enums.*;
+import com.taskmanagement.models.enums.BugStatus;
+import com.taskmanagement.models.enums.Priority;
+import com.taskmanagement.models.enums.Severity;
 import com.taskmanagement.utils.TestUtilities;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,14 +23,12 @@ public class RemoveCommentFromTaskCommand_Test {
     private TaskManagementRepository taskManagementRepository;
     private TaskManagementHelperRepositoryImpl helperRepository;
     private Command command;
-    private Command command1;
 
     @BeforeEach
     public void before() {
         this.taskManagementRepository = new TaskManagementRepositoryImpl();
         this.helperRepository = new TaskManagementHelperRepositoryImpl(taskManagementRepository);
         this.command = new RemoveCommentFromTaskCommand(taskManagementRepository);
-        this.command1 = new AddCommentTaskCommand(taskManagementRepository);
     }
 
 
@@ -71,16 +70,17 @@ public class RemoveCommentFromTaskCommand_Test {
                 () -> Assertions.assertEquals(0, taskManagementRepository.getBugs().get(0).getComments().size())
         );
     }
-        @Test
-        public void execute_should_throwException_when_passedInvalidTMemberName () {
 
-            Assertions.assertThrows(ElementNotFoundException.class, () -> command.executeCommand(List.of(String.valueOf(1), "The task is working now", "Peter")));
+    @Test
+    public void execute_should_throwException_when_passedInvalidTMemberName() {
 
-        }
+        Assertions.assertThrows(ElementNotFoundException.class, () -> command.executeCommand(List.of(String.valueOf(1), "The task is working now", "Peter")));
 
-        @Test
-        public void execute_should_throwException_when_listIsEmpty () {
-
-            Assertions.assertThrows(IllegalArgumentException.class, () -> command.executeCommand(List.of()));
-        }
     }
+
+    @Test
+    public void execute_should_throwException_when_listIsEmpty() {
+
+        Assertions.assertThrows(IllegalArgumentException.class, () -> command.executeCommand(List.of()));
+    }
+}
