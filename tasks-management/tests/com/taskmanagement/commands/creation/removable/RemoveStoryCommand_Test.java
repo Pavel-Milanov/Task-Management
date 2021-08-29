@@ -6,9 +6,9 @@ import com.taskmanagement.core.contacts.TaskManagementRepository;
 import com.taskmanagement.exceptions.ElementNotFoundException;
 import com.taskmanagement.models.contracts.Board;
 import com.taskmanagement.models.contracts.Bug;
-import com.taskmanagement.models.enums.BugStatus;
-import com.taskmanagement.models.enums.Priority;
-import com.taskmanagement.models.enums.Severity;
+import com.taskmanagement.models.contracts.Member;
+import com.taskmanagement.models.contracts.Story;
+import com.taskmanagement.models.enums.*;
 import com.taskmanagement.utils.TestUtilities;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,7 +18,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.List;
 
-public class RemoveBugCommand_Test {
+public class RemoveStoryCommand_Test {
 
     private TaskManagementRepository taskManagementRepository;
     private Command command;
@@ -26,12 +26,12 @@ public class RemoveBugCommand_Test {
     @BeforeEach
     public void before() {
         this.taskManagementRepository = new TaskManagementRepositoryImpl();
-        this.command = new RemoveBugCommand(taskManagementRepository);
+        this.command = new RemoveStoryCommand(taskManagementRepository);
     }
 
 
     @ParameterizedTest(name = "with arguments count: {0}")
-    @ValueSource(ints = {RemoveBugCommand.EXPECTED_NUMBER_OF_ARGUMENTS - 1, RemoveBugCommand.EXPECTED_NUMBER_OF_ARGUMENTS + 1})
+    @ValueSource(ints = {RemoveStoryCommand.EXPECTED_NUMBER_OF_ARGUMENTS - 1, RemoveStoryCommand.EXPECTED_NUMBER_OF_ARGUMENTS + 1})
     public void execute_should_throwException_when_argumentsCountDifferentThanExpected(int argumentsCount) {
         // Arrange
         List<String> arguments = TestUtilities.initializeListWithSize(argumentsCount);
@@ -41,15 +41,15 @@ public class RemoveBugCommand_Test {
     }
 
     @Test
-    public void execute_should_removeBug_when_passedValidInput() {
-        Bug bug =  taskManagementRepository.createBug("The program freezes", "This needs to be fixed quickly!"
-                , Priority.HIGH, Severity.CRITICAL, BugStatus.ACTIVE, "Peter");
+    public void execute_should_removeStory_when_passedValidInput() {
+       Story story =   taskManagementRepository.createStory("The program freezes is open","Work on first problem"
+               ,Priority.HIGH, Size.LARGE, StoryStatus.INPROGRESS,"Peter");
 
         Board board = taskManagementRepository.createBoard("Tasks");
-        board.addWorkingItem(bug);
-        command.executeCommand(List.of(String.valueOf(bug.getId())));
+        board.addWorkingItem(story);
+        command.executeCommand(List.of(String.valueOf(story.getId())));
 
-        Assertions.assertEquals(0, taskManagementRepository.getBugs().size());
+        Assertions.assertEquals(0, taskManagementRepository.getStories().size());
 
     }
 
@@ -59,3 +59,4 @@ public class RemoveBugCommand_Test {
         Assertions.assertThrows(ElementNotFoundException.class, () -> command.executeCommand(List.of("1")));
     }
 }
+
