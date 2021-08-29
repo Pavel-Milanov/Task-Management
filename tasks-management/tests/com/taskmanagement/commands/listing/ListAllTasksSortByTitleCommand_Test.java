@@ -32,7 +32,7 @@ public class ListAllTasksSortByTitleCommand_Test {
     }
 
     @ParameterizedTest(name = "with arguments count: {0}")
-    @ValueSource(ints = {ListAllTasksSortByTitle.EXPECTED_NUMBER_OF_ARGUMENTS + 1, ListAllTasksSortByTitle.EXPECTED_NUMBER_OF_ARGUMENTS - 1})
+    @ValueSource(ints = {ListAllTasksSortByTitle.EXPECTED_NUMBER_OF_ARGUMENTS + 1})
     public void execute_should_throwException_when_argumentsCountDifferentThanExpected(int argumentsCount) {
         // Arrange
         List<String> arguments = TestUtilities.initializeListWithSize(argumentsCount);
