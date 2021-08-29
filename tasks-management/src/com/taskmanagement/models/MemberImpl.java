@@ -20,7 +20,7 @@ public class MemberImpl implements Member {
         this.id = id;
         setName(name);
         this.activityHistories = new ArrayList<>();
-        activityHistories.add(new ActivityHistoryImpl(("Member with name " + name + " was registered."), LocalDateTime.now()));
+        activityHistories.add(new ActivityHistoryImpl((String.format(ModelConstants.MEMBER_REGISTERED,name)), LocalDateTime.now()));
     }
 
     @Override

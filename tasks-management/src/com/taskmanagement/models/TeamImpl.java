@@ -32,7 +32,7 @@ public class TeamImpl implements Team {
         this.members = new ArrayList<>();
         this.boards = new ArrayList<>();
         this.activityHistories = new ArrayList<>();
-        activityHistories.add(new ActivityHistoryImpl(("Team with title " + name + " was created."), LocalDateTime.now()));
+        activityHistories.add(new ActivityHistoryImpl((String.format(ModelConstants.TEAM_CREATED,name)), LocalDateTime.now()));
     }
 
     @Override
@@ -78,7 +78,7 @@ public class TeamImpl implements Team {
     @Override
     public void addBoard(Board board) {
         boards.add(board);
-        activityHistories.add(new ActivityHistoryImpl(("Board with title " + board.getName() + " was add to Team " + name + " ."), LocalDateTime.now()));
+        activityHistories.add(new ActivityHistoryImpl((String.format(ModelConstants.BOARD_ADDED_TO_TEAM,board.getName(),name)), LocalDateTime.now()));
     }
 
     @Override
@@ -86,14 +86,14 @@ public class TeamImpl implements Team {
         if (!boards.contains(board)) {
             throw new InvalidUserInputException(String.format(ModelConstants.BOARD_NOT_EXIST, board.getName()));
         }
-        activityHistories.add(new ActivityHistoryImpl(("Board with title " + board.getName() + " was removed from Team " + name + " ."), LocalDateTime.now()));
+        activityHistories.add(new ActivityHistoryImpl((String.format(ModelConstants.BOARD_REMOVED_FROM_TEAM,board.getName(),name)), LocalDateTime.now()));
         boards.remove(board);
     }
 
     @Override
     public void addMember(Member member) {
         members.add(member);
-        activityHistories.add(new ActivityHistoryImpl(("Member with name " + member.getName() + " was add to Team " + name + " ."), LocalDateTime.now()));
+        activityHistories.add(new ActivityHistoryImpl((String.format(ModelConstants.MEMBER_ADDED_TO_TEAM,member.getName(),name)), LocalDateTime.now()));
     }
 
     @Override
@@ -101,7 +101,7 @@ public class TeamImpl implements Team {
         if (!members.contains(member)) {
             throw new InvalidUserInputException(String.format(ModelConstants.MEMBER_NOT_EXIST, member.getName()));
         }
-        activityHistories.add(new ActivityHistoryImpl(("Member with name " + member.getName() + " was removed from Team " + name + " ."), LocalDateTime.now()));
+        activityHistories.add(new ActivityHistoryImpl((String.format(ModelConstants.MEMBER_REMOVED_FROM_TEAM,member.getName(),name)), LocalDateTime.now()));
         members.remove(member);
     }
 

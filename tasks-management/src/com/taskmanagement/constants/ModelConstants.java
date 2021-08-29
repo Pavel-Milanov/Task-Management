@@ -34,4 +34,13 @@ public class ModelConstants {
     public static final String BUG_STATUS_CHANGED = "Bug status was changed from '%s' to '%s'";
     public static final String TASK_ASSIGNEE_CHANGED = "Assignee changed from '%s' to '%s'.";
     public static final String PRIORITY_CHANGED = "Priority was changed from '%s' to '%s'";
+    public static final String TEAM_CREATED = "Team with title %s was created.";
+    public static final String BOARD_ADDED_TO_TEAM = "Board with title %s was add to Team %s.";
+    public static final String BOARD_REMOVED_FROM_TEAM = "Board with title %s was removed from Team %s.";
+    public static final String MEMBER_ADDED_TO_TEAM = "Member with name %s was add to Team %s.";
+    public static final String MEMBER_REMOVED_FROM_TEAM = "Member with name %s was removed from Team %s.";
+    public static final String MEMBER_REGISTERED = "Member with name %s was registered.";
+    public static final String BOARD_CREATED = "Board with name %s was created.";
+    public static final String WORKING_ITEM_ADDED_TO_BOARD = "Working Item %s add to %s Board ";
+    public static final String WORKING_ITEM_REMOVED_FROM_BOARD = "Working Item %s removed from %s Board ";
 }
