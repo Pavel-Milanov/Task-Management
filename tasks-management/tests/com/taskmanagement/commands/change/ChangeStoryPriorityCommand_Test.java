@@ -39,7 +39,7 @@ public class ChangeStoryPriorityCommand_Test {
     @Test
     public void execute_should_addBugStep_when_passedValidInput() {
 
-        taskManagementRepository.createStory("bugtitleee", "bugdescription", Priority.HIGH, Size.LARGE, StoryStatus.NOTDONE, "zzzzzz");
+        taskManagementRepository.createStory("bugtitleee", "bugdescription", Priority.HIGH, Size.LARGE, StoryStatus.NOT_DONE, "zzzzzz");
         command.executeCommand(List.of("1", "low"));
 
         Assertions.assertTrue(() -> taskManagementRepository.getStories().get(0).getPriority().equals(Priority.LOW));

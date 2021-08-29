@@ -27,12 +27,14 @@ public class RemoveBoardCommand implements Command {
     @Override
     public String executeCommand(List<String> parameters) {
         ValidationHelpers.validateArgumentsCount(parameters, EXPECTED_NUMBER_OF_ARGUMENTS);
-        Board board = helperRepository.findElementById(taskManagementRepository.getBoards(), ParsingHelpers.tryParseInt(parameters.get(0), CommandConstants.INVALID_BOARD_INDEX));
+        int boardId = ParsingHelpers.tryParseInt(parameters.get(0), CommandConstants.INVALID_BOARD_INDEX);
 
-        return removeBoard(board);
+        return removeBoard(boardId);
     }
 
-    private String removeBoard(Board board) {
+    private String removeBoard(int boardId) {
+        Board board = helperRepository.findElementById(taskManagementRepository.getBoards(), boardId);
+
         if (!helperRepository.isBoardExist(board.getName())) {
             throw new InvalidUserInputException(String.format(BOARD_NOT_EXISTS, board.getName()));
         }

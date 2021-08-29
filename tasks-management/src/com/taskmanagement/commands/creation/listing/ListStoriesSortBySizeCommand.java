@@ -1,18 +1,19 @@
 package com.taskmanagement.commands.creation.listing;
 
 import com.taskmanagement.commands.contracts.Command;
+import com.taskmanagement.constants.CommandConstants;
 import com.taskmanagement.core.contacts.TaskManagementRepository;
+import com.taskmanagement.exceptions.InvalidUserInputException;
 import com.taskmanagement.models.contracts.Story;
-import com.taskmanagement.models.enums.Size;
 import com.taskmanagement.utils.ListingHelpers;
-import com.taskmanagement.utils.ParsingHelpers;
 import com.taskmanagement.utils.ValidationHelpers;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class ListStoriesSortBySizeCommand implements Command {
-    public static final int EXPECTED_NUMBER_OF_ARGUMENTS = 1;
+    public static final int EXPECTED_NUMBER_OF_ARGUMENTS = 0;
 
     private final TaskManagementRepository taskManagementRepository;
 
@@ -24,15 +25,18 @@ public class ListStoriesSortBySizeCommand implements Command {
     @Override
     public String executeCommand(List<String> parameters) {
         ValidationHelpers.validateArgumentsCount(parameters, EXPECTED_NUMBER_OF_ARGUMENTS);
-        Size size = ParsingHelpers.tryParseEnum(parameters.get(0), Size.class);
-        return listBugs(size);
+        return listBugs();
     }
 
-    private String listBugs(Size size) {
-        List<Story> storiesFilter;
-        storiesFilter = taskManagementRepository.getStories().stream()
-                .filter(story -> story.getSize().equals(size)).collect(Collectors.toList());
-        return ListingHelpers.elementsToString(storiesFilter);
+    private String listBugs() {
+        if (taskManagementRepository.getStories().isEmpty()) {
+            throw new InvalidUserInputException(CommandConstants.EMPTY_LIST_BUGS);
+        }
+
+        List<Story> sortedStoriesBySize = taskManagementRepository.getStories()
+                .stream().sorted(Comparator.comparing(Story::getSize)).collect(Collectors.toList());
+
+        return ListingHelpers.elementsToString(sortedStoriesBySize);
 
     }
 }

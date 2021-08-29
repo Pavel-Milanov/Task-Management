@@ -1,18 +1,19 @@
 package com.taskmanagement.commands.creation.listing;
 
 import com.taskmanagement.commands.contracts.Command;
+import com.taskmanagement.constants.CommandConstants;
 import com.taskmanagement.core.contacts.TaskManagementRepository;
+import com.taskmanagement.exceptions.InvalidUserInputException;
 import com.taskmanagement.models.contracts.Bug;
-import com.taskmanagement.models.enums.Severity;
 import com.taskmanagement.utils.ListingHelpers;
-import com.taskmanagement.utils.ParsingHelpers;
 import com.taskmanagement.utils.ValidationHelpers;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class ListBugsSortBySeverityCommand implements Command {
-    public static final int EXPECTED_NUMBER_OF_ARGUMENTS = 1;
+    public static final int EXPECTED_NUMBER_OF_ARGUMENTS = 0;
 
     private final TaskManagementRepository taskManagementRepository;
 
@@ -24,15 +25,18 @@ public class ListBugsSortBySeverityCommand implements Command {
     @Override
     public String executeCommand(List<String> parameters) {
         ValidationHelpers.validateArgumentsCount(parameters, EXPECTED_NUMBER_OF_ARGUMENTS);
-        Severity severity = ParsingHelpers.tryParseEnum(parameters.get(0), Severity.class);
-        return listBugs(severity);
+        return listBugs();
     }
 
-    private String listBugs(Severity severity) {
-        List<Bug> bugsFiltered;
-        bugsFiltered = taskManagementRepository.getBugs().stream()
-                .filter(bug -> bug.getSeverity().equals(severity)).collect(Collectors.toList());
-        return ListingHelpers.elementsToString(bugsFiltered);
+    private String listBugs() {
+        if (taskManagementRepository.getBugs().isEmpty()) {
+            throw new InvalidUserInputException(CommandConstants.EMPTY_LIST_BUGS);
+        }
+
+        List<Bug> sortedBugBySeverity = taskManagementRepository.getBugs()
+                .stream().sorted(Comparator.comparing(Bug::getSeverity)).collect(Collectors.toList());
+
+        return ListingHelpers.elementsToString(sortedBugBySeverity);
 
     }
 

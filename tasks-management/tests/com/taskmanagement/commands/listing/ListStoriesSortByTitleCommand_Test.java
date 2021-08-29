@@ -43,7 +43,7 @@ public class ListStoriesSortByTitleCommand_Test {
     @Test
     public void execute_should_registerUser_when_passedValidInput() {
         taskManagementRepository.createMember("aaaaa");
-        taskManagementRepository.createStory("bugtitleeeee", "description", Priority.HIGH, Size.LARGE, StoryStatus.NOTDONE, "aaaaa");
+        taskManagementRepository.createStory("bugtitleeeee", "description", Priority.HIGH, Size.LARGE, StoryStatus.NOT_DONE, "aaaaa");
 
         command.executeCommand(List.of());
         Story story = taskManagementRepository.getStories().get(0);
@@ -54,7 +54,7 @@ public class ListStoriesSortByTitleCommand_Test {
     @Test
     public void execute_should_when_passedValidInput() {
         taskManagementRepository.createMember("aaaaa");
-        taskManagementRepository.createStory("bugtitleeeee", "description", Priority.HIGH, Size.LARGE, StoryStatus.NOTDONE, "aaaaa");
+        taskManagementRepository.createStory("bugtitleeeee", "description", Priority.HIGH, Size.LARGE, StoryStatus.NOT_DONE, "aaaaa");
 
         command.executeCommand(List.of());
         Story story = taskManagementRepository.getStories().get(0);

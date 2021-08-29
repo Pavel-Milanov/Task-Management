@@ -2,7 +2,7 @@ package com.taskmanagement.models.enums;
 
 public enum StoryStatus {
 
-    NOTDONE,
+    NOT_DONE,
     INPROGRESS,
     DONE;
 
@@ -10,7 +10,7 @@ public enum StoryStatus {
     @Override
     public String toString() {
         switch (this) {
-            case NOTDONE:
+            case NOT_DONE:
                 return "Not Done";
             case INPROGRESS:
                 return "In progress";
