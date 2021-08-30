@@ -17,7 +17,7 @@ public class CommentImpl implements Comment {
     }
 
 
-    public void setContent(String content) {
+    private void setContent(String content) {
         ValidationHelpers.validateInRange(content.length(), CONTENT_LEN_MIN, CONTENT_LEN_MAX, CONTENT_LEN_ERR);
         this.content = content;
     }
