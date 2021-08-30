@@ -1,5 +1,7 @@
 package com.taskmanagement.constants;
 
+import static java.lang.String.format;
+
 public class ModelConstants {
 
     public static final int TEAM_NAME_MIN_LENGTH = 5;
@@ -12,6 +14,12 @@ public class ModelConstants {
     public static final int TITLE_MAX_LENGTH = 50;
     public static final int DESCRIPTION_MIN_LENGTH = 10;
     public static final int DESCRIPTION_MAX_LENGTH = 500;
+    public static final int CONTENT_LEN_MIN = 5;
+    public static final int CONTENT_LEN_MAX = 200;
+    public static final String CONTENT_LEN_ERR = format(
+            "Content must be between %d and %d characters long!",
+            CONTENT_LEN_MIN,
+            CONTENT_LEN_MAX);
     public static final String NO_SUCH_ENUM = "There is no '%s' in '%s'.";
     public static final String DESCRIPTION_IS_EMPTY = "Description cannot be empty";
     public static final String COMMENT_ADD_SUCCESSFULLY = "Comment '%s' add successfully";
