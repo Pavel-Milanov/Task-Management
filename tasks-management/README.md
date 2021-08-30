@@ -135,20 +135,20 @@ You can perform actions such as creating/deleting tasks.
 
 ### Example Input:
 
->`createNewBoard~Board One`<br />
->`createNewMember~First Member`<br />
->`createNewTeam~Team One`<br />
->`addNewBoardInTeam~1~Team One`<br />
->`addMemberToTeam~First Member~Team One`<br />
->`createNewStory~1~title story~story long description~high~medium~not done~First Member`<br />
+>`createNewBoard~Tasks`<br />
+>`createNewMember~Peter`<br />
+>`createNewTeam~Team11`<br />
+>`addNewBoardInTeam~1~Team11`<br />
+>`addMemberToTeam~Peter~Team11`<br />
+>`createNewStory~1~The program freezes is open~Work on first problem~high~large~inprogress~Peter`<br />
 >`showTaskAllInfo~4`<br />
->`createNewBug~1~bug titleeeee~bug descriptionnnnn~high~critical~active`<br />
+>`createNewBug~1~The program freezes~This needs to be fixed quickly!~high~critical~active~Peter`<br />
 >`showTaskAllInfo~5`<br />
->`addCommentToTask~5~proba proba comment to add~First Member`<br />
+>`addCommentToTask~5~proba proba comment to add~Peter`<br />
 >`showTaskAllInfo~5`<br />
 >`changeBugPriority~5~low`<br />
->`changeAssignee~5~First Member`<br />
->`addStepsToBug~5~First Member~1. Open the application; 2. Click "Log In"; 3. The application freezes!`<br />
+>`changeAssignee~5~Peter`<br />
+>`addStepsToBug~5~Peter~1. Open the application; 2. Click "Log In"; 3. The application freezes!`<br />
 >`showTaskAllInfo~5`<br />
 >`showTasksFromBoardID~1`<br />
 >`showBugSteps~5`<br />
