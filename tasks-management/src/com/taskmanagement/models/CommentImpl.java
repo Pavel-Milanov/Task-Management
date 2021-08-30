@@ -22,7 +22,7 @@ public class CommentImpl implements Comment {
         this.content = content;
     }
 
-    public void setAuthor(String author) {
+    private void setAuthor(String author) {
         this.author = author;
     }
 
