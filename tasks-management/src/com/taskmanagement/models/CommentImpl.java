@@ -22,9 +22,6 @@ public class CommentImpl implements Comment {
         this.content = content;
     }
 
-    private void setAuthor(String author) {
-        this.author = author;
-    }
 
     @Override
     public String getAuthor() {
