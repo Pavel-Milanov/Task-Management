@@ -4,7 +4,6 @@ import com.taskmanagement.commands.contracts.Command;
 import com.taskmanagement.core.TaskManagementHelperRepositoryImpl;
 import com.taskmanagement.core.TaskManagementRepositoryImpl;
 import com.taskmanagement.core.contacts.TaskManagementRepository;
-import com.taskmanagement.models.contracts.ActivityHistory;
 import com.taskmanagement.models.contracts.Member;
 import com.taskmanagement.utils.ListingHelpers;
 import com.taskmanagement.utils.TestUtilities;
@@ -50,7 +49,7 @@ public class ShowAllMembersCommand_Test {
 
         List<Member> members = taskManagementRepository.getMembers();
         Assertions.assertEquals(ListingHelpers.elementsToString(members)
-                ,command.executeCommand(List.of()));
+                , command.executeCommand(List.of()));
 
     }
 

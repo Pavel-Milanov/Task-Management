@@ -1,12 +1,13 @@
 package com.taskmanagement.commands.creation.listing;
 
 import com.taskmanagement.commands.contracts.Command;
-
 import com.taskmanagement.core.TaskManagementRepositoryImpl;
 import com.taskmanagement.core.contacts.TaskManagementRepository;
 import com.taskmanagement.exceptions.InvalidUserInputException;
 import com.taskmanagement.models.contracts.Story;
-import com.taskmanagement.models.enums.*;
+import com.taskmanagement.models.enums.Priority;
+import com.taskmanagement.models.enums.Size;
+import com.taskmanagement.models.enums.StoryStatus;
 import com.taskmanagement.utils.TestUtilities;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -42,15 +43,15 @@ public class ListAllTasksSortByTitleCommand_Test {
     @Test
     public void execute_should_listAllTask_when_passedValidInput() {
 
-        taskManagementRepository.createStory("The program freezes is open","Work on first problem",Priority.HIGH, Size.LARGE, StoryStatus.INPROGRESS,"Peter");
-        taskManagementRepository.createStory("The test is open","Work on test",Priority.HIGH, Size.LARGE,StoryStatus.INPROGRESS,"Poli");
+        taskManagementRepository.createStory("The program freezes is open", "Work on first problem", Priority.HIGH, Size.LARGE, StoryStatus.INPROGRESS, "Peter");
+        taskManagementRepository.createStory("The test is open", "Work on test", Priority.HIGH, Size.LARGE, StoryStatus.INPROGRESS, "Poli");
 
 
         List<Story> listSortedStoriesByTitle = taskManagementRepository.getStories()
                 .stream().sorted(Comparator.comparing(Story::getName)).collect(Collectors.toList());
 
 
-        Assertions.assertDoesNotThrow(()->command.executeCommand(List.of()));
+        Assertions.assertDoesNotThrow(() -> command.executeCommand(List.of()));
 
     }
 

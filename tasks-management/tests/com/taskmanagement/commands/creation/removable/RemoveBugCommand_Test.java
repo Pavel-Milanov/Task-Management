@@ -42,7 +42,7 @@ public class RemoveBugCommand_Test {
 
     @Test
     public void execute_should_removeBug_when_passedValidInput() {
-        Bug bug =  taskManagementRepository.createBug("The program freezes", "This needs to be fixed quickly!"
+        Bug bug = taskManagementRepository.createBug("The program freezes", "This needs to be fixed quickly!"
                 , Priority.HIGH, Severity.CRITICAL, BugStatus.ACTIVE, "Peter");
 
         Board board = taskManagementRepository.createBoard("Tasks");

@@ -1,11 +1,12 @@
 package com.taskmanagement.commands.creation.listing;
 
 import com.taskmanagement.commands.contracts.Command;
-
 import com.taskmanagement.core.TaskManagementRepositoryImpl;
 import com.taskmanagement.core.contacts.TaskManagementRepository;
 import com.taskmanagement.models.contracts.Bug;
-import com.taskmanagement.models.enums.*;
+import com.taskmanagement.models.enums.BugStatus;
+import com.taskmanagement.models.enums.Priority;
+import com.taskmanagement.models.enums.Severity;
 import com.taskmanagement.utils.TestUtilities;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

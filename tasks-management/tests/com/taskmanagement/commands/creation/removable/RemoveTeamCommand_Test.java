@@ -3,8 +3,6 @@ package com.taskmanagement.commands.creation.removable;
 import com.taskmanagement.commands.contracts.Command;
 import com.taskmanagement.core.TaskManagementRepositoryImpl;
 import com.taskmanagement.core.contacts.TaskManagementRepository;
-import com.taskmanagement.exceptions.ElementNotFoundException;
-import com.taskmanagement.models.contracts.Board;
 import com.taskmanagement.models.contracts.Team;
 import com.taskmanagement.utils.TestUtilities;
 import org.junit.jupiter.api.Assertions;
@@ -41,13 +39,14 @@ public class RemoveTeamCommand_Test {
     public void execute_should_removeTeam_when_passedValidInput() {
         Team team = taskManagementRepository.createTeam("Team11");
 
-      // Board board = taskManagementRepository.createBoard("Tasks");
-      // team.addBoard(board);
+        // Board board = taskManagementRepository.createBoard("Tasks");
+        // team.addBoard(board);
         command.executeCommand(List.of(team.getName()));
 
-                Assertions.assertEquals(0,taskManagementRepository.getTeams().size());
+        Assertions.assertEquals(0, taskManagementRepository.getTeams().size());
 
     }
+
     @Test
     public void execute_should_throwException_when_listIsEmpty() {
 

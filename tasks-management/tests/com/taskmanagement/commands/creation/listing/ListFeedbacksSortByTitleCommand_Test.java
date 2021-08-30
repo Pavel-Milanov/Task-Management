@@ -1,7 +1,6 @@
 package com.taskmanagement.commands.creation.listing;
 
 import com.taskmanagement.commands.contracts.Command;
-
 import com.taskmanagement.core.TaskManagementRepositoryImpl;
 import com.taskmanagement.core.contacts.TaskManagementRepository;
 import com.taskmanagement.exceptions.InvalidUserInputException;
@@ -30,7 +29,7 @@ public class ListFeedbacksSortByTitleCommand_Test {
     }
 
     @ParameterizedTest(name = "with arguments count: {0}")
-    @ValueSource(ints = {ListFeedbacksSortByTitleCommand.EXPECTED_NUMBER_OF_ARGUMENTS + 1, })
+    @ValueSource(ints = {ListFeedbacksSortByTitleCommand.EXPECTED_NUMBER_OF_ARGUMENTS + 1,})
     public void execute_should_throwException_when_argumentsCountDifferentThanExpected(int argumentsCount) {
         // Arrange
         List<String> arguments = TestUtilities.initializeListWithSize(argumentsCount);
@@ -43,8 +42,8 @@ public class ListFeedbacksSortByTitleCommand_Test {
     public void execute_should_sortFeedbackByTitle_when_passedValidInput() {
 
         //Arrange
-        taskManagementRepository.createFeedback("The program freezes is working on it", "All bugs are fixed!",5, FeedBackStatus.NEW);
-        taskManagementRepository.createFeedback("The program freezes is done", "All bugs are fixed!",3, FeedBackStatus.NEW);
+        taskManagementRepository.createFeedback("The program freezes is working on it", "All bugs are fixed!", 5, FeedBackStatus.NEW);
+        taskManagementRepository.createFeedback("The program freezes is done", "All bugs are fixed!", 3, FeedBackStatus.NEW);
         //Act
         List<FeedBack> listSortedFeedbackByTitle = taskManagementRepository.getFeedBacks()
                 .stream().sorted(Comparator.comparing(FeedBack::getName)).collect(Collectors.toList());

@@ -1,11 +1,12 @@
 package com.taskmanagement.commands.creation.listing;
 
 import com.taskmanagement.commands.contracts.Command;
-
 import com.taskmanagement.core.TaskManagementRepositoryImpl;
 import com.taskmanagement.core.contacts.TaskManagementRepository;
 import com.taskmanagement.models.contracts.Story;
-import com.taskmanagement.models.enums.*;
+import com.taskmanagement.models.enums.Priority;
+import com.taskmanagement.models.enums.Size;
+import com.taskmanagement.models.enums.StoryStatus;
 import com.taskmanagement.utils.TestUtilities;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -41,15 +42,15 @@ public class ListStoriesFilterByStatusAndAssigneeCommand_Test {
     public void execute_should_filterStoriesByStatusAndAssignee_when_passedValidInput() {
 
         //Arrange
-        taskManagementRepository.createStory("The program freezes is open","Work on first problem",Priority.HIGH, Size.LARGE, StoryStatus.INPROGRESS,"Peter");
-        taskManagementRepository.createStory("The task is open","Work on task",Priority.LOW, Size.LARGE,StoryStatus.INPROGRESS,"Peter");
+        taskManagementRepository.createStory("The program freezes is open", "Work on first problem", Priority.HIGH, Size.LARGE, StoryStatus.INPROGRESS, "Peter");
+        taskManagementRepository.createStory("The task is open", "Work on task", Priority.LOW, Size.LARGE, StoryStatus.INPROGRESS, "Peter");
 
         //Act
         List<Story> listFilteredBugsByStatus = taskManagementRepository.getStories().stream()
                 .filter(story -> story.getStoryStatus().equals(StoryStatus.INPROGRESS) && story.getAssignee().equals("Peter")).collect(Collectors.toList());
 
         //Assert
-        Assertions.assertDoesNotThrow(() -> command.executeCommand(List.of("inprogress","Peter")));
+        Assertions.assertDoesNotThrow(() -> command.executeCommand(List.of("inprogress", "Peter")));
 
 
     }

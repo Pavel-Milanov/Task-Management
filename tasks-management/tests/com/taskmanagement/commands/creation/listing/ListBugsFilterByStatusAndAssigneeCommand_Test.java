@@ -1,7 +1,6 @@
 package com.taskmanagement.commands.creation.listing;
 
 import com.taskmanagement.commands.contracts.Command;
-
 import com.taskmanagement.core.TaskManagementRepositoryImpl;
 import com.taskmanagement.core.contacts.TaskManagementRepository;
 import com.taskmanagement.models.contracts.Bug;
@@ -51,7 +50,7 @@ public class ListBugsFilterByStatusAndAssigneeCommand_Test {
                 .filter(bug -> bug.getBugStatus().equals(BugStatus.ACTIVE) && bug.getAssignee().equals("Peter")).collect(Collectors.toList());
 
         //Assert
-        Assertions.assertDoesNotThrow(() -> command.executeCommand(List.of("active","Peter")));
+        Assertions.assertDoesNotThrow(() -> command.executeCommand(List.of("active", "Peter")));
 
 
     }

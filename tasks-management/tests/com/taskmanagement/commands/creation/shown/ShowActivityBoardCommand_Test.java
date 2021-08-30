@@ -6,7 +6,6 @@ import com.taskmanagement.core.TaskManagementRepositoryImpl;
 import com.taskmanagement.core.contacts.TaskManagementRepository;
 import com.taskmanagement.models.contracts.ActivityHistory;
 import com.taskmanagement.models.contracts.Board;
-import com.taskmanagement.models.contracts.Team;
 import com.taskmanagement.utils.ListingHelpers;
 import com.taskmanagement.utils.TestUtilities;
 import org.junit.jupiter.api.Assertions;
@@ -50,8 +49,8 @@ public class ShowActivityBoardCommand_Test {
 
         Board board = taskManagementRepository.createBoard("Tasks");
         List<ActivityHistory> activityHistories = board.getActivityHistory();
-      Assertions.assertEquals(ListingHelpers.elementsToString(activityHistories)
-              ,command.executeCommand(List.of(String.valueOf(board.getId()))));
+        Assertions.assertEquals(ListingHelpers.elementsToString(activityHistories)
+                , command.executeCommand(List.of(String.valueOf(board.getId()))));
 
     }
 

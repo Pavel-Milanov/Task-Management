@@ -5,7 +5,6 @@ import com.taskmanagement.core.TaskManagementHelperRepositoryImpl;
 import com.taskmanagement.core.TaskManagementRepositoryImpl;
 import com.taskmanagement.core.contacts.TaskManagementRepository;
 import com.taskmanagement.models.contracts.ActivityHistory;
-import com.taskmanagement.models.contracts.Board;
 import com.taskmanagement.models.contracts.Member;
 import com.taskmanagement.utils.ListingHelpers;
 import com.taskmanagement.utils.TestUtilities;
@@ -51,7 +50,7 @@ public class ShowActivityMemberCommand_Test {
         Member member = taskManagementRepository.createMember("Peter");
         List<ActivityHistory> activityHistories = member.getActivityHistories();
         Assertions.assertEquals(ListingHelpers.elementsToString(activityHistories)
-                ,command.executeCommand(List.of(String.valueOf(member.getId()))));
+                , command.executeCommand(List.of(String.valueOf(member.getId()))));
 
     }
 

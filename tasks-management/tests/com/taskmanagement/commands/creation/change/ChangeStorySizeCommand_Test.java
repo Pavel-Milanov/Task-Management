@@ -1,7 +1,6 @@
 package com.taskmanagement.commands.creation.change;
 
 import com.taskmanagement.commands.contracts.Command;
-
 import com.taskmanagement.core.TaskManagementHelperRepositoryImpl;
 import com.taskmanagement.core.TaskManagementRepositoryImpl;
 import com.taskmanagement.core.contacts.TaskManagementRepository;
@@ -63,7 +62,7 @@ public class ChangeStorySizeCommand_Test {
     public void execute_should_changeStorySize_when_argumentIsValid() {
 
         //Arrange
-        taskManagementRepository.createStory("The program freezes is open","Work on first problem", Priority.HIGH, Size.LARGE, StoryStatus.INPROGRESS,"Peter");
+        taskManagementRepository.createStory("The program freezes is open", "Work on first problem", Priority.HIGH, Size.LARGE, StoryStatus.INPROGRESS, "Peter");
         List<String> parameters = List.of(String.valueOf(1), "medium");
         // Act
         command.executeCommand(parameters);

@@ -4,7 +4,6 @@ import com.taskmanagement.commands.contracts.Command;
 import com.taskmanagement.core.TaskManagementHelperRepositoryImpl;
 import com.taskmanagement.core.TaskManagementRepositoryImpl;
 import com.taskmanagement.core.contacts.TaskManagementRepository;
-import com.taskmanagement.models.contracts.Member;
 import com.taskmanagement.models.contracts.Team;
 import com.taskmanagement.utils.ListingHelpers;
 import com.taskmanagement.utils.TestUtilities;
@@ -18,7 +17,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Locale;
-import java.util.stream.Collectors;
 
 public class ShowAllTeamsCommand_Test {
 

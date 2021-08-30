@@ -1,7 +1,6 @@
 package com.taskmanagement.commands.creation.creation;
 
 import com.taskmanagement.commands.contracts.Command;
-
 import com.taskmanagement.core.TaskManagementHelperRepositoryImpl;
 import com.taskmanagement.core.TaskManagementRepositoryImpl;
 import com.taskmanagement.core.contacts.TaskManagementRepository;
@@ -43,16 +42,11 @@ public class CreateNewBugCommand_Test {
     public void execute_should_throwException_when_passInvalidBoardId() {
 
         // Arrange
-        List<String> parameters = List.of(String.valueOf(1), "The program freezes","This needs to be fixed quickly!", "highest", "critical", "active","Peter");
+        List<String> parameters = List.of(String.valueOf(1), "The program freezes", "This needs to be fixed quickly!", "highest", "critical", "active", "Peter");
 
         // Act, Assert
         Assertions.assertThrows(ElementNotFoundException.class, () -> command.executeCommand(parameters));
     }
-
-
-
-
-
 
 
 }

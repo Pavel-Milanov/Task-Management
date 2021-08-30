@@ -41,7 +41,7 @@ public class UnassignTaskFromMemberCommand_Test {
 
     @Test
     public void execute_should_unassignTaskFromMember_when_passedValidInput() {
-        Bug bug =  taskManagementRepository.createBug("The program freezes", "This needs to be fixed quickly!"
+        Bug bug = taskManagementRepository.createBug("The program freezes", "This needs to be fixed quickly!"
                 , Priority.HIGH, Severity.CRITICAL, BugStatus.ACTIVE, "Peter");
 
         command.executeCommand(List.of(String.valueOf(bug.getId())));

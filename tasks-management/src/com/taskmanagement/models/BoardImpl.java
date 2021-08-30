@@ -29,7 +29,7 @@ public class BoardImpl implements Board {
         setName(name);
         this.workingItems = new ArrayList<>();
         this.activityHistories = new ArrayList<>();
-        activityHistories.add(new ActivityHistoryImpl((String.format(ModelConstants.BOARD_CREATED,name)), LocalDateTime.now()));
+        activityHistories.add(new ActivityHistoryImpl((String.format(ModelConstants.BOARD_CREATED, name)), LocalDateTime.now()));
     }
 
     @Override
@@ -68,7 +68,7 @@ public class BoardImpl implements Board {
     @Override
     public void addWorkingItem(WorkingItem workingItem) {
         workingItems.add(workingItem);
-        activityHistories.add(new ActivityHistoryImpl((String.format(ModelConstants.WORKING_ITEM_ADDED_TO_BOARD,workingItem.getName(),name)), LocalDateTime.now()));
+        activityHistories.add(new ActivityHistoryImpl((String.format(ModelConstants.WORKING_ITEM_ADDED_TO_BOARD, workingItem.getName(), name)), LocalDateTime.now()));
     }
 
     @Override
@@ -76,7 +76,7 @@ public class BoardImpl implements Board {
         if (!workingItems.contains(workingItem)) {
             throw new InvalidUserInputException(String.format(ModelConstants.WORKING_ITEM_NOT_EXIST, workingItem.getName()));
         }
-        activityHistories.add(new ActivityHistoryImpl((String.format(ModelConstants.WORKING_ITEM_REMOVED_FROM_BOARD,workingItem.getName(),name)), LocalDateTime.now()));
+        activityHistories.add(new ActivityHistoryImpl((String.format(ModelConstants.WORKING_ITEM_REMOVED_FROM_BOARD, workingItem.getName(), name)), LocalDateTime.now()));
         workingItems.remove(workingItem);
     }
 }

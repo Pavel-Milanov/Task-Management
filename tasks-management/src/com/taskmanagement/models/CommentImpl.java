@@ -1,6 +1,5 @@
 package com.taskmanagement.models;
 
-import com.taskmanagement.constants.ModelConstants;
 import com.taskmanagement.models.contracts.Comment;
 import com.taskmanagement.utils.ValidationHelpers;
 
@@ -16,13 +15,6 @@ public class CommentImpl implements Comment {
         this.author = author;
     }
 
-
-    private void setContent(String content) {
-        ValidationHelpers.validateInRange(content.length(), CONTENT_LEN_MIN, CONTENT_LEN_MAX, CONTENT_LEN_ERR);
-        this.content = content;
-    }
-
-
     @Override
     public String getAuthor() {
         return author;
@@ -31,6 +23,11 @@ public class CommentImpl implements Comment {
     @Override
     public String getContent() {
         return content;
+    }
+
+    private void setContent(String content) {
+        ValidationHelpers.validateInRange(content.length(), CONTENT_LEN_MIN, CONTENT_LEN_MAX, CONTENT_LEN_ERR);
+        this.content = content;
     }
 
     @Override

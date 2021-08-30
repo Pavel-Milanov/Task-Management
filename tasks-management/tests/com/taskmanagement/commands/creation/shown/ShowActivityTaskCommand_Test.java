@@ -5,7 +5,6 @@ import com.taskmanagement.core.TaskManagementHelperRepositoryImpl;
 import com.taskmanagement.core.TaskManagementRepositoryImpl;
 import com.taskmanagement.core.contacts.TaskManagementRepository;
 import com.taskmanagement.models.contracts.ActivityHistory;
-import com.taskmanagement.models.contracts.Member;
 import com.taskmanagement.models.contracts.Story;
 import com.taskmanagement.models.enums.Priority;
 import com.taskmanagement.models.enums.Size;
@@ -51,11 +50,11 @@ public class ShowActivityTaskCommand_Test {
     @Test
     public void execute_should_showActivityBoard_when_passedValidInput() {
 
-        Story story =  taskManagementRepository.createStory("The program freezes is open","Work on first problem"
-                , Priority.HIGH, Size.LARGE, StoryStatus.INPROGRESS,"Peter");
+        Story story = taskManagementRepository.createStory("The program freezes is open", "Work on first problem"
+                , Priority.HIGH, Size.LARGE, StoryStatus.INPROGRESS, "Peter");
         List<ActivityHistory> activityHistories = story.getActivityHistory();
         Assertions.assertEquals(ListingHelpers.elementsToString(activityHistories)
-                ,command.executeCommand(List.of(String.valueOf(story.getId()))));
+                , command.executeCommand(List.of(String.valueOf(story.getId()))));
 
     }
 

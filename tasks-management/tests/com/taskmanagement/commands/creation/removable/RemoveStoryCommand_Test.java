@@ -5,10 +5,10 @@ import com.taskmanagement.core.TaskManagementRepositoryImpl;
 import com.taskmanagement.core.contacts.TaskManagementRepository;
 import com.taskmanagement.exceptions.ElementNotFoundException;
 import com.taskmanagement.models.contracts.Board;
-import com.taskmanagement.models.contracts.Bug;
-import com.taskmanagement.models.contracts.Member;
 import com.taskmanagement.models.contracts.Story;
-import com.taskmanagement.models.enums.*;
+import com.taskmanagement.models.enums.Priority;
+import com.taskmanagement.models.enums.Size;
+import com.taskmanagement.models.enums.StoryStatus;
 import com.taskmanagement.utils.TestUtilities;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -42,8 +42,8 @@ public class RemoveStoryCommand_Test {
 
     @Test
     public void execute_should_removeStory_when_passedValidInput() {
-       Story story =   taskManagementRepository.createStory("The program freezes is open","Work on first problem"
-               ,Priority.HIGH, Size.LARGE, StoryStatus.INPROGRESS,"Peter");
+        Story story = taskManagementRepository.createStory("The program freezes is open", "Work on first problem"
+                , Priority.HIGH, Size.LARGE, StoryStatus.INPROGRESS, "Peter");
 
         Board board = taskManagementRepository.createBoard("Tasks");
         board.addWorkingItem(story);

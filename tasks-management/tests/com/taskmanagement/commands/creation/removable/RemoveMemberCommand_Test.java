@@ -4,7 +4,6 @@ import com.taskmanagement.commands.contracts.Command;
 import com.taskmanagement.core.TaskManagementRepositoryImpl;
 import com.taskmanagement.core.contacts.TaskManagementRepository;
 import com.taskmanagement.exceptions.ElementNotFoundException;
-import com.taskmanagement.models.contracts.Board;
 import com.taskmanagement.models.contracts.Member;
 import com.taskmanagement.utils.TestUtilities;
 import org.junit.jupiter.api.Assertions;

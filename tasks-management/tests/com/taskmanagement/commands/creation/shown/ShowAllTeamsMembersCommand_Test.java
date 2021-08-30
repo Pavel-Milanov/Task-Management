@@ -18,7 +18,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Locale;
-import java.util.stream.Collectors;
 
 public class ShowAllTeamsMembersCommand_Test {
 
@@ -36,7 +35,7 @@ public class ShowAllTeamsMembersCommand_Test {
     }
 
     @ParameterizedTest(name = "with arguments count: {0}")
-    @ValueSource(ints = {ShowAllTeamMembersCommand.EXPECTED_NUMBER_OF_ARGUMENTS + 1,ShowAllTeamMembersCommand.EXPECTED_NUMBER_OF_ARGUMENTS - 1})
+    @ValueSource(ints = {ShowAllTeamMembersCommand.EXPECTED_NUMBER_OF_ARGUMENTS + 1, ShowAllTeamMembersCommand.EXPECTED_NUMBER_OF_ARGUMENTS - 1})
     public void execute_should_throwException_when_argumentsCountDifferentThanExpected(int argumentsCount) {
         // Arrange
         List<String> arguments = TestUtilities.initializeListWithSize(argumentsCount);

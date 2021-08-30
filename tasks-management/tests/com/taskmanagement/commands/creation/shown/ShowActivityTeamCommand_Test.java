@@ -5,7 +5,6 @@ import com.taskmanagement.core.TaskManagementHelperRepositoryImpl;
 import com.taskmanagement.core.TaskManagementRepositoryImpl;
 import com.taskmanagement.core.contacts.TaskManagementRepository;
 import com.taskmanagement.models.contracts.ActivityHistory;
-import com.taskmanagement.models.contracts.Member;
 import com.taskmanagement.models.contracts.Team;
 import com.taskmanagement.utils.ListingHelpers;
 import com.taskmanagement.utils.TestUtilities;
@@ -49,9 +48,9 @@ public class ShowActivityTeamCommand_Test {
     public void execute_should_showActivityBoard_when_passedValidInput() {
 
         Team team = taskManagementRepository.createTeam("Team11");
-        List<ActivityHistory> activityHistories =team.getActiveHistory();
+        List<ActivityHistory> activityHistories = team.getActiveHistory();
         Assertions.assertEquals(ListingHelpers.elementsToString(activityHistories)
-                ,command.executeCommand(List.of(String.valueOf(team.getId()))));
+                , command.executeCommand(List.of(String.valueOf(team.getId()))));
 
     }
 
