@@ -12,6 +12,7 @@ public class CommentImpl implements Comment {
         this.author = author;
     }
 
+
     @Override
     public String getAuthor() {
         return author;
